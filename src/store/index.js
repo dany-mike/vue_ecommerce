@@ -1,5 +1,7 @@
 import { createStore } from 'vuex'
 
-export const store = createStore({
+const store = createStore({
   modules: {},
 })
+
+export default store
