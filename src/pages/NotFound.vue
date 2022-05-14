@@ -1,9 +1,9 @@
 <template>
-  <MCategoryForm />
+  <p>Page not found</p>
 </template>
 
 <script>
 export default {
-  name: 'UpdateCategory',
+  name: 'NotFound',
 }
 </script>
