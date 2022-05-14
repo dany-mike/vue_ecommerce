@@ -1,5 +1,6 @@
 <template>
-  <p class="text-4xl">TEST</p>
+  <p class="text-4xl"></p>
+  <router-view />
 </template>
 
 <script>
