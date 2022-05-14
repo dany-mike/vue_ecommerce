@@ -1,19 +1,13 @@
 <template>
+  <!-- TODO add vuelidate -->
   <!-- TODO add error message at the bottom of the form -->
   <!-- TODO handle update category on the same form -->
-  <!-- TODO add vuelidate -->
   <div class="m-category-form mt-8">
     <div class="flex w-full justify-center items-center">
       <p class="font-bold text-4xl">{{ title }}</p>
     </div>
-    <div class="flex w-full justify-center items-center">
-      <AInput :label="'Name'" v-model="category.name" />
-    </div>
-    <div class="flex w-full justify-center items-center">
-      <AInput :label="'Description'" v-model="category.description" />
-    </div>
-    <div class="flex w-full justify-center items-center">
-      <AInput :label="'Image'" v-model="category.image" />
+    <div class="flex w-full justify-center items-center" :key="field.label" v-for="field in fields">
+      <AInput :label="field.label" v-model="field.value" />
     </div>
     <div class="flex justify-center items-center mt-2">
       <AButton @click="submitCategory">
@@ -35,15 +29,27 @@ export default {
   },
   data() {
     return {
-      category: {
-        name: '',
-        description: '',
-        image: '',
-      },
-      errorMessage: '',
+      fields: [
+        {
+          value: '',
+          label: 'Name',
+          errorMessage: '',
+        },
+        {
+          value: '',
+          label: 'Description',
+          errorMessage: '',
+        },
+        {
+          value: '',
+          label: 'Image',
+          errorMessage: '',
+        },
+      ],
     }
   },
   props: {
+    // TODO: add props for UpdateCategory page
     title: {
       type: String,
       default: '',
