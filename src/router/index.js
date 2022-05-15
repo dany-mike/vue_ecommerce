@@ -18,7 +18,7 @@ const routes = [
     component: AddCategory,
   },
   {
-    path: '/admin/category/update',
+    path: '/admin/category/update/:id',
     name: 'UpdateCategory',
     component: UpdateCategory,
   },

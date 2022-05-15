@@ -8,18 +8,22 @@
       v-for="category in categories"
       class="w-full flex justify-center items-center"
     >
-      <div
-        class="border-solid border-2 border-slate-900 w-96 rounded-md max-w-xs mb-2 flex justify-center items-center"
-      >
-        <p class="text-xl">
-          {{ category.name }}
-        </p>
-      </div>
-      <div
-        class="border-solid border-2 border-indigo-600 w-16 rounded-md max-w-xs mb-2 flex justify-center items-center mx-2"
-      >
-        <font-awesome-icon icon="edit" class="py-1.5" />
-      </div>
+      <router-link :to="`/admin/category/${category.id}`">
+        <div
+          class="border-solid border-2 border-slate-900 w-96 rounded-md max-w-xs mb-2 flex justify-center items-center"
+        >
+          <p class="text-xl">
+            {{ category.name }}
+          </p>
+        </div>
+      </router-link>
+      <router-link :to="`/admin/category/update/${category.id}`">
+        <div
+          class="border-solid border-2 border-indigo-600 w-16 rounded-md max-w-xs mb-2 flex justify-center items-center mx-2"
+        >
+          <font-awesome-icon icon="edit" class="py-1.5" />
+        </div>
+      </router-link>
       <div
         class="border-solid border-2 border-red-600 w-16 rounded-md max-w-xs mb-2 flex justify-center items-center"
       >
