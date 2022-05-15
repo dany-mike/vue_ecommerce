@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/pages/HomePage.vue'
 import AddCategory from '@/pages/admin/category/AddCategory.vue'
 import UpdateCategory from '@/pages/admin/category/UpdateCategory.vue'
-import CategoriesList from '@/pages/admin/category/CategoriesList.vue'
+import CategoryList from '@/pages/admin/category/CategoryList.vue'
 import CategoryItem from '@/pages/admin/category/CategoryItem.vue'
 import NotFound from '@/pages/NotFound.vue'
 
@@ -24,8 +24,8 @@ const routes = [
   },
   {
     path: '/admin/category',
-    name: 'CategoriesList',
-    component: CategoriesList,
+    name: 'CategoryList',
+    component: CategoryList,
   },
   {
     path: '/admin/category/:id',

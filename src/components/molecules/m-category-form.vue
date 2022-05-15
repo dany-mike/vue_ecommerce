@@ -1,7 +1,9 @@
 <template>
+  <!-- TODO Plug form with the API -->
   <!-- TODO add vuelidate -->
   <!-- TODO add error message at the bottom of the form -->
-  <!-- TODO handle update category on the same form -->
+  <!-- TODO handle text area case create textarea dynamic component and add v-if in the loops -->
+  <!-- TODO use the same form for update category page -->
   <div class="m-category-form mt-8">
     <div class="flex w-full justify-center items-center">
       <p class="font-bold text-4xl">{{ title }}</p>
