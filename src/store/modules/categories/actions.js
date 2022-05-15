@@ -20,7 +20,6 @@ export default {
       .catch((err) => console.log(err))
   },
   [types.CREATE_CATEGORY]({ commit }, formData) {
-    console.log(formData)
     return axios
       .post(`${process.env.VUE_APP_API_BASE_URL}/category`, formData, {
         headers: {
