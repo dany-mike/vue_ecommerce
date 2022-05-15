@@ -20,16 +20,26 @@ export default {
       .catch((err) => console.log(err))
   },
   [types.CREATE_CATEGORY]({ commit }, formData) {
+    console.log(formData)
     return axios
-      .post(`${process.env.VUE_APP_API_BASE_URL}/category`, { formData })
+      .post(`${process.env.VUE_APP_API_BASE_URL}/category`, formData, {
+        headers: {
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbnltaWtlLmpvc2VwaEBnbWFpbC5jb20iLCJpYXQiOjE2NTI2MjY4MDAsImV4cCI6MTY1MjYzMDQwMH0.uN6VfBsrh-O_98tTue2fG7YSXbBzCO5VEZAUNkbb2n0`,
+        },
+      })
+
       .then((response) => {
         commit(types.SET_CATEGORIES, response.data)
       })
       .catch((err) => console.log(err))
   },
-  [types.UPDATE_CATEGORY]({ commit }, id) {
+  [types.UPDATE_CATEGORY]({ commit }, id, formData) {
     return axios
-      .put(`${process.env.VUE_APP_API_BASE_URL}/category/${id}`)
+      .put(`${process.env.VUE_APP_API_BASE_URL}/category/${id}`, formData, {
+        headers: {
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbnltaWtlLmpvc2VwaEBnbWFpbC5jb20iLCJpYXQiOjE2NTI2MjY4MDAsImV4cCI6MTY1MjYzMDQwMH0.uN6VfBsrh-O_98tTue2fG7YSXbBzCO5VEZAUNkbb2n0`,
+        },
+      })
       .then((response) => {
         commit(types.SET_CATEGORIES, response.data)
       })

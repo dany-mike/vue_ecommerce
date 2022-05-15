@@ -22,6 +22,7 @@
 <script>
 import AButton from '@/components/atoms/a-button.vue'
 import AInput from '@/components/atoms/a-input.vue'
+import { UPDATE_CATEGORY, CREATE_CATEGORY } from '@/store/modules/categories/types'
 
 export default {
   name: 'MCategoryForm',
@@ -29,37 +30,44 @@ export default {
     AButton,
     AInput,
   },
-  data() {
-    return {
-      fields: [
-        {
-          value: '',
-          label: 'Name',
-          errorMessage: '',
-        },
-        {
-          value: '',
-          label: 'Description',
-          errorMessage: '',
-        },
-        {
-          value: '',
-          label: 'Image',
-          errorMessage: '',
-        },
-      ],
-    }
-  },
   props: {
-    // TODO: add props for UpdateCategory page
     title: {
       type: String,
       default: '',
     },
+    fields: {
+      type: Array,
+      default: () => [],
+    },
+    categoryItem: {
+      type: Object,
+      default: () => {},
+    },
+    isCreateCategory: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
-    submitCategory() {
-      console.log('Submit category')
+    // TODO add method an helper folder
+    firstLetterToUppercase(string) {
+      return string.replace(/\b\w/g, (c) => c.toUpperCase())
+    },
+    async submitCategory() {
+      this.isCreateCategory
+        ? await this.$store.dispatch(`${CREATE_CATEGORY}`, {
+            name: this.firstLetterToUppercase(this.fields[0].value),
+            image: this.fields[1].value,
+          })
+        : await this.$store.dispatch(
+            `${UPDATE_CATEGORY}`,
+            {
+              name: this.fields[0].value,
+              image: this.fields[1].value,
+            },
+            this.categoryItem.id,
+          )
+      this.$router.push({ path: '/admin/category' })
     },
   },
 }

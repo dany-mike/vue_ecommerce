@@ -6,11 +6,15 @@
     <div
       :key="category.id"
       v-for="category in categories"
-      class="flex justify-center border-solid border-2 border-red-500 rounded-md"
+      class="w-full flex justify-center items-center"
     >
-      <p class="text-xl">
-        {{ category.name }}
-      </p>
+      <div
+        class="border-solid border-2 border-red-500 w-64 rounded-md max-w-xs mb-2 flex justify-center items-center"
+      >
+        <p class="text-xl">
+          {{ category.name }}
+        </p>
+      </div>
     </div>
   </div>
 </template>
