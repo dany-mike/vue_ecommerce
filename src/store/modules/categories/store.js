@@ -2,17 +2,17 @@ import * as types from './types'
 import actions from './actions'
 
 export const state = {
-  categories: [],
+  categoryResponse: [],
 }
 
 export const mutations = {
-  [types.SET_CATEGORIES](state, categories) {
-    state.categories = categories
+  [types.SET_CATEGORY_RESPONSE](state, categoryResponse) {
+    state.categoryResponse = categoryResponse
   },
 }
 
 const getters = {
-  getCategoryResponse: (state) => state.categories,
+  getCategoryResponse: (state) => state.categoryResponse,
 }
 
 export default {

@@ -7,7 +7,7 @@ export default {
     return axios
       .get(`${process.env.VUE_APP_API_BASE_URL}/category`)
       .then((response) => {
-        commit(types.SET_CATEGORIES, response.data)
+        commit(types.SET_CATEGORY_RESPONSE, response.data)
       })
       .catch((err) => console.log(err))
   },
@@ -15,7 +15,7 @@ export default {
     return axios
       .get(`${process.env.VUE_APP_API_BASE_URL}/category/${id}`)
       .then((response) => {
-        commit(types.SET_CATEGORIES, response.data)
+        commit(types.SET_CATEGORY_RESPONSE, response.data)
       })
       .catch((err) => console.log(err))
   },
@@ -28,7 +28,7 @@ export default {
       })
 
       .then((response) => {
-        commit(types.SET_CATEGORIES, response.data)
+        commit(types.SET_CATEGORY_RESPONSE, response.data)
       })
       .catch((err) => console.log(err))
   },
@@ -40,7 +40,7 @@ export default {
         },
       })
       .then((response) => {
-        commit(types.SET_CATEGORIES, response.data)
+        commit(types.SET_CATEGORY_RESPONSE, response.data)
       })
       .catch((err) => console.log(err))
   },
@@ -48,7 +48,7 @@ export default {
     return axios
       .delete(`${process.env.VUE_APP_API_BASE_URL}/category/${id}`)
       .then((response) => {
-        commit(types.SET_CATEGORIES, response.data)
+        commit(types.SET_CATEGORY_RESPONSE, response.data)
       })
       .catch((err) => console.log(err))
   },

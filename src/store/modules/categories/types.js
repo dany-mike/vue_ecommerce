@@ -1,5 +1,5 @@
 // mutations types
-export const SET_CATEGORIES = 'SET_CATEGORIES'
+export const SET_CATEGORY_RESPONSE = 'SET_CATEGORY_RESPONSE'
 
 // actions types
 export const FETCH_CATEGORIES = 'fetchCategories'

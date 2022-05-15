@@ -11,10 +11,17 @@
     <div class="flex w-full justify-center items-center" :key="field.label" v-for="field in fields">
       <AInput :label="field.label" v-model="field.value" />
     </div>
-    <div class="flex justify-center items-center mt-2">
+    <div class="flex justify-center items-center mt-2 w-full">
       <AButton @click="submitCategory">
         {{ 'Submit' }}
       </AButton>
+    </div>
+    <div>
+      <router-link :to="'/admin/category'">
+        <AButton class="ml-8">
+          {{ 'Back' }}
+        </AButton>
+      </router-link>
     </div>
   </div>
 </template>
