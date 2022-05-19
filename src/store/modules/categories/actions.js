@@ -1,7 +1,6 @@
 import axios from 'axios'
 import * as types from './types'
 
-// CHANGE SET CATEGORIES TO SET CATEGORY if it works
 export default {
   [types.FETCH_CATEGORIES]({ commit }) {
     return axios
@@ -22,9 +21,7 @@ export default {
   [types.CREATE_CATEGORY]({ commit }, formData) {
     return axios
       .post(`${process.env.VUE_APP_API_BASE_URL}/category`, formData, {
-        headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbnltaWtlLmpvc2VwaEBnbWFpbC5jb20iLCJpYXQiOjE2NTI2MjY4MDAsImV4cCI6MTY1MjYzMDQwMH0.uN6VfBsrh-O_98tTue2fG7YSXbBzCO5VEZAUNkbb2n0`,
-        },
+        headers: {},
       })
 
       .then((response) => {
@@ -32,13 +29,9 @@ export default {
       })
       .catch((err) => console.log(err))
   },
-  [types.UPDATE_CATEGORY]({ commit }, id, formData) {
+  [types.UPDATE_CATEGORY]({ commit }, { id, formData }) {
     return axios
-      .put(`${process.env.VUE_APP_API_BASE_URL}/category/${id}`, formData, {
-        headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbnltaWtlLmpvc2VwaEBnbWFpbC5jb20iLCJpYXQiOjE2NTI2MjY4MDAsImV4cCI6MTY1MjYzMDQwMH0.uN6VfBsrh-O_98tTue2fG7YSXbBzCO5VEZAUNkbb2n0`,
-        },
-      })
+      .put(`${process.env.VUE_APP_API_BASE_URL}/category/${id}`, formData)
       .then((response) => {
         commit(types.SET_CATEGORY_RESPONSE, response.data)
       })

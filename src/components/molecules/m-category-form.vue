@@ -66,14 +66,14 @@ export default {
             name: this.firstLetterToUppercase(this.fields[0].value),
             image: this.fields[1].value,
           })
-        : await this.$store.dispatch(
-            `${UPDATE_CATEGORY}`,
-            {
-              name: this.fields[0].value,
-              image: this.fields[1].value,
-            },
-            this.categoryItem.id,
-          )
+        : console.log(this.fields[0].value)
+      await this.$store.dispatch(`${UPDATE_CATEGORY}`, {
+        id: this.categoryItem.id,
+        formData: {
+          name: this.firstLetterToUppercase(this.fields[0].value),
+          image: this.fields[1].value,
+        },
+      })
       this.$router.push({ path: '/admin/category' })
     },
   },

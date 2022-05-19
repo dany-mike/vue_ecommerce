@@ -1,5 +1,9 @@
 <template>
-  <MCategoryForm :title="'Update category'" :fields="formattedFields" />
+  <MCategoryForm
+    :title="'Update category'"
+    :fields="formattedFields"
+    :category-item="categoryItem"
+  />
 </template>
 
 <script>
@@ -35,9 +39,7 @@ export default {
       categoryItem: 'getCategoryResponse',
     }),
     formattedFields() {
-      const fields = {
-        ...this.$data.fields,
-      }
+      const fields = [...this.$data.fields]
       fields[0].value = this.categoryItem.name
       fields[1].value = this.categoryItem.image
       return fields
