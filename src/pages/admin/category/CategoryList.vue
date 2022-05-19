@@ -3,43 +3,28 @@
     <div class="flex justify-center">
       <p class="text-4xl mb-6 pt-6">Category list</p>
     </div>
-    <div
-      :key="category.id"
-      v-for="category in categories"
-      class="w-full flex justify-center items-center"
-    >
-      <router-link :to="`/admin/category/${category.id}`">
-        <div
-          class="border-solid border-2 border-slate-900 w-96 rounded-md max-w-xs mb-2 flex justify-center items-center"
-        >
-          <p class="text-xl">
-            {{ category.name }}
-          </p>
-        </div>
+    <MAdminList :items="categories" :type="'category'" />
+    <div class="flex justify-center mt-8">
+      <router-link :to="'/admin/category/add'" class="">
+        <AButton class="pl-8">
+          {{ 'Add new category' }}
+        </AButton>
       </router-link>
-      <router-link :to="`/admin/category/update/${category.id}`">
-        <div
-          class="border-solid border-2 border-indigo-600 w-16 rounded-md max-w-xs mb-2 flex justify-center items-center mx-2"
-        >
-          <font-awesome-icon icon="edit" class="py-1.5" />
-        </div>
-      </router-link>
-      <div
-        @click="deleteCategory(category.id)"
-        class="border-solid border-2 border-red-600 w-16 rounded-md max-w-xs mb-2 flex justify-center items-center"
-      >
-        <font-awesome-icon icon="trash" class="py-1.5" />
-      </div>
     </div>
   </div>
 </template>
 
 <script>
+import MAdminList from '@/components/molecules/m-admin-list.vue'
 import { mapGetters } from 'vuex'
-import { FETCH_CATEGORIES, DELETE_CATEGORY } from '@/store/modules/categories/types'
+import { FETCH_CATEGORIES } from '@/store/modules/categories/types'
+import AButton from '@/components/atoms/a-button.vue'
 
 export default {
-  name: 'CategoryList',
+  components: {
+    MAdminList,
+    AButton,
+  },
   mounted() {
     this.$store.dispatch(`${FETCH_CATEGORIES}`)
   },
@@ -48,14 +33,7 @@ export default {
       categories: 'getCategoryResponse',
     }),
   },
-  methods: {
-    deleteCategory(id) {
-      const result = confirm('Are you sure to delete this category')
-      if (result) {
-        this.$store.dispatch(`${DELETE_CATEGORY}`, id)
-      }
-      console.log('NON')
-    },
-  },
+  name: 'CategoryList',
+  methods: {},
 }
 </script>

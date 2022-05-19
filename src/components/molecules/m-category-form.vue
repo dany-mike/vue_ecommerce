@@ -11,7 +11,7 @@
     </div>
     <div class="flex justify-center items-center mt-2 w-full">
       <AButton @click="submitCategory">
-        {{ 'Submit' }}
+        {{ isCreateCategory ? 'Add category' : 'Update category' }}
       </AButton>
     </div>
     <div>
