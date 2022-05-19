@@ -1,9 +1,7 @@
 <template>
-  <!-- TODO Plug form with the API -->
   <!-- TODO add vuelidate -->
   <!-- TODO add error message at the bottom of the form -->
   <!-- TODO handle text area case create textarea dynamic component and add v-if in the loops -->
-  <!-- TODO use the same form for update category page -->
   <div class="m-category-form mt-8">
     <div class="flex w-full justify-center items-center">
       <p class="font-bold text-4xl">{{ title }}</p>
@@ -66,14 +64,13 @@ export default {
             name: this.firstLetterToUppercase(this.fields[0].value),
             image: this.fields[1].value,
           })
-        : console.log(this.fields[0].value)
-      await this.$store.dispatch(`${UPDATE_CATEGORY}`, {
-        id: this.categoryItem.id,
-        formData: {
-          name: this.firstLetterToUppercase(this.fields[0].value),
-          image: this.fields[1].value,
-        },
-      })
+        : await this.$store.dispatch(`${UPDATE_CATEGORY}`, {
+            id: this.categoryItem.id,
+            formData: {
+              name: this.firstLetterToUppercase(this.fields[0].value),
+              image: this.fields[1].value,
+            },
+          })
       this.$router.push({ path: '/admin/category' })
     },
   },

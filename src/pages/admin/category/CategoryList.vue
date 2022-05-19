@@ -25,6 +25,7 @@
         </div>
       </router-link>
       <div
+        @click="deleteCategory(category.id)"
         class="border-solid border-2 border-red-600 w-16 rounded-md max-w-xs mb-2 flex justify-center items-center"
       >
         <font-awesome-icon icon="trash" class="py-1.5" />
@@ -35,7 +36,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { FETCH_CATEGORIES } from '@/store/modules/categories/types'
+import { FETCH_CATEGORIES, DELETE_CATEGORY } from '@/store/modules/categories/types'
 
 export default {
   name: 'CategoryList',
@@ -46,6 +47,15 @@ export default {
     ...mapGetters({
       categories: 'getCategoryResponse',
     }),
+  },
+  methods: {
+    deleteCategory(id) {
+      const result = confirm('Are you sure to delete this category')
+      if (result) {
+        this.$store.dispatch(`${DELETE_CATEGORY}`, id)
+      }
+      console.log('NON')
+    },
   },
 }
 </script>
