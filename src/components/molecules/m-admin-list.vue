@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex justify-center items-center" :key="item.id" v-for="item in items">
+  <div class="w-full flex justify-center items-center" :key="index" v-for="(item, index) in items">
     <router-link :to="`/admin/${type}/${item.id}`">
       <div
         class="border-solid border-2 border-slate-900 w-96 rounded-md max-w-xs mb-2 flex justify-center items-center"
@@ -17,7 +17,7 @@
       </div>
     </router-link>
     <div
-      @click="deleteItem(item.id)"
+      @click="deleteItem(item)"
       class="border-solid border-2 border-red-600 w-16 rounded-md max-w-xs mb-2 flex justify-center items-center hover:cursor-pointer"
     >
       <font-awesome-icon icon="trash" class="py-1.5" />
@@ -33,8 +33,8 @@ export default {
   components: {},
   props: {
     items: {
-      type: Array,
-      default: () => [],
+      type: [Array, Object, String],
+      required: true,
     },
     type: {
       type: String,
@@ -42,13 +42,19 @@ export default {
     },
   },
   methods: {
-    deleteItem(id) {
+    async deleteItem(item) {
       const result = confirm(`Are you sure to delete this ${this.type}`)
       if (result) {
-        this.type === 'category'
-          ? this.$store.dispatch(`${DELETE_CATEGORY}`, id)
-          : console.log('delete product')
+        if (this.type === 'category') {
+          await this.$store.dispatch(`${DELETE_CATEGORY}`, item.id)
+        }
+
+        if (this.type === 'product') {
+          console.log('delete product')
+        }
       }
+      // Todo: Add a loader above
+      this.$router.go(this.$router.currentRoute)
     },
   },
 }
