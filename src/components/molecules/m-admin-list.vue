@@ -1,5 +1,10 @@
 <template>
-  <div class="w-full flex justify-center items-center" :key="index" v-for="(item, index) in items">
+  <div
+    class="w-full flex justify-center items-center"
+    :key="index"
+    v-for="(item, index) in items"
+    ref="adminListContainer"
+  >
     <router-link :to="`/admin/${type}/${item.id}`">
       <div
         class="border-solid border-2 border-slate-900 w-96 rounded-md max-w-xs mb-2 flex justify-center items-center"
@@ -30,7 +35,6 @@ import { DELETE_CATEGORY } from '@/store/modules/categories/types'
 
 export default {
   name: 'MAdminList',
-  components: {},
   props: {
     items: {
       type: [Array, Object, String],
@@ -45,6 +49,8 @@ export default {
     async deleteItem(item) {
       const result = confirm(`Are you sure to delete this ${this.type}`)
       if (result) {
+        let loader = this.$loading.show()
+
         if (this.type === 'category') {
           await this.$store.dispatch(`${DELETE_CATEGORY}`, item.id)
         }
@@ -52,9 +58,10 @@ export default {
         if (this.type === 'product') {
           console.log('delete product')
         }
+
+        this.$router.go(this.$router.currentRoute)
+        loader.hide()
       }
-      // Todo: Add a loader above
-      this.$router.go(this.$router.currentRoute)
     },
   },
 }
