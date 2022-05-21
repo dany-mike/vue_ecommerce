@@ -1,5 +1,4 @@
 <template>
-  <!-- TODO add error message at each field of the form -->
   <div class="m-category-form mt-8">
     <div class="flex w-full justify-center items-center">
       <p class="font-bold text-4xl">{{ title }}</p>
