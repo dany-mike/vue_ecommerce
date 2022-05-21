@@ -1,10 +1,13 @@
 <template>
-  <p>m-product-form</p>
+  <div>
+    <MProductForm :title="'Add product'" :is-create-category="true" />
+  </div>
 </template>
 
 <script>
+import MProductForm from '@/components/molecules/m-product-form.vue'
 export default {
-  name: 'AddCategory',
-  components: {},
+  name: 'MCategoryProduct',
+  components: { MProductForm },
 }
 </script>

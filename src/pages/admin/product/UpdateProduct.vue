@@ -1,10 +1,11 @@
 <template>
-  <p>m-product-form</p>
+  <MProductForm :title="'Update product'" />
 </template>
 
 <script>
+import MProductForm from '@/components/molecules/m-product-form.vue'
 export default {
   name: 'UpdateProduct',
-  components: {},
+  components: { MProductForm },
 }
 </script>
