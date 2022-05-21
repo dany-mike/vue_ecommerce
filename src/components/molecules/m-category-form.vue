@@ -5,7 +5,7 @@
     </div>
     <div class="validation-block">
       <div class="flex w-full justify-center items-center">
-        <AInput :label="'Name'" v-model="categoryName" />
+        <AInput :label="'Name'" v-model="name" />
       </div>
       <div class="flex w-full justify-center items-center">
         <p class="text-red-700 font-semibold">{{ errorMessage }}</p>
@@ -15,13 +15,13 @@
       <AInput :label="'Image'" v-model="image" />
     </div>
     <div class="flex justify-center items-center mt-2 w-full">
-      <AButton @click="submitCategory">
+      <AButton @click="submitCategory" :background-color="'bg-indigo-500'">
         {{ isCreateCategory ? 'Add category' : 'Update category' }}
       </AButton>
     </div>
     <div>
       <router-link :to="'/admin/category'">
-        <AButton class="ml-8">
+        <AButton class="ml-8" :backgroundColor="'bg-red-500'">
           {{ 'Back' }}
         </AButton>
       </router-link>
@@ -51,13 +51,13 @@ export default {
   async mounted() {
     if (!this.isCreateCategory) {
       await this.$store.dispatch(`${FETCH_CATEGORY}`, this.$route.params.id)
-      this.categoryName = this.categoryItem?.name
+      this.name = this.categoryItem?.name
       this.image = this.categoryItem?.image
     }
   },
   data() {
     return {
-      categoryName: '',
+      name: '',
       image: '',
       errorMessage: '',
     }
@@ -79,26 +79,25 @@ export default {
   },
   validations() {
     return {
-      categoryName: { required },
+      name: { required },
     }
   },
   methods: {
     async submitCategory() {
+      this.name = ''
       if (this.v$.$invalid) {
         this.errorMessage = this.v$.$silentErrors[0].$message
         return
       }
+      const body = {
+        name: firstLetterToUppercase(this.name),
+        image: this.image,
+      }
       this.isCreateCategory
-        ? await this.$store.dispatch(`${CREATE_CATEGORY}`, {
-            name: firstLetterToUppercase(this.categoryName),
-            image: this.image,
-          })
+        ? await this.$store.dispatch(`${CREATE_CATEGORY}`, body)
         : await this.$store.dispatch(`${UPDATE_CATEGORY}`, {
             id: this.categoryItem.id,
-            formData: {
-              name: firstLetterToUppercase(this.categoryName),
-              image: this.image,
-            },
+            formData: body,
           })
       this.$router.push({ path: '/admin/category' })
     },

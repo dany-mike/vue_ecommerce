@@ -1,15 +1,17 @@
 <template>
-  <div class="a-input w-1/4 my-2">
+  <div class="a-textarea w-1/4 my-2">
     <div class="flex justify-center items-center mb-1">
       <p class="text-lg font-medium">{{ label }}</p>
     </div>
-    <input
-      class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-red-500"
-      :type="type"
+    <textarea
+      :name="name"
+      :id="id"
+      cols="30"
+      rows="10"
       @input="onChanged"
       :value="modelValue"
-      min="0"
-    />
+      class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-red-500"
+    ></textarea>
   </div>
 </template>
 
@@ -17,7 +19,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'AInput',
+  name: 'ATextArea',
 
   emits: ['update:modelValue'],
 
@@ -27,9 +29,13 @@ export default defineComponent({
       type: String,
       default: '',
     },
-    type: {
+    id: {
       type: String,
-      default: 'text',
+      default: '',
+    },
+    name: {
+      type: String,
+      default: 'name',
     },
   },
 

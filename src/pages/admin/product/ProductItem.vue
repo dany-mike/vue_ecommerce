@@ -1,13 +1,13 @@
 <template>
   <div class="flex w-full justify-center items-center my-8">
-    <p class="font-bold text-4xl">{{ category.name }}</p>
+    <p class="font-bold text-4xl">{{ product.name }}</p>
   </div>
   <div class="flex w-full justify-center items-center">
-    <p v-if="category.image">{{ category.image }}</p>
+    <p v-if="product.image">{{ product.image }}</p>
   </div>
   <div>
-    <router-link :to="'/admin/category'">
-      <AButton class="pl-8">
+    <router-link :to="'/admin/products'">
+      <AButton class="pl-8" :background-color="'bg-red-500'">
         {{ 'Back' }}
       </AButton>
     </router-link>
@@ -16,20 +16,20 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { FETCH_CATEGORY } from '@/store/modules/categories/types'
+import { FETCH_PRODUCT } from '@/store/modules/products/types'
 import AButton from '@/components/atoms/a-button.vue'
 
 export default {
   components: {
     AButton,
   },
-  name: 'CategoryItem',
+  name: 'ProductItem',
   mounted() {
-    this.$store.dispatch(`${FETCH_CATEGORY}`, this.$route.params.id)
+    this.$store.dispatch(`${FETCH_PRODUCT}`, this.$route.params.id)
   },
   computed: {
     ...mapGetters({
-      category: 'getCategoryResponse',
+      product: 'getProductResponse',
     }),
   },
 }

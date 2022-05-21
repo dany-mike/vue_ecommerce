@@ -32,6 +32,7 @@
 
 <script>
 import { DELETE_CATEGORY } from '@/store/modules/categories/types'
+import { DELETE_PRODUCT } from '@/store/modules/products/types'
 
 export default {
   name: 'MAdminList',
@@ -55,8 +56,8 @@ export default {
           await this.$store.dispatch(`${DELETE_CATEGORY}`, item.id)
         }
 
-        if (this.type === 'product') {
-          console.log('delete product')
+        if (this.type === 'products') {
+          await this.$store.dispatch(`${DELETE_PRODUCT}`, item.id)
         }
 
         this.$router.go(this.$router.currentRoute)
