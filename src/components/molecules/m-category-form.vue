@@ -1,12 +1,16 @@
 <template>
-  <!-- TODO add vuelidate -->
   <!-- TODO add error message at each field of the form -->
   <div class="m-category-form mt-8">
     <div class="flex w-full justify-center items-center">
       <p class="font-bold text-4xl">{{ title }}</p>
     </div>
-    <div class="flex w-full justify-center items-center">
-      <AInput :label="'Name'" v-model="categoryName" />
+    <div class="validation-block">
+      <div class="flex w-full justify-center items-center">
+        <AInput :label="'Name'" v-model="categoryName" />
+      </div>
+      <div class="flex w-full justify-center items-center">
+        <p class="text-red-700 font-semibold">{{ errorMessage }}</p>
+      </div>
     </div>
     <div class="flex w-full justify-center items-center">
       <AInput :label="'Image'" v-model="image" />
@@ -32,12 +36,18 @@ import AInput from '@/components/atoms/a-input.vue'
 import { UPDATE_CATEGORY, CREATE_CATEGORY } from '@/store/modules/categories/types'
 import { FETCH_CATEGORY } from '@/store/modules/categories/types'
 import { mapGetters } from 'vuex'
+import useVuelidate from '@vuelidate/core'
+import { required } from '@vuelidate/validators'
+import { firstLetterToUppercase } from '@/helpers/format.js'
 
 export default {
   name: 'MCategoryForm',
   components: {
     AButton,
     AInput,
+  },
+  setup() {
+    return { v$: useVuelidate() }
   },
   async mounted() {
     if (!this.isCreateCategory) {
@@ -50,6 +60,7 @@ export default {
     return {
       categoryName: '',
       image: '',
+      errorMessage: '',
     }
   },
   props: {
@@ -67,21 +78,26 @@ export default {
       categoryItem: 'getCategoryResponse',
     }),
   },
+  validations() {
+    return {
+      categoryName: { required },
+    }
+  },
   methods: {
-    // TODO add method in an helper folder
-    firstLetterToUppercase(string) {
-      return string.replace(/\b\w/g, (c) => c.toUpperCase())
-    },
     async submitCategory() {
+      if (this.v$.$invalid) {
+        this.errorMessage = this.v$.$silentErrors[0].$message
+        return
+      }
       this.isCreateCategory
         ? await this.$store.dispatch(`${CREATE_CATEGORY}`, {
-            name: this.firstLetterToUppercase(this.categoryName),
+            name: firstLetterToUppercase(this.categoryName),
             image: this.image,
           })
         : await this.$store.dispatch(`${UPDATE_CATEGORY}`, {
             id: this.categoryItem.id,
             formData: {
-              name: this.firstLetterToUppercase(this.categoryName),
+              name: firstLetterToUppercase(this.categoryName),
               image: this.image,
             },
           })
