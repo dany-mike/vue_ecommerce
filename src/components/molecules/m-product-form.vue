@@ -171,10 +171,6 @@ export default {
           })
       this.$router.push({ path: '/admin/products' })
     },
-    async onChange(selected) {
-      console.log('TEST')
-      console.log(selected)
-    },
   },
 }
 </script>
