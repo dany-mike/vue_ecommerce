@@ -1,13 +1,13 @@
 <template>
-  <div class="category-list">
+  <div class="product-list">
     <div class="flex justify-center">
-      <p class="text-4xl mb-6 pt-6">Category list</p>
+      <p class="text-4xl mb-6 pt-6">Products list</p>
     </div>
-    <MAdminList :items="categories" :type="'category'" />
+    <MAdminList :items="products" :type="'product'" />
     <div class="flex justify-center mt-8">
-      <router-link :to="'/admin/category/add'">
+      <router-link :to="'/admin/products/add'">
         <AButton :background-color="'bg-indigo-500'">
-          {{ 'Add new category' }}
+          {{ 'Add new product' }}
         </AButton>
       </router-link>
     </div>
@@ -24,7 +24,7 @@
 <script>
 import MAdminList from '@/components/molecules/m-admin-list.vue'
 import { mapGetters } from 'vuex'
-import { FETCH_CATEGORIES } from '@/store/modules/categories/types'
+import { FETCH_PRODUCTS } from '@/store/modules/products/types'
 import AButton from '@/components/atoms/a-button.vue'
 
 export default {
@@ -33,14 +33,14 @@ export default {
     AButton,
   },
   mounted() {
-    this.$store.dispatch(`${FETCH_CATEGORIES}`)
+    this.$store.dispatch(`${FETCH_PRODUCTS}`)
   },
   computed: {
     ...mapGetters({
-      categories: 'getCategoryResponse',
+      products: 'getProductResponse',
     }),
   },
-  name: 'CategoryList',
+  name: 'ProductList',
   methods: {},
 }
 </script>
