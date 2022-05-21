@@ -54,6 +54,7 @@ import { mapGetters } from 'vuex'
 import useVuelidate from '@vuelidate/core'
 import { required, numeric } from '@vuelidate/validators'
 import { firstLetterToUppercase } from '@/helpers/format.js'
+import { formatPrice } from '@/helpers/price.js'
 
 export default {
   name: 'MProductForm',
@@ -69,6 +70,8 @@ export default {
     if (!this.isCreateProduct) {
       await this.$store.dispatch(`${FETCH_PRODUCT}`, this.$route.params.id)
       this.name.value = this.productItem?.name
+      this.price.value = this.productItem?.price
+      this.description = this.productItem?.description
       this.image = this.productItem?.image
     }
   },
@@ -103,26 +106,41 @@ export default {
   },
   validations() {
     return {
-      name: { required },
-      price: { required, numeric },
+      name: {
+        value: {
+          required,
+        },
+      },
+      price: {
+        value: {
+          required,
+          numeric,
+        },
+      },
     }
   },
   methods: {
     async submitProduct() {
-      // Handle error message below
-      // if (this.v$.$invalid) {
-      //   this.errorMessage = this.v$.$silentErrors[0].$message
-      //   return
-      // }
+      this.price.errorMessage = ''
+      this.name.errorMessage = ''
+      if (this.v$.$invalid) {
+        this.name.errorMessage = this.v$.name.$silentErrors[0]?.$message
+        this.price.errorMessage = this.v$.price.$silentErrors[0]?.$message
+        return
+      }
       this.isCreateProduct
         ? await this.$store.dispatch(`${CREATE_PRODUCT}`, {
             name: firstLetterToUppercase(this.name.value),
+            price: formatPrice(this.price.value),
+            description: this.description,
             image: this.image,
           })
         : await this.$store.dispatch(`${UPDATE_PRODUCT}`, {
             id: this.productItem.id,
             formData: {
               name: firstLetterToUppercase(this.name.value),
+              price: formatPrice(this.price.value),
+              description: this.description,
               image: this.image,
             },
           })

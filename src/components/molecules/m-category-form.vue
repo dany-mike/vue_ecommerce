@@ -84,6 +84,7 @@ export default {
   },
   methods: {
     async submitCategory() {
+      this.name = ''
       if (this.v$.$invalid) {
         this.errorMessage = this.v$.$silentErrors[0].$message
         return
