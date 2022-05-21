@@ -89,17 +89,15 @@ export default {
         this.errorMessage = this.v$.$silentErrors[0].$message
         return
       }
+      const body = {
+        name: firstLetterToUppercase(this.name),
+        image: this.image,
+      }
       this.isCreateCategory
-        ? await this.$store.dispatch(`${CREATE_CATEGORY}`, {
-            name: firstLetterToUppercase(this.name),
-            image: this.image,
-          })
+        ? await this.$store.dispatch(`${CREATE_CATEGORY}`, body)
         : await this.$store.dispatch(`${UPDATE_CATEGORY}`, {
             id: this.categoryItem.id,
-            formData: {
-              name: firstLetterToUppercase(this.name),
-              image: this.image,
-            },
+            formData: body,
           })
       this.$router.push({ path: '/admin/category' })
     },

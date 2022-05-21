@@ -30,6 +30,16 @@
     <div class="flex w-full justify-center items-center">
       <AInput :label="'Image'" v-model="image" />
     </div>
+    <div class="flex justify-center items-center mb-1">
+      <p class="text-lg font-medium">Category product</p>
+    </div>
+    <div class="flex w-full justify-center items-center">
+      <v-select
+        :options="formattedCategories"
+        class="w-1/4 my-2 bg-gray-200"
+        v-model="selectedCategory"
+      ></v-select>
+    </div>
     <div class="flex justify-center items-center mt-2 w-full">
       <AButton @click="submitProduct" :background-color="'bg-indigo-500'">
         {{ isCreateProduct ? 'Add product' : 'Update product' }}
@@ -50,11 +60,12 @@ import AButton from '@/components/atoms/a-button.vue'
 import AInput from '@/components/atoms/a-input.vue'
 import ATextArea from '@/components/atoms/a-textarea.vue'
 import { CREATE_PRODUCT, FETCH_PRODUCT, UPDATE_PRODUCT } from '@/store/modules/products/types'
+import { FETCH_CATEGORIES } from '@/store/modules/categories/types'
 import { mapGetters } from 'vuex'
-import useVuelidate from '@vuelidate/core'
 import { required, numeric } from '@vuelidate/validators'
 import { firstLetterToUppercase } from '@/helpers/format.js'
 import { formatPrice } from '@/helpers/price.js'
+import useVuelidate from '@vuelidate/core'
 
 export default {
   name: 'MProductForm',
@@ -67,6 +78,7 @@ export default {
     return { v$: useVuelidate() }
   },
   async mounted() {
+    await this.$store.dispatch(`${FETCH_CATEGORIES}`)
     if (!this.isCreateProduct) {
       await this.$store.dispatch(`${FETCH_PRODUCT}`, this.$route.params.id)
       this.name.value = this.productItem?.name
@@ -87,6 +99,7 @@ export default {
       },
       description: '',
       image: '',
+      selectedCategory: '',
     }
   },
   props: {
@@ -102,7 +115,20 @@ export default {
   computed: {
     ...mapGetters({
       productItem: 'getProductResponse',
+      categories: 'getCategoryResponse',
     }),
+    formattedCategories() {
+      let formattedCategories = []
+      this.categories.forEach((category) => {
+        category = {
+          ...category,
+          label: category.name,
+        }
+        formattedCategories.push(category)
+      })
+
+      return formattedCategories
+    },
   },
   validations() {
     return {
@@ -128,23 +154,26 @@ export default {
         this.price.errorMessage = this.v$.price.$silentErrors[0]?.$message
         return
       }
+
+      const body = {
+        name: firstLetterToUppercase(this.name.value),
+        price: formatPrice(this.price.value),
+        description: this.description,
+        image: this.image,
+        categoryId: this.selectedCategory.id,
+      }
+
       this.isCreateProduct
-        ? await this.$store.dispatch(`${CREATE_PRODUCT}`, {
-            name: firstLetterToUppercase(this.name.value),
-            price: formatPrice(this.price.value),
-            description: this.description,
-            image: this.image,
-          })
+        ? await this.$store.dispatch(`${CREATE_PRODUCT}`, body)
         : await this.$store.dispatch(`${UPDATE_PRODUCT}`, {
             id: this.productItem.id,
-            formData: {
-              name: firstLetterToUppercase(this.name.value),
-              price: formatPrice(this.price.value),
-              description: this.description,
-              image: this.image,
-            },
+            formData: body,
           })
       this.$router.push({ path: '/admin/products' })
+    },
+    async onChange(selected) {
+      console.log('TEST')
+      console.log(selected)
     },
   },
 }
