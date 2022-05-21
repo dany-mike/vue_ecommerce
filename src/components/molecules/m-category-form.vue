@@ -5,7 +5,7 @@
     </div>
     <div class="validation-block">
       <div class="flex w-full justify-center items-center">
-        <AInput :label="'Name'" v-model="categoryName" />
+        <AInput :label="'Name'" v-model="name" />
       </div>
       <div class="flex w-full justify-center items-center">
         <p class="text-red-700 font-semibold">{{ errorMessage }}</p>
@@ -51,13 +51,13 @@ export default {
   async mounted() {
     if (!this.isCreateCategory) {
       await this.$store.dispatch(`${FETCH_CATEGORY}`, this.$route.params.id)
-      this.categoryName = this.categoryItem?.name
+      this.name = this.categoryItem?.name
       this.image = this.categoryItem?.image
     }
   },
   data() {
     return {
-      categoryName: '',
+      name: '',
       image: '',
       errorMessage: '',
     }
@@ -79,7 +79,7 @@ export default {
   },
   validations() {
     return {
-      categoryName: { required },
+      name: { required },
     }
   },
   methods: {
@@ -90,13 +90,13 @@ export default {
       }
       this.isCreateCategory
         ? await this.$store.dispatch(`${CREATE_CATEGORY}`, {
-            name: firstLetterToUppercase(this.categoryName),
+            name: firstLetterToUppercase(this.name),
             image: this.image,
           })
         : await this.$store.dispatch(`${UPDATE_CATEGORY}`, {
             id: this.categoryItem.id,
             formData: {
-              name: firstLetterToUppercase(this.categoryName),
+              name: firstLetterToUppercase(this.name),
               image: this.image,
             },
           })

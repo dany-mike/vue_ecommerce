@@ -55,7 +55,7 @@ export default {
           await this.$store.dispatch(`${DELETE_CATEGORY}`, item.id)
         }
 
-        if (this.type === 'product') {
+        if (this.type === 'products') {
           console.log('delete product')
         }
 

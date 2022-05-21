@@ -5,14 +5,27 @@
     </div>
     <div class="validation-block">
       <div class="flex w-full justify-center items-center">
-        <AInput :label="'Name'" v-model="productName" />
+        <AInput :label="'Name'" v-model="name.value" />
       </div>
       <div class="flex w-full justify-center items-center">
-        <p class="text-red-700 font-semibold">{{ errorMessage }}</p>
+        <p class="text-red-700 font-semibold">{{ name.errorMessage }}</p>
+      </div>
+    </div>
+    <div class="validation-block">
+      <div class="flex w-full justify-center items-center">
+        <AInput :label="'Price(€)'" v-model="price.value" :type="'number'" />
+      </div>
+      <div class="flex w-full justify-center items-center">
+        <p class="text-red-700 font-semibold">{{ price.errorMessage }}</p>
       </div>
     </div>
     <div class="flex w-full justify-center items-center">
-      <!-- TODO Create text area component for description-->
+      <ATextArea
+        :label="'Description'"
+        v-model="description"
+        :id="'description'"
+        :name="'description'"
+      />
     </div>
     <div class="flex w-full justify-center items-center">
       <AInput :label="'Image'" v-model="image" />
@@ -35,34 +48,42 @@
 <script>
 import AButton from '@/components/atoms/a-button.vue'
 import AInput from '@/components/atoms/a-input.vue'
-// import { UPDATE_CATEGORY, CREATE_CATEGORY } from '@/store/modules/categories/types'
-// import { FETCH_CATEGORY } from '@/store/modules/categories/types'
+import ATextArea from '@/components/atoms/a-textarea.vue'
+import { CREATE_PRODUCT, FETCH_PRODUCT, UPDATE_PRODUCT } from '@/store/modules/products/types'
 import { mapGetters } from 'vuex'
 import useVuelidate from '@vuelidate/core'
-import { required } from '@vuelidate/validators'
-// import { firstLetterToUppercase } from '@/helpers/format.js'
+import { required, numeric } from '@vuelidate/validators'
+import { firstLetterToUppercase } from '@/helpers/format.js'
 
 export default {
   name: 'MProductForm',
   components: {
     AButton,
     AInput,
+    ATextArea,
   },
   setup() {
     return { v$: useVuelidate() }
   },
   async mounted() {
-    // if (!this.isCreateCategory) {
-    //   await this.$store.dispatch(`${FETCH_CATEGORY}`, this.$route.params.id)
-    //   this.categoryName = this.categoryItem?.name
-    //   this.image = this.categoryItem?.image
-    // }
+    if (!this.isCreateProduct) {
+      await this.$store.dispatch(`${FETCH_PRODUCT}`, this.$route.params.id)
+      this.name.value = this.productItem?.name
+      this.image = this.productItem?.image
+    }
   },
   data() {
     return {
-      productName: '',
+      name: {
+        value: '',
+        errorMessage: '',
+      },
+      price: {
+        value: null,
+        errorMessage: '',
+      },
+      description: '',
       image: '',
-      errorMessage: '',
     }
   },
   props: {
@@ -82,29 +103,30 @@ export default {
   },
   validations() {
     return {
-      productName: { required },
+      name: { required },
+      price: { required, numeric },
     }
   },
   methods: {
     async submitProduct() {
-      console.log('SUBMIT product')
-      //   if (this.v$.$invalid) {
-      //     this.errorMessage = this.v$.$silentErrors[0].$message
-      //     return
-      //   }
-      //   this.isCreateProduct
-      //     ? await this.$store.dispatch(`${CREATE_CATEGORY}`, {
-      //         name: firstLetterToUppercase(this.categoryName),
-      //         image: this.image,
-      //       })
-      //     : await this.$store.dispatch(`${UPDATE_CATEGORY}`, {
-      //         id: this.categoryItem.id,
-      //         formData: {
-      //           name: firstLetterToUppercase(this.categoryName),
-      //           image: this.image,
-      //         },
-      //       })
-      //   this.$router.push({ path: '/admin/product' })
+      // Handle error message below
+      // if (this.v$.$invalid) {
+      //   this.errorMessage = this.v$.$silentErrors[0].$message
+      //   return
+      // }
+      this.isCreateProduct
+        ? await this.$store.dispatch(`${CREATE_PRODUCT}`, {
+            name: firstLetterToUppercase(this.name.value),
+            image: this.image,
+          })
+        : await this.$store.dispatch(`${UPDATE_PRODUCT}`, {
+            id: this.productItem.id,
+            formData: {
+              name: firstLetterToUppercase(this.name.value),
+              image: this.image,
+            },
+          })
+      this.$router.push({ path: '/admin/products' })
     },
   },
 }

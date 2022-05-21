@@ -1,6 +1,6 @@
 <template>
   <div>
-    <MProductForm :title="'Add product'" :is-create-category="true" />
+    <MProductForm :title="'Add product'" :is-create-product="true" />
   </div>
 </template>
 

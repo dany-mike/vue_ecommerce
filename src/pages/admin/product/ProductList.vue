@@ -3,7 +3,7 @@
     <div class="flex justify-center">
       <p class="text-4xl mb-6 pt-6">Products list</p>
     </div>
-    <MAdminList :items="products" :type="'product'" />
+    <MAdminList :items="products" :type="'products'" />
     <div class="flex justify-center mt-8">
       <router-link :to="'/admin/products/add'">
         <AButton :background-color="'bg-indigo-500'">

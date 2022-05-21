@@ -6,7 +6,7 @@
     <p v-if="product.image">{{ product.image }}</p>
   </div>
   <div>
-    <router-link :to="'/admin/product'">
+    <router-link :to="'/admin/products'">
       <AButton class="pl-8" :background-color="'bg-red-500'">
         {{ 'Back' }}
       </AButton>
