@@ -2,7 +2,7 @@
   <div class="o-full-layer-image">
     <img :src="image" alt="home-image" class="image" />
     <div class="centered">
-      <p class="text-9xl font-bold text-black">{{ text }}</p>
+      <p class="text-4xl lg:text-9xl font-bold text-black">{{ text }}</p>
     </div>
   </div>
 </template>
