@@ -1,13 +1,18 @@
 <template>
-  <OFullLayerImage :image="image" :text="text" />
+  <div class="home-page">
+    <OFullLayerImage :image="image" :text="text" />
+    <OCarousel />
+  </div>
 </template>
 
 <script>
 import OFullLayerImage from '@/components/organisms/o-full-layer-image.vue'
+import OCarousel from '@/components/organisms/o-carousel.vue'
 export default {
   name: 'HomePage',
   components: {
     OFullLayerImage,
+    OCarousel,
   },
   data() {
     return {
