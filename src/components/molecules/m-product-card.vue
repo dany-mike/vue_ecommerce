@@ -1,7 +1,7 @@
 <template>
-  <div class="m-product-card px-24">
+  <div class="m-product-card px-24 max-w-max">
     <div class="py-6">
-      <div class="flex max-w-lg bg-white shadow-lg rounded-lg overflow-hidden h-64">
+      <div class="flex bg-white shadow-lg rounded-lg overflow-hidden h-64">
         <div
           class="w-1/3 bg-cover"
           style="
