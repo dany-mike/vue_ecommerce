@@ -1,14 +1,24 @@
 <template>
-  <carousel :items-to-show="2.5" class="o-carousel">
-    <slide v-for="slide in 10" :key="slide">
+  <div class="o-carousel">
+    <div class="o-carousel-desktop">
+      <carousel :items-to-show="2.5" class="o-carousel">
+        <slide v-for="slide in 10" :key="slide">
+          <MProductCard />
+        </slide>
+        <template #addons>
+          <navigation />
+          <pagination />
+        </template>
+      </carousel>
+    </div>
+    <div class="o-carousel-mobile overflow-x-auto">
       <MProductCard />
-    </slide>
-
-    <template #addons>
-      <navigation />
-      <pagination />
-    </template>
-  </carousel>
+      <MProductCard />
+      <MProductCard />
+      <MProductCard />
+      <MProductCard />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -32,3 +42,21 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.o-carousel-mobile {
+  display: none;
+}
+
+@media (max-width: 1380px) {
+  .o-carousel-desktop {
+    display: none;
+  }
+}
+
+@media (max-width: 1380px) {
+  .o-carousel-mobile {
+    display: flex;
+  }
+}
+</style>

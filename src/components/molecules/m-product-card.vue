@@ -1,7 +1,7 @@
 <template>
-  <div class="m-product-card px-24 max-w-max">
+  <div class="m-product-card px-24 o-padding-mobile">
     <div class="py-6">
-      <div class="flex bg-white shadow-lg rounded-lg overflow-hidden h-64">
+      <div class="flex bg-white shadow-lg rounded-lg overflow-hidden h-64 o-card-width-mobile">
         <div
           class="w-1/3 bg-cover"
           style="
@@ -37,3 +37,15 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+@media (max-width: 1380px) {
+  .o-card-width-mobile {
+    width: 400px;
+  }
+
+  .o-padding-mobile {
+    padding: 30px;
+  }
+}
+</style>

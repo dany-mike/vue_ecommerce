@@ -1,7 +1,7 @@
 <template>
   <div class="home-page">
     <OFullLayerImage :image="image" :text="text" />
-    <OCarousel />
+    <OCarousel class="px-8" />
   </div>
 </template>
 
