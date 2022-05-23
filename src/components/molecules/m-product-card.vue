@@ -32,8 +32,8 @@ export default {
   name: 'MProductCard',
   props: {
     item: {
-      type: Object,
-      default: () => {},
+      type: [Object, String, Number],
+      required: true,
     },
   },
 }

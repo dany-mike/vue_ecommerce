@@ -34,8 +34,8 @@ export default {
   name: 'OCarousel',
   props: {
     products: {
-      type: Array,
-      default: () => [],
+      type: [Array, Object],
+      required: true,
     },
     title: {
       type: String,
