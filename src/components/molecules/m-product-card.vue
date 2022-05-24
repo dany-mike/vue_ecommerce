@@ -1,5 +1,5 @@
 <template>
-  <div class="m-product-card px-24 o-padding-mobile">
+  <div class="m-product-card px-24 min-w-max">
     <router-link :to="`/products/${item.id}`">
       <div class="py-6">
         <div class="flex bg-white shadow-lg rounded-lg overflow-hidden h-64 o-card-width-mobile">
@@ -45,8 +45,14 @@ export default {
     width: 400px;
   }
 
-  .o-padding-mobile {
+  .m-product-card {
     padding: 30px;
+  }
+}
+
+@media (min-width: 1380px) {
+  .m-product-card {
+    min-width: 700px;
   }
 }
 </style>
