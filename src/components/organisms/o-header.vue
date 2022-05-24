@@ -1,7 +1,7 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <template>
   <Popover class="relative bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <div class="mx-auto px-4 sm:px-12">
       <div
         class="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10"
       >
@@ -40,7 +40,7 @@
                 aria-hidden="true"
               />
             </PopoverButton>
-
+            
             <transition
               enter-active-class="transition ease-out duration-200"
               enter-from-class="opacity-0 translate-y-1"
@@ -81,6 +81,8 @@
           </Popover>
         </PopoverGroup>
         <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+          <ShoppingCartIcon :size="8" class="w-10 h-10 mr-5"/>
+          <HeartIcon :size="8" class="w-10 h-10 mr-5" />
           <a
             href="#"
             class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
@@ -154,10 +156,7 @@
 
 <script setup>
 import { Popover, PopoverButton, PopoverGroup, PopoverPanel } from '@headlessui/vue'
-import {
-  MenuIcon,
-  XIcon,
-} from '@heroicons/vue/outline'
+import { MenuIcon, XIcon, ShoppingCartIcon, HeartIcon} from '@heroicons/vue/outline'
 import { ChevronDownIcon } from '@heroicons/vue/solid'
 
 const recentPosts = [
