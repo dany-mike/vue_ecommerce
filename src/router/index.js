@@ -11,6 +11,8 @@ import ProductList from '@/pages/admin/product/ProductList.vue'
 import ProductItem from '@/pages/admin/product/ProductItem.vue'
 import ProductPage from '@/pages/ProductPage.vue'
 import CategoryPage from '@/pages/CategoryPage.vue'
+import CartPage from '@/pages/CartPage.vue'
+import FavoritesPage from '@/pages/FavoritesPage.vue'
 import NotFound from '@/pages/NotFound.vue'
 
 const routes = [
@@ -73,6 +75,16 @@ const routes = [
     path: '/category/:categoryId',
     name: 'CategoryPage',
     component: CategoryPage,
+  },
+  {
+    path: '/cart',
+    name: 'CartPage',
+    component: CartPage,
+  },
+  {
+    path: '/favorites',
+    name: 'FavoritesPage',
+    component: FavoritesPage,
   },
   {
     path: '/:pathMatch(.*)*',
