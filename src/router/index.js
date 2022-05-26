@@ -70,7 +70,7 @@ const routes = [
     component: ProductPage,
   },
   {
-    path: '/category/:id',
+    path: '/category/:categoryId',
     name: 'CategoryPage',
     component: CategoryPage,
   },
