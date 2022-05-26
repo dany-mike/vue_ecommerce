@@ -1,8 +1,8 @@
 <template>
   <div class="o-listing-products">
     <div class="grid grid-cols-1 gap-4 lg:grid-cols-3 sm:grid-cols-2">
-      <router-link :to="'/test'">
-        <div v-for="product in products" :key="product.id" class="w-full px-4 lg:px-0">
+      <div v-for="product in products" :key="product.id" class="w-full px-4 lg:px-0">
+        <router-link :to="'/test'">
           <div class="p-3 bg-white rounded shadow-md">
             <div class="">
               <div class="relative w-full mb-3 h-62 lg:mb-0">
@@ -24,8 +24,8 @@
               </div>
             </div>
           </div>
-        </div>
-      </router-link>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>

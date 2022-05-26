@@ -1,5 +1,6 @@
 <template>
-  <div class="category-page lg:px-16">
+  <div class="category-page lg:px-16 mt-12">
+    <p class="text-4xl mb-8">{{ categoryItem.name }}</p>
     <OListingProducts :products="products" />
   </div>
 </template>
@@ -8,6 +9,7 @@
 import OListingProducts from '@/components/organisms/o-listing-products.vue'
 import { mapGetters } from 'vuex'
 import { FETCH_PRODUCTS_BY_CATEGORY } from '@/store/modules/products/types'
+import { FETCH_CATEGORY } from '@/store/modules/categories/types'
 export default {
   name: 'CategoryPage',
   components: {
@@ -15,10 +17,12 @@ export default {
   },
   mounted() {
     this.$store.dispatch(`${FETCH_PRODUCTS_BY_CATEGORY}`, this.$route.params.categoryId)
+    this.$store.dispatch(`${FETCH_CATEGORY}`, this.$route.params.categoryId)
   },
   computed: {
     ...mapGetters({
       products: 'getProductResponse',
+      categoryItem: 'getCategoryItem',
     }),
   },
 }

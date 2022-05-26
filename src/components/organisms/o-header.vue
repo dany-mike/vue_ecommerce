@@ -1,27 +1,26 @@
-<!-- This example requires Tailwind CSS v2.0+ -->
 <template>
   <Popover class="relative bg-white">
     <div class="mx-auto px-4 sm:px-12">
       <div
         class="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10"
       >
-        <a href="#">
+        <router-link :to="'/'">
           <span class="sr-only">Workflow</span>
           <img
             class="h-8 w-auto sm:h-10 icon-desktop"
             src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
             alt=""
           />
-        </a>
+        </router-link>
         <div class="flex lg:w-0 lg:flex-1 items-center icon-container-mobile">
-          <a href="#">
+          <router-link :to="'/'">
             <span class="sr-only">Workflow</span>
             <img
               class="h-8 w-auto sm:h-10"
               src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
               alt=""
             />
-          </a>
+          </router-link>
           <ShoppingCartIcon :size="8" class="w-10 h-10 ml-4 lg:hidden" />
           <HeartIcon :size="8" class="w-10 h-10 ml-2 lg:hidden" />
         </div>
@@ -194,19 +193,6 @@ export default {
     PopoverButton,
     PopoverGroup,
     PopoverPanel,
-  },
-  data() {
-    return {
-      recentPosts: [
-        { id: 1, name: 'Boost your conversion rate', href: '#' },
-        {
-          id: 2,
-          name: 'How to use search engine optimization to drive traffic to your site',
-          href: '#',
-        },
-        { id: 3, name: 'Improve your customer experience', href: '#' },
-      ],
-    }
   },
   mounted() {
     this.$store.dispatch(`${FETCH_CATEGORIES}`)
