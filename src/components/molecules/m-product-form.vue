@@ -41,13 +41,13 @@
       ></v-select>
     </div>
     <div class="flex justify-center items-center mt-2 w-full">
-      <AButton @click="submitProduct" :background-color="'bg-indigo-500'">
+      <AButton @click="submitProduct" :classValue="'bg-indigo-500'">
         {{ isCreateProduct ? 'Add product' : 'Update product' }}
       </AButton>
     </div>
     <div>
       <router-link :to="'/admin/products'">
-        <AButton class="ml-8" :backgroundColor="'bg-red-500'">
+        <AButton class="ml-8" :classValue="'bg-red-500'">
           {{ 'Back' }}
         </AButton>
       </router-link>

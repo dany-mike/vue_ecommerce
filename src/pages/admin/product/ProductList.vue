@@ -6,14 +6,14 @@
     <MAdminList :items="products" :type="'products'" />
     <div class="flex justify-center mt-8">
       <router-link :to="'/admin/products/add'">
-        <AButton :background-color="'bg-indigo-500'">
+        <AButton :classValue="'bg-indigo-500'">
           {{ 'Add new product' }}
         </AButton>
       </router-link>
     </div>
     <div>
       <router-link :to="'/admin'">
-        <AButton class="ml-8" :backgroundColor="'bg-red-500'">
+        <AButton class="ml-8" :classValue="'bg-red-500'">
           {{ 'Back' }}
         </AButton>
       </router-link>

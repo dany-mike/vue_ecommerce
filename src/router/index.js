@@ -13,6 +13,8 @@ import ProductPage from '@/pages/ProductPage.vue'
 import CategoryPage from '@/pages/CategoryPage.vue'
 import CartPage from '@/pages/CartPage.vue'
 import FavoritesPage from '@/pages/FavoritesPage.vue'
+import SignupPage from '@/pages/SignupPage.vue'
+import SigninPage from '@/pages/SigninPage.vue'
 import NotFound from '@/pages/NotFound.vue'
 
 const routes = [
@@ -85,6 +87,16 @@ const routes = [
     path: '/favorites',
     name: 'FavoritesPage',
     component: FavoritesPage,
+  },
+  {
+    path: '/signin',
+    name: 'SigninPage',
+    component: SigninPage,
+  },
+  {
+    path: '/signup',
+    name: 'SignupPage',
+    component: SignupPage,
   },
   {
     path: '/:pathMatch(.*)*',

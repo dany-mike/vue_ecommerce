@@ -15,13 +15,13 @@
       <AInput :label="'Image'" v-model="image" />
     </div>
     <div class="flex justify-center items-center mt-2 w-full">
-      <AButton @click="submitCategory" :background-color="'bg-indigo-500'">
+      <AButton @click="submitCategory" :classValue="'bg-indigo-500'">
         {{ isCreateCategory ? 'Add category' : 'Update category' }}
       </AButton>
     </div>
     <div>
       <router-link :to="'/admin/category'">
-        <AButton class="ml-8" :backgroundColor="'bg-red-500'">
+        <AButton class="ml-8" :classValue="'bg-red-500'">
           {{ 'Back' }}
         </AButton>
       </router-link>

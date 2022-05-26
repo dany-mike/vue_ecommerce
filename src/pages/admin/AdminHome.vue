@@ -6,14 +6,14 @@
     </div>
     <div class="flex justify-center mb-4">
       <router-link :to="'/admin/products'">
-        <AButton :background-color="'bg-indigo-500'">
+        <AButton :classValue="'bg-indigo-500'">
           {{ 'Manage products' }}
         </AButton>
       </router-link>
     </div>
     <div class="flex justify-center mb-4">
       <router-link :to="'/admin/category'">
-        <AButton :background-color="'bg-indigo-500'">
+        <AButton :classValue="'bg-indigo-500'">
           {{ 'Manage category' }}
         </AButton>
       </router-link>
