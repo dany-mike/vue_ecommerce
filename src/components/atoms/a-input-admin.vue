@@ -8,6 +8,7 @@
       :type="type"
       @input="onChanged"
       :value="modelValue"
+      :autocomplete="autocomplete"
       min="0"
     />
   </div>
@@ -30,6 +31,10 @@ export default defineComponent({
     type: {
       type: String,
       default: 'text',
+    },
+    autocomplete: {
+      type: String,
+      default: '',
     },
   },
 

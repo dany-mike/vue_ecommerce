@@ -5,7 +5,7 @@
     </div>
     <div class="validation-block">
       <div class="flex w-full justify-center items-center">
-        <AInput :label="'Name'" v-model="name.value" />
+        <AinputAdmin :label="'Name'" v-model="name.value" />
       </div>
       <div class="flex w-full justify-center items-center">
         <p class="text-red-700 font-semibold">{{ name.errorMessage }}</p>
@@ -13,7 +13,7 @@
     </div>
     <div class="validation-block">
       <div class="flex w-full justify-center items-center">
-        <AInput :label="'Price(€)'" v-model="price.value" :type="'number'" />
+        <AinputAdmin :label="'Price(€)'" v-model="price.value" :type="'number'" />
       </div>
       <div class="flex w-full justify-center items-center">
         <p class="text-red-700 font-semibold">{{ price.errorMessage }}</p>
@@ -28,7 +28,7 @@
       />
     </div>
     <div class="flex w-full justify-center items-center">
-      <AInput :label="'Image'" v-model="image" />
+      <AinputAdmin :label="'Image'" v-model="image" />
     </div>
     <div class="flex justify-center items-center mb-1">
       <p class="text-lg font-medium">Category product</p>
@@ -57,7 +57,7 @@
 
 <script>
 import AButton from '@/components/atoms/a-button.vue'
-import AInput from '@/components/atoms/a-input.vue'
+import AinputAdmin from '@/components/atoms/a-input-admin.vue'
 import ATextArea from '@/components/atoms/a-textarea.vue'
 import { CREATE_PRODUCT, FETCH_PRODUCT, UPDATE_PRODUCT } from '@/store/modules/products/types'
 import { FETCH_CATEGORIES } from '@/store/modules/categories/types'
@@ -71,7 +71,7 @@ export default {
   name: 'MProductForm',
   components: {
     AButton,
-    AInput,
+    AinputAdmin,
     ATextArea,
   },
   setup() {
