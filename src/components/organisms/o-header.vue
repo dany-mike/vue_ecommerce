@@ -21,8 +21,12 @@
               alt=""
             />
           </router-link>
-          <ShoppingCartIcon class="w-10 h-10 ml-4 lg:hidden" />
-          <HeartIcon class="w-10 h-10 ml-2 lg:hidden" />
+          <router-link :to="'/cart'">
+            <ShoppingCartIcon class="w-10 h-10 ml-4 lg:hidden" />
+          </router-link>
+          <router-link :to="'/favorites'">
+            <HeartIcon class="w-10 h-10 ml-2 lg:hidden" />
+          </router-link>
         </div>
         <div class="my-2 md:hidden ml-auto">
           <PopoverButton
@@ -91,8 +95,12 @@
           </Popover>
         </PopoverGroup>
         <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-          <ShoppingCartIcon :size="8" class="w-10 h-10 mr-5" />
-          <HeartIcon class="w-10 h-10 mr-5" />
+          <router-link :to="'/cart'">
+            <ShoppingCartIcon class="w-10 h-10 mr-5" />
+          </router-link>
+          <router-link :to="'/favorites'">
+            <HeartIcon class="w-10 h-10 mr-5" />
+          </router-link>
           <a
             href="#"
             class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
