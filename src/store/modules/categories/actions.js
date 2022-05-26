@@ -14,7 +14,7 @@ export default {
     return axios
       .get(`${process.env.VUE_APP_API_BASE_URL}/category/${id}`)
       .then((response) => {
-        commit(types.SET_CATEGORY_RESPONSE, response.data)
+        commit(types.GET_CATEGORY_ITEM, response.data)
       })
       .catch((err) => console.log(err))
   },

@@ -18,7 +18,14 @@ export default {
       })
       .catch((err) => console.log(err))
   },
-  // TODO: Add getProducts by category
+  [types.FETCH_PRODUCTS_BY_CATEGORY]({ commit }, category) {
+    return axios
+      .get(`${process.env.VUE_APP_API_BASE_URL}/products/c/${category}`)
+      .then((response) => {
+        commit(types.GET_PRODUCTS_BY_CATEGORY, response.data)
+      })
+      .catch((err) => console.log(err))
+  },
   [types.CREATE_PRODUCT]({ commit }, formData) {
     return axios
       .post(`${process.env.VUE_APP_API_BASE_URL}/products`, formData, {
