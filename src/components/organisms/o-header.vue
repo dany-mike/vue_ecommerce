@@ -13,7 +13,7 @@
             alt=""
           />
         </a>
-        <div class="flex justify-start lg:w-0 lg:flex-1 items-center auth-container-mobile">
+        <div class="flex lg:w-0 lg:flex-1 items-center icon-container-mobile">
           <a href="#">
             <span class="sr-only">Workflow</span>
             <img
@@ -24,20 +24,8 @@
           </a>
           <ShoppingCartIcon :size="8" class="w-10 h-10 ml-4 lg:hidden" />
           <HeartIcon :size="8" class="w-10 h-10 ml-2 lg:hidden" />
-          <a
-            href="#"
-            class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900 lg:hidden ml-8"
-          >
-            Sign in
-          </a>
-          <a
-            href="#"
-            class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 lg:hidden"
-          >
-            Sign up
-          </a>
         </div>
-        <div class="-mr-2 -my-2 md:hidden">
+        <div class="my-2 md:hidden ml-auto">
           <PopoverButton
             class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
           >
@@ -132,7 +120,7 @@
     >
       <PopoverPanel
         focus
-        class="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden"
+        class="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden lg:z-0 z-10"
       >
         <div
           class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50"
@@ -140,12 +128,22 @@
           <div class="pt-5 pb-6 px-5">
             <div class="flex items-center justify-between">
               <div>
-                <img
-                  class="h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                  alt="Workflow"
-                />
                 <!-- mobile navigation content here -->
+                <h3 class="text-sm tracking-wide font-medium text-gray-500 uppercase">
+                  Categories
+                </h3>
+                <ul role="list" class="mt-4 space-y-4">
+                  <li v-for="category in categories" :key="category.id" class="text-base truncate">
+                    <router-link
+                      :to="`/category/${category.id}`"
+                      class="font-medium text-gray-900 hover:text-gray-700 w-full"
+                    >
+                      <span class="w-full">
+                        {{ category.name }}
+                      </span>
+                    </router-link>
+                  </li>
+                </ul>
               </div>
               <div class="-mr-2">
                 <PopoverButton
@@ -223,7 +221,7 @@ export default {
 
 <style scoped>
 @media (min-width: 768px) {
-  .auth-container-mobile {
+  .icon-container-mobile {
     display: none !important;
   }
 }
