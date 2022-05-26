@@ -1,16 +1,17 @@
 <template>
-  <div class="a-input w-1/4 my-2">
-    <div class="flex justify-center items-center mb-1">
-      <p class="text-lg font-medium">{{ label }}</p>
+  <div class="a-input">
+    <label for="password" class="block text-sm font-medium text-gray-700"> {{ label }} </label>
+    <div class="mt-1">
+      <input
+        :class="classValue"
+        :type="type"
+        required
+        @input="onChanged"
+        :value="modelValue"
+        :autocomplete="autocomplete"
+        min="0"
+      />
     </div>
-    <input
-      class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-red-500"
-      :type="type"
-      @input="onChanged"
-      :value="modelValue"
-      :autocomplete="autocomplete"
-      min="0"
-    />
   </div>
 </template>
 
@@ -18,7 +19,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'AInputAdmin',
+  name: 'AInput',
 
   emits: ['update:modelValue'],
 
@@ -33,6 +34,10 @@ export default defineComponent({
       default: 'text',
     },
     autocomplete: {
+      type: String,
+      default: '',
+    },
+    classValue: {
       type: String,
       default: '',
     },

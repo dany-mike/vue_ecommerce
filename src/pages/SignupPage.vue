@@ -15,61 +15,33 @@
       <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
         <form class="space-y-6" action="#" method="POST">
           <div>
-            <label for="firstname" class="block text-sm font-medium text-gray-700">
-              Firstname
-            </label>
-            <div class="mt-1">
-              <input
-                id="firstname"
-                name="firstname"
-                type="text"
-                autocomplete="firstname"
-                required
-                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
-            </div>
+            <AInput
+              :label="'Firstname'"
+              :type="'text'"
+              :classValue="'appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'"
+            />
           </div>
           <div>
-            <label for="lastname" class="block text-sm font-medium text-gray-700"> Lastname </label>
-            <div class="mt-1">
-              <input
-                id="lastname"
-                name="lastname"
-                type="lastname"
-                autocomplete="lastname"
-                required
-                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
-            </div>
+            <AInput
+              :label="'Lastname'"
+              :type="'text'"
+              :classValue="'appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'"
+            />
           </div>
           <div>
-            <label for="email" class="block text-sm font-medium text-gray-700">
-              Email address
-            </label>
-            <div class="mt-1">
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autocomplete="email"
-                required
-                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
-            </div>
+            <AInput
+              :label="'Email address'"
+              :type="'text'"
+              :classValue="'appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'"
+            />
           </div>
 
           <div>
-            <label for="password" class="block text-sm font-medium text-gray-700"> Password </label>
-            <div class="mt-1">
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autocomplete="current-password"
-                required
-                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
-            </div>
+            <AInput
+              :label="'Password'"
+              :type="'password'"
+              :classValue="'appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'"
+            />
           </div>
 
           <!-- TODO: Add forgot password feat in v2 -->
@@ -105,13 +77,24 @@
 
 <script>
 import AButton from '@/components/atoms/a-button.vue'
+import AInput from '@/components/atoms/a-input.vue'
+
 // import MOAuth2 from '@/components/molecules/m-oauth2.vue'
 
 export default {
   name: 'SignupPage',
   components: {
     AButton,
+    AInput,
     // MOAuth2,
+  },
+  data() {
+    return {
+      firstname: '',
+      lastname: '',
+      email: '',
+      password: '',
+    }
   },
 }
 </script>
