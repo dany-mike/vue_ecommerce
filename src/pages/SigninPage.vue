@@ -54,17 +54,21 @@
           </div> -->
 
           <div>
-            <!-- <AButton>
-              Signin
-            </AButton> -->
-            <button
-              type="submit"
-              class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            <AButton
+              :classValue="'w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bgw-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'"
             >
               Sign in
-            </button>
+            </AButton>
           </div>
         </form>
+
+        <p class="mt-6 text-center text-base font-medium text-gray-500">
+          Don't have an account ?
+          {{ ' ' }}
+          <router-link :to="'/signup'" class="text-indigo-600 hover:text-indigo-500">
+            Sign up
+          </router-link>
+        </p>
 
         <!-- <div class="mt-6">
           <div class="relative">
@@ -130,7 +134,11 @@
 </template>
 
 <script>
+import AButton from '@/components/atoms/a-button.vue'
 export default {
   name: 'SigninPage',
+  components: {
+    AButton,
+  },
 }
 </script>
