@@ -21,8 +21,8 @@
               alt=""
             />
           </router-link>
-          <ShoppingCartIcon :size="8" class="w-10 h-10 ml-4 lg:hidden" />
-          <HeartIcon :size="8" class="w-10 h-10 ml-2 lg:hidden" />
+          <ShoppingCartIcon class="w-10 h-10 ml-4 lg:hidden" />
+          <HeartIcon class="w-10 h-10 ml-2 lg:hidden" />
         </div>
         <div class="my-2 md:hidden ml-auto">
           <PopoverButton
@@ -92,7 +92,7 @@
         </PopoverGroup>
         <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
           <ShoppingCartIcon :size="8" class="w-10 h-10 mr-5" />
-          <HeartIcon :size="8" class="w-10 h-10 mr-5" />
+          <HeartIcon class="w-10 h-10 mr-5" />
           <a
             href="#"
             class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
