@@ -10,6 +10,7 @@ import UpdateProduct from '@/pages/admin/product/UpdateProduct.vue'
 import ProductList from '@/pages/admin/product/ProductList.vue'
 import ProductItem from '@/pages/admin/product/ProductItem.vue'
 import ProductPage from '@/pages/ProductPage.vue'
+import CategoryPage from '@/pages/CategoryPage.vue'
 import NotFound from '@/pages/NotFound.vue'
 
 const routes = [
@@ -67,6 +68,11 @@ const routes = [
     path: '/products/:id',
     name: 'ProductPage',
     component: ProductPage,
+  },
+  {
+    path: '/category/:id',
+    name: 'CategoryPage',
+    component: CategoryPage,
   },
   {
     path: '/:pathMatch(.*)*',

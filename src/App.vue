@@ -1,11 +1,14 @@
 <template>
-  <p class="text-4xl"></p>
+  <OHeader />
   <router-view />
 </template>
 
 <script>
+import OHeader from '@/components/organisms/o-header.vue'
 export default {
   name: 'App',
-  components: {},
+  components: {
+    OHeader,
+  },
 }
 </script>

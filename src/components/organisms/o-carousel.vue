@@ -2,7 +2,7 @@
   <div class="o-carousel">
     <p class="text-2xl">{{ title }}</p>
     <div class="o-carousel-desktop">
-      <carousel :items-to-show="2.5" class="o-carousel">
+      <carousel :items-to-show="3" class="o-carousel">
         <slide v-for="product in products" :key="product.id">
           <MProductCard :item="product" />
         </slide>
@@ -34,8 +34,8 @@ export default {
   name: 'OCarousel',
   props: {
     products: {
-      type: Array,
-      default: () => [],
+      type: [Array, Object],
+      required: true,
     },
     title: {
       type: String,

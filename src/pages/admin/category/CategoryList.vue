@@ -41,6 +41,5 @@ export default {
     }),
   },
   name: 'CategoryList',
-  methods: {},
 }
 </script>

@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'AButton',
+  name: 'OFullLayerImage',
   props: {
     image: {
       type: String,
