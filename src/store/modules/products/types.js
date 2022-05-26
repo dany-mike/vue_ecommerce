@@ -1,5 +1,6 @@
 // mutations types
 export const SET_PRODUCT_RESPONSE = 'SET_PRODUCT_RESPONSE'
+export const GET_PRODUCTS_BY_CATEGORY = 'GET_PRODUCTS_BY_CATEGORY'
 
 // actions types
 export const FETCH_PRODUCTS = 'fetchProducts'

@@ -21,7 +21,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      products: 'getProductResponse',
+      products: 'getProductsByCategory',
       categoryItem: 'getCategoryItem',
     }),
   },

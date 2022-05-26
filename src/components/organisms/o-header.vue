@@ -194,6 +194,11 @@ export default {
     PopoverGroup,
     PopoverPanel,
   },
+  watch: {
+    $route(router) {
+      this.$router.push(router.fullPath)
+    },
+  },
   mounted() {
     this.$store.dispatch(`${FETCH_CATEGORIES}`)
   },

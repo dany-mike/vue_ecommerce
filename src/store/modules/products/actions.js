@@ -22,7 +22,7 @@ export default {
     return axios
       .get(`${process.env.VUE_APP_API_BASE_URL}/products/c/${category}`)
       .then((response) => {
-        commit(types.SET_PRODUCT_RESPONSE, response.data)
+        commit(types.GET_PRODUCTS_BY_CATEGORY, response.data)
       })
       .catch((err) => console.log(err))
   },
