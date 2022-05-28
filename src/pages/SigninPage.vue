@@ -13,7 +13,7 @@
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
       <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-        <form class="space-y-6" action="#" method="POST">
+        <form class="space-y-6" @submit.prevent="onSubmit">
           <div>
             <AInput
               v-model="email"
@@ -67,6 +67,7 @@
 <script>
 import AButton from '@/components/atoms/a-button.vue'
 import AInput from '@/components/atoms/a-input.vue'
+import { SIGNIN } from '@/store/modules/auth/types'
 // import MOAuth2 from '@/components/molecules/m-oauth2.vue'
 export default {
   name: 'SigninPage',
@@ -81,5 +82,21 @@ export default {
       password: '',
     }
   },
+  methods: {
+    async onSubmit(e) {
+      e.preventDefault()
+      const body = {
+        email: this.email,
+        password: this.password,
+      }
+      await this.$store.dispatch(`${SIGNIN}`, body)
+    },
+  },
+  // validations() {
+  //   return {
+  //     email: { required },
+  //     password: { required },
+  //   }
+  // },
 }
 </script>

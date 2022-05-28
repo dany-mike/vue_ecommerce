@@ -185,6 +185,11 @@ export default {
   mounted() {
     this.$store.dispatch(`${FETCH_CATEGORIES}`)
   },
+  methods: {
+    logout() {
+      localStorage.removeItem('token')
+    },
+  },
   computed: {
     ...mapGetters({
       categories: 'getCategoryResponse',

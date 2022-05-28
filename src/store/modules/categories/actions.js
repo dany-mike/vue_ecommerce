@@ -1,3 +1,4 @@
+import { authHeader } from '@/helpers/authHeader'
 import axios from 'axios'
 import * as types from './types'
 
@@ -21,7 +22,7 @@ export default {
   [types.CREATE_CATEGORY]({ commit }, formData) {
     return axios
       .post(`${process.env.VUE_APP_API_BASE_URL}/category`, formData, {
-        headers: {},
+        headers: authHeader(),
       })
 
       .then((response) => {
@@ -31,7 +32,9 @@ export default {
   },
   [types.UPDATE_CATEGORY]({ commit }, { id, formData }) {
     return axios
-      .put(`${process.env.VUE_APP_API_BASE_URL}/category/${id}`, formData)
+      .put(`${process.env.VUE_APP_API_BASE_URL}/category/${id}`, formData, {
+        headers: authHeader(),
+      })
       .then((response) => {
         commit(types.SET_CATEGORY_RESPONSE, response.data)
       })
@@ -39,7 +42,9 @@ export default {
   },
   [types.DELETE_CATEGORY]({ commit }, id) {
     return axios
-      .delete(`${process.env.VUE_APP_API_BASE_URL}/category/${id}`)
+      .delete(`${process.env.VUE_APP_API_BASE_URL}/category/${id}`, {
+        headers: authHeader(),
+      })
       .then((response) => {
         commit(types.SET_CATEGORY_RESPONSE, response.data)
       })
