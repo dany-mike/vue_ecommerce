@@ -8,7 +8,7 @@ export const state = {
 export const mutations = {
   [types.SET_TOKEN](state, authResponse) {
     if (authResponse.accessToken) {
-      localStorage.setItem('token', authResponse.accessToken)
+      localStorage.setItem('user', JSON.stringify(authResponse))
     }
     state.authResponse = authResponse
   },
