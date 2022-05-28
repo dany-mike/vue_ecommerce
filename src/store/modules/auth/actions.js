@@ -29,4 +29,8 @@ export default {
       })
       .catch((err) => console.log(err))
   },
+  [types.GET_CURRENT_USER]({ commit }) {
+    const user = JSON.parse(localStorage.getItem('user'))
+    commit(types.SET_CURRENT_USER, user)
+  },
 }

@@ -2,7 +2,7 @@ import * as types from './types'
 import actions from './actions'
 
 export const state = {
-  authResponse: [],
+  currentUser: [],
 }
 
 export const mutations = {
@@ -10,12 +10,21 @@ export const mutations = {
     if (authResponse.accessToken) {
       localStorage.setItem('user', JSON.stringify(authResponse))
     }
-    state.authResponse = authResponse
   },
+  [types.SET_CURRENT_USER](state, user) {
+    if (user && user.accessToken) {
+      state.currentUser = user
+    }
+  },
+}
+
+const getters = {
+  getCurrentUser: (state) => state.currentUser,
 }
 
 export default {
   state,
   actions,
   mutations,
+  getters,
 }
