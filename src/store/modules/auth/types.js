@@ -2,6 +2,7 @@
 export const SET_TOKEN = 'SET_TOKEN'
 export const SET_CURRENT_USER = 'SET_CURRENT_USER'
 export const SET_PAYLOAD_RESPONSE = 'SET_PAYLOAD_RESPONSE'
+export const SET_AUTH_RESPONSE = 'SET_AUTH_RESPONSE'
 
 // actions types
 export const SIGNIN = 'signin'
