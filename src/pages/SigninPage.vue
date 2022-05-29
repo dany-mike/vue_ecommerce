@@ -31,7 +31,7 @@
               :classValue="'appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'"
             />
           </div>
-
+          <p class="text-red-700 font-semibold">{{ errorResponse }}</p>
           <!-- TODO: Add forgot password feat in v2 -->
           <!-- <div class="flex items-center justify-between">
             <div class="text-sm">
@@ -81,6 +81,7 @@ export default {
     return {
       email: '',
       password: '',
+      errorResponse: '',
     }
   },
   methods: {
@@ -92,8 +93,12 @@ export default {
       await this.$store.dispatch(`${SIGNIN}`, body)
       await this.$store.dispatch(`${GET_CURRENT_USER}`)
 
-      if (this.user.role === 'user') {
-        this.$router.back()
+      if (this.payloadResponse) {
+        this.errorResponse = this.payloadResponse.message
+      }
+
+      if (this.user?.role === 'user') {
+        this.$router.push('/')
       }
 
       if (this.user.role === 'admin' || this.user.role === 'superAdmin') {
@@ -104,13 +109,8 @@ export default {
   computed: {
     ...mapGetters({
       user: 'getCurrentUser',
+      payloadResponse: 'getPayloadResponse',
     }),
   },
-  // validations() {
-  //   return {
-  //     email: { required },
-  //     password: { required },
-  //   }
-  // },
 }
 </script>

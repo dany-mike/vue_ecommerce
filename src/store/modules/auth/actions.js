@@ -8,7 +8,7 @@ export default {
       .then((response) => {
         commit(types.SET_TOKEN, response.data)
       })
-      .catch((err) => console.log(err))
+      .catch((err) => commit(types.SET_PAYLOAD_RESPONSE, err.response.data))
   },
   [types.SIGNUP]({ commit }, body) {
     return axios

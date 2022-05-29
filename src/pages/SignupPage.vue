@@ -129,10 +129,9 @@ export default {
       await this.$store.dispatch(`${SIGNUP}`, body)
       this.apiErrorResponse = this.payloadResponse
       if (!this.apiErrorResponse) {
-        this.$router.push('/signin', () => {
-          this.$toast.show(`User registered successfully !`)
-          setTimeout(this.$toast.clear, 7000)
-        })
+        this.$toast.show(`User registered successfully !`)
+        setTimeout(this.$toast.clear, 7000)
+        this.$router.push('/signin')
       }
     },
   },
