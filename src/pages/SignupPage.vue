@@ -83,8 +83,6 @@
 import AButton from '@/components/atoms/a-button.vue'
 import AInput from '@/components/atoms/a-input.vue'
 import { SIGNUP } from '@/store/modules/auth/types'
-import useVuelidate from '@vuelidate/core'
-import { required, email } from '@vuelidate/validators'
 import { mapGetters } from 'vuex'
 // import MOAuth2 from '@/components/molecules/m-oauth2.vue'
 
@@ -95,27 +93,20 @@ export default {
     AInput,
     // MOAuth2,
   },
-  setup() {
-    return { v$: useVuelidate() }
-  },
   data() {
     return {
       apiErrorResponse: '',
       firstname: {
         value: '',
-        errorMessage: '',
       },
       lastname: {
         value: '',
-        errorMessage: '',
       },
       email: {
         value: '',
-        errorMessage: '',
       },
       password: {
         value: '',
-        errorMessage: '',
       },
     }
   },
@@ -124,47 +115,10 @@ export default {
       payloadResponse: 'getPayloadResponse',
     }),
   },
-  validations() {
-    return {
-      firstname: {
-        value: {
-          required,
-        },
-      },
-      lastname: {
-        value: {
-          required,
-        },
-      },
-      email: {
-        value: {
-          required,
-          email,
-        },
-      },
-      password: {
-        value: {
-          required,
-        },
-      },
-    }
-  },
   methods: {
     async onSubmit() {
       this.apiErrorResponse = ''
-      this.firstname.errorMessage = ''
-      this.lastname.errorMessage = ''
-      this.email.errorMessage = ''
-      this.password.errorMessage = ''
-      this.apiErrorMessage = ''
 
-      if (this.v$.$invalid) {
-        this.firstname.errorMessage = this.v$.firstname.$silentErrors[0]?.$message
-        this.lastname.errorMessage = this.v$.lastname.$silentErrors[0]?.$message
-        this.email.errorMessage = this.v$.email.$silentErrors[0]?.$message
-        this.password.errorMessage = this.v$.password.$silentErrors[0]?.$message
-        return
-      }
       const body = {
         firstname: this.firstname.value,
         lastname: this.lastname.value,
@@ -174,7 +128,6 @@ export default {
 
       await this.$store.dispatch(`${SIGNUP}`, body)
       this.apiErrorResponse = this.payloadResponse
-      console.log(this.payloadResponse)
       if (!this.apiErrorResponse) {
         this.$router.push('/signin', () => {
           this.$toast.show(`User registered successfully !`)
