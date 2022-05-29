@@ -13,10 +13,10 @@ export default {
   [types.SIGNUP]({ commit }, body) {
     return axios
       .post(`${process.env.VUE_APP_API_BASE_URL}/auth/signup`, body)
-      .then((response) => {
-        commit(types.SET_TOKEN, response.data)
+      .then(() => {
+        commit(types.SET_PAYLOAD_RESPONSE, false)
       })
-      .catch((err) => console.log(err))
+      .catch((err) => commit(types.SET_PAYLOAD_RESPONSE, err.response.data))
   },
   [types.CREATE_ADMIN]({ commit }, formData) {
     return axios

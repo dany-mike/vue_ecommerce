@@ -84,8 +84,7 @@ export default {
     }
   },
   methods: {
-    async onSubmit(e) {
-      e.preventDefault()
+    async onSubmit() {
       const body = {
         email: this.email,
         password: this.password,
