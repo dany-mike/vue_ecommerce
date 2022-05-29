@@ -21,12 +21,11 @@
               alt=""
             />
           </router-link>
-          <router-link :to="'/cart'">
-            <ShoppingCartIcon class="w-10 h-10 ml-4 lg:hidden" />
-          </router-link>
-          <router-link :to="'/favorites'">
-            <HeartIcon class="w-10 h-10 ml-2 lg:hidden" />
-          </router-link>
+          <ShoppingCartIcon
+            class="w-10 h-10 ml-4 lg:hidden cursor-pointer"
+            @click="handleCartRoute"
+          />
+          <HeartIcon class="w-10 h-10 ml-2 lg:hidden cursor-pointer" @click="handleFavoriteRoute" />
         </div>
         <div class="my-2 md:hidden ml-auto">
           <PopoverButton
@@ -85,24 +84,29 @@
           </Popover>
         </PopoverGroup>
         <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-          <router-link :to="'/cart'">
-            <ShoppingCartIcon class="w-10 h-10 mr-5" />
-          </router-link>
-          <router-link :to="'/favorites'">
-            <HeartIcon class="w-10 h-10 mr-5" />
-          </router-link>
+          <ShoppingCartIcon class="w-10 h-10 mr-5 cursor-pointer" @click="handleCartRoute" />
+          <HeartIcon class="w-10 h-10 mr-5 cursor-pointer" @click="handleFavoriteRoute" />
           <router-link
+            v-if="!user"
             :to="'/signin'"
             class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
           >
             Sign in
           </router-link>
           <router-link
+            v-if="!user"
             :to="'/signup'"
             class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
           >
             Sign up
           </router-link>
+          <div
+            v-if="user"
+            @click="logout"
+            class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+          >
+            Logout
+          </div>
         </div>
       </div>
     </div>
@@ -142,7 +146,7 @@
           </div>
         </div>
         <div class="py-6 px-5 space-y-6">
-          <div>
+          <div v-if="!user">
             <router-link
               :to="'/signup'"
               class="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
@@ -157,6 +161,14 @@
               </router-link>
             </p>
           </div>
+          <div
+            v-else
+            :to="'/signup'"
+            @click="logout"
+            class="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+          >
+            Logout
+          </div>
         </div>
       </div>
     </PopoverPanel>
@@ -169,6 +181,7 @@ import { MenuIcon, XIcon, ShoppingCartIcon, HeartIcon } from '@heroicons/vue/out
 import { ChevronDownIcon } from '@heroicons/vue/solid'
 import { FETCH_CATEGORIES } from '@/store/modules/categories/types'
 import { mapGetters } from 'vuex'
+import { GET_CURRENT_USER } from '@/store/modules/auth/types'
 
 export default {
   components: {
@@ -184,15 +197,24 @@ export default {
   },
   mounted() {
     this.$store.dispatch(`${FETCH_CATEGORIES}`)
+    this.$store.dispatch(`${GET_CURRENT_USER}`)
   },
   methods: {
     logout() {
       localStorage.removeItem('user')
+      this.$router.go(this.$router.currentRoute)
+    },
+    handleCartRoute() {
+      this.user?.role !== 'user' ? this.$router.push('/signin') : this.$router.push('/cart')
+    },
+    handleFavoriteRoute() {
+      this.user?.role !== 'user' ? this.$router.push('/signin') : this.$router.push('/favorites')
     },
   },
   computed: {
     ...mapGetters({
       categories: 'getCategoryResponse',
+      user: 'getCurrentUser',
     }),
   },
 }

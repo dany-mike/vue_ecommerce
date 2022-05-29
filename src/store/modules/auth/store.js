@@ -2,7 +2,7 @@ import * as types from './types'
 import actions from './actions'
 
 export const state = {
-  currentUser: [],
+  currentUser: null,
 }
 
 export const mutations = {

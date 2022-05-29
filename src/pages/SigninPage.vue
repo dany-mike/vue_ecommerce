@@ -67,7 +67,8 @@
 <script>
 import AButton from '@/components/atoms/a-button.vue'
 import AInput from '@/components/atoms/a-input.vue'
-import { SIGNIN } from '@/store/modules/auth/types'
+import { GET_CURRENT_USER, SIGNIN } from '@/store/modules/auth/types'
+import { mapGetters } from 'vuex'
 // import MOAuth2 from '@/components/molecules/m-oauth2.vue'
 export default {
   name: 'SigninPage',
@@ -90,7 +91,21 @@ export default {
         password: this.password,
       }
       await this.$store.dispatch(`${SIGNIN}`, body)
+      await this.$store.dispatch(`${GET_CURRENT_USER}`)
+
+      if (this.user.role === 'user') {
+        this.$router.back()
+      }
+
+      if (this.user.role === 'admin' || this.user.role === 'superAdmin') {
+        this.$router.push('/admin')
+      }
     },
+  },
+  computed: {
+    ...mapGetters({
+      user: 'getCurrentUser',
+    }),
   },
   // validations() {
   //   return {
