@@ -5,23 +5,23 @@
     </div>
     <div class="validation-block">
       <div class="flex w-full justify-center items-center">
-        <AInput :label="'Name'" v-model="name" />
+        <AinputAdmin :label="'Name'" v-model="name" />
       </div>
       <div class="flex w-full justify-center items-center">
         <p class="text-red-700 font-semibold">{{ errorMessage }}</p>
       </div>
     </div>
     <div class="flex w-full justify-center items-center">
-      <AInput :label="'Image'" v-model="image" />
+      <AinputAdmin :label="'Image'" v-model="image" />
     </div>
     <div class="flex justify-center items-center mt-2 w-full">
-      <AButton @click="submitCategory" :background-color="'bg-indigo-500'">
+      <AButton @click="submitCategory" :classValue="'bg-indigo-500'">
         {{ isCreateCategory ? 'Add category' : 'Update category' }}
       </AButton>
     </div>
     <div>
       <router-link :to="'/admin/category'">
-        <AButton class="ml-8" :backgroundColor="'bg-red-500'">
+        <AButton class="ml-8" :classValue="'bg-red-500'">
           {{ 'Back' }}
         </AButton>
       </router-link>
@@ -31,7 +31,7 @@
 
 <script>
 import AButton from '@/components/atoms/a-button.vue'
-import AInput from '@/components/atoms/a-input.vue'
+import AinputAdmin from '@/components/atoms/a-input-admin.vue'
 import { UPDATE_CATEGORY, CREATE_CATEGORY } from '@/store/modules/categories/types'
 import { FETCH_CATEGORY } from '@/store/modules/categories/types'
 import { mapGetters } from 'vuex'
@@ -43,7 +43,7 @@ export default {
   name: 'MCategoryForm',
   components: {
     AButton,
-    AInput,
+    AinputAdmin,
   },
   setup() {
     return { v$: useVuelidate() }

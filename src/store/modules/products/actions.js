@@ -1,5 +1,6 @@
 import axios from 'axios'
 import * as types from './types'
+import { authHeader } from '@/helpers/authHeader'
 
 export default {
   [types.FETCH_PRODUCTS]({ commit }) {
@@ -29,7 +30,7 @@ export default {
   [types.CREATE_PRODUCT]({ commit }, formData) {
     return axios
       .post(`${process.env.VUE_APP_API_BASE_URL}/products`, formData, {
-        headers: {},
+        headers: authHeader(),
       })
 
       .then((response) => {
@@ -39,7 +40,9 @@ export default {
   },
   [types.UPDATE_PRODUCT]({ commit }, { id, formData }) {
     return axios
-      .put(`${process.env.VUE_APP_API_BASE_URL}/products/${id}`, formData)
+      .put(`${process.env.VUE_APP_API_BASE_URL}/products/${id}`, formData, {
+        headers: authHeader(),
+      })
       .then((response) => {
         commit(types.SET_PRODUCT_RESPONSE, response.data)
       })
@@ -47,7 +50,9 @@ export default {
   },
   [types.DELETE_PRODUCT]({ commit }, id) {
     return axios
-      .delete(`${process.env.VUE_APP_API_BASE_URL}/products/${id}`)
+      .delete(`${process.env.VUE_APP_API_BASE_URL}/products/${id}`, {
+        headers: authHeader(),
+      })
       .then((response) => {
         commit(types.SET_PRODUCT_RESPONSE, response.data)
       })

@@ -13,7 +13,11 @@ import ProductPage from '@/pages/ProductPage.vue'
 import CategoryPage from '@/pages/CategoryPage.vue'
 import CartPage from '@/pages/CartPage.vue'
 import FavoritesPage from '@/pages/FavoritesPage.vue'
+import SignupPage from '@/pages/SignupPage.vue'
+import SigninPage from '@/pages/SigninPage.vue'
 import NotFound from '@/pages/NotFound.vue'
+// import store from '@/store'
+// import { GET_CURRENT_USER } from '@/store/modules/auth/types'
 
 const routes = [
   {
@@ -87,6 +91,16 @@ const routes = [
     component: FavoritesPage,
   },
   {
+    path: '/signin',
+    name: 'SigninPage',
+    component: SigninPage,
+  },
+  {
+    path: '/signup',
+    name: 'SignupPage',
+    component: SignupPage,
+  },
+  {
     path: '/:pathMatch(.*)*',
     component: NotFound,
   },
@@ -96,5 +110,20 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 })
+
+// use this function for the future front
+// async function handleRouterGuard(to, store, fullPath) {
+//   if (store.state.auth.currentUser.length === 0 && to.name !== 'SigninPage') {
+//     router.onError((err) => console.log(err))
+//     router.push('/signin')
+//   } else {
+//     router.push(fullPath)
+//   }
+// }
+
+// router.beforeEach(async (to, from) => {
+//   store.dispatch(GET_CURRENT_USER)
+//   await handleRouterGuard(to, store, to.fullPath)
+// })
 
 export default router

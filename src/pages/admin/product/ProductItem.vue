@@ -7,7 +7,7 @@
   </div>
   <div>
     <router-link :to="'/admin/products'">
-      <AButton class="pl-8" :background-color="'bg-red-500'">
+      <AButton class="pl-8" :classValue="'bg-red-500'">
         {{ 'Back' }}
       </AButton>
     </router-link>

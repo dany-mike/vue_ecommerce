@@ -4,7 +4,7 @@
       :is="type"
       :href="href"
       class="py-2 px-4 text-white font-semibold shadow-md focus:outline-none rounded"
-      :class="backgroundColor"
+      :class="classValue"
     >
       <slot />
     </component>
@@ -23,9 +23,9 @@ export default {
       type: String,
       require: false,
     },
-    backgroundColor: {
+    classValue: {
       type: String,
-      default: 'red',
+      default: '',
     },
   },
   computed: {
