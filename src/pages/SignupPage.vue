@@ -168,6 +168,10 @@ export default {
       if (this.user?.role === 'admin' || this.user?.role === 'superAdmin') {
         this.$router.push('/admin')
       }
+
+      if (this.user) {
+        this.$router.push('/')
+      }
     },
   },
 }
