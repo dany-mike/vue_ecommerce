@@ -49,7 +49,7 @@ export default {
   name: 'OListingProducts',
   props: {
     products: {
-      type: String,
+      type: Array,
       required: true,
     },
     type: {

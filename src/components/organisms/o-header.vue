@@ -208,8 +208,9 @@ export default {
       this.$router.push('/cart')
     },
     handleFavoriteRoute() {
-      // Add a query params to check scheme difference
-      this.user?.role !== 'user' ? this.$router.push('/signin') : this.$router.push('/favorites')
+      this.user?.role !== 'user'
+        ? this.$router.push({ path: '/signin', query: { type: 'wishlist' } })
+        : this.$router.push('/favorites')
     },
   },
   computed: {

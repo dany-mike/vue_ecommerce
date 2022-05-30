@@ -39,20 +39,32 @@ export default {
   },
   methods: {
     async addToFavorite() {
-      const userId = this.user.id
-      const body = {
-        productId: this.product.id,
+      if (!this.user) {
+        this.$router.push({
+          path: '/signin',
+          query: { type: 'add-wishlist', productId: this.product?.id },
+        })
       }
+
+      const body = {
+        productId: this.product?.id,
+      }
+      const userId = this.user?.id
+
       await this.$store.dispatch(`${ADD_PRODUCT_TO_WISHLIST}`, { body, userId })
       this.$router.go(this.$router.currentRoute)
     },
     isWishlistIcon(productItem) {
       let isWishlistIcon = true
-      this.wishlistProducts.forEach((element) => {
-        if (element.id === productItem.id) {
-          isWishlistIcon = false
-        }
-      })
+
+      if (this.user) {
+        this.wishlistProducts.forEach((element) => {
+          if (element.id === productItem.id) {
+            isWishlistIcon = false
+          }
+        })
+      }
+
       return isWishlistIcon
     },
   },

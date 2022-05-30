@@ -97,11 +97,21 @@ export default {
         this.errorResponse = this.payloadResponse.message
       }
 
-      if (this.user?.role === 'user') {
-        this.$router.push('/')
+      if (this.user && this.$router.currentRoute._value.query.type === 'add-wishlist') {
+        this.$router.push(
+          `/wishlist/${this.user.id}/${this.$router.currentRoute._value.query.productId}`,
+        )
       }
 
-      if (this.user.role === 'admin' || this.user.role === 'superAdmin') {
+      if (this.user && this.$router.currentRoute._value.query.type === 'wishlist') {
+        this.$router.push(`/wishlist`)
+      }
+
+      // if (this.user?.role === 'user') {
+      //   this.$router.push('/')
+      // }
+
+      if (this.user?.role === 'admin' || this.user?.role === 'superAdmin') {
         this.$router.push('/admin')
       }
     },
