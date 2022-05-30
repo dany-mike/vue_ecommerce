@@ -26,9 +26,6 @@ export default {
       .delete(`${process.env.VUE_APP_API_BASE_URL}/wishlist/${userId}/${productId}`, {
         headers: authHeader(),
       })
-      .then((response) => {
-        commit(types.SET_WISHLIST_PRODUCTS_RESPONSE, response.data)
-      })
       .catch((err) => console.log(err))
   },
 }
