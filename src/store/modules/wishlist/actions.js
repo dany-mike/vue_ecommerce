@@ -21,7 +21,8 @@ export default {
       })
       .catch((err) => console.log(err))
   },
-  [types.DELETE_WISHLIST_PRODUCT]({ userId, productId }) {
+  [types.DELETE_WISHLIST_PRODUCT]({ commit }, { userId, productId }) {
+    console.log(commit)
     return axios
       .delete(`${process.env.VUE_APP_API_BASE_URL}/wishlist/${userId}/${productId}`, {
         headers: authHeader(),
