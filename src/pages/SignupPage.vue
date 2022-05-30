@@ -69,9 +69,9 @@
         <p class="mt-6 text-center text-base font-medium text-gray-500">
           Existing customer ?
           {{ ' ' }}
-          <router-link :to="'/signin'" class="text-indigo-600 hover:text-indigo-500">
+          <span class="text-indigo-600 hover:text-indigo-500 cursor-pointer" @click="handleSignin">
             Sign in
-          </router-link>
+          </span>
         </p>
         <!-- <MOAuth2 /> -->
       </div>
@@ -82,7 +82,7 @@
 <script>
 import AButton from '@/components/atoms/a-button.vue'
 import AInput from '@/components/atoms/a-input.vue'
-import { SIGNUP } from '@/store/modules/auth/types'
+import { GET_CURRENT_USER, SIGNIN, SIGNUP } from '@/store/modules/auth/types'
 import { mapGetters } from 'vuex'
 // import MOAuth2 from '@/components/molecules/m-oauth2.vue'
 
@@ -112,10 +112,25 @@ export default {
   },
   computed: {
     ...mapGetters({
+      user: 'getCurrentUser',
       payloadResponse: 'getPayloadResponse',
     }),
   },
   methods: {
+    handleSignin() {
+      if (this.$router.currentRoute._value.query.type === 'add-wishlist') {
+        this.$router.push({
+          path: '/signin',
+          query: {
+            type: 'add-wishlist',
+            productId: this.$router.currentRoute._value.query.productId,
+          },
+        })
+      }
+      if (this.$router.currentRoute._value.query.type === 'wishlist') {
+        this.$router.push({ path: '/signin', query: { type: 'wishlist' } })
+      }
+    },
     async onSubmit() {
       this.apiErrorResponse = ''
 
@@ -128,10 +143,34 @@ export default {
 
       await this.$store.dispatch(`${SIGNUP}`, body)
       this.apiErrorResponse = this.payloadResponse
-      if (!this.apiErrorResponse) {
-        this.$toast.show(`User registered successfully !`)
-        setTimeout(this.$toast.clear, 7000)
-        this.$router.push('/signin')
+
+      const signInbody = {
+        email: this.email.value,
+        password: this.password.value,
+      }
+      await this.$store.dispatch(`${SIGNIN}`, signInbody)
+      await this.$store.dispatch(`${GET_CURRENT_USER}`)
+
+      if (this.payloadResponse) {
+        this.errorResponse = this.payloadResponse.message
+      }
+
+      if (this.user && this.$router.currentRoute._value.query.type === 'add-wishlist') {
+        this.$router.push(
+          `/wishlist/${this.user.id}/${this.$router.currentRoute._value.query.productId}`,
+        )
+      }
+
+      if (this.user && this.$router.currentRoute._value.query.type === 'wishlist') {
+        this.$router.push(`/favorites`)
+      }
+
+      if (this.user?.role === 'admin' || this.user?.role === 'superAdmin') {
+        this.$router.push('/admin')
+      }
+
+      if (this.user) {
+        this.$router.push('/')
       }
     },
   },

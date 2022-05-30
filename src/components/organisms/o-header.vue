@@ -205,10 +205,12 @@ export default {
       this.$router.go(this.$router.currentRoute)
     },
     handleCartRoute() {
-      this.user?.role !== 'user' ? this.$router.push('/signin') : this.$router.push('/cart')
+      this.$router.push('/cart')
     },
     handleFavoriteRoute() {
-      this.user?.role !== 'user' ? this.$router.push('/signin') : this.$router.push('/favorites')
+      this.user?.role !== 'user'
+        ? this.$router.push({ path: '/signin', query: { type: 'wishlist' } })
+        : this.$router.push('/favorites')
     },
   },
   computed: {

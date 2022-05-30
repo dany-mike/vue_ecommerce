@@ -18,10 +18,18 @@
                     <h2 class="mr-auto text-lg cursor-pointer hover:text-gray-900">
                       {{ product.name }}
                     </h2>
+                    <TrashIcon
+                      class="w-10 h-10 mr-1 cursor-pointer ml-auto pt-1"
+                      v-if="type"
+                      @click="deleteWishlistItem(product)"
+                    />
                   </div>
                 </div>
-                <div class="mt-1 text-xl font-semibold">{{ product.price }}€</div>
+                <div class="mt-1 flex items-center">
+                  <p class="text-xl font-semibold">{{ product.price }}€</p>
+                </div>
               </div>
+              <div class="flex"></div>
             </div>
           </div>
         </router-link>
@@ -31,13 +39,38 @@
 </template>
 
 <script>
+import { TrashIcon } from '@heroicons/vue/outline'
+import { DELETE_WISHLIST_PRODUCT } from '@/store/modules/wishlist/types'
+import { mapGetters } from 'vuex'
 export default {
+  components: {
+    TrashIcon,
+  },
   name: 'OListingProducts',
   props: {
     products: {
-      type: String,
+      type: Array,
       required: true,
     },
+    type: {
+      type: String,
+      default: '',
+    },
+  },
+  methods: {
+    async deleteWishlistItem(product) {
+      const userId = this.user?.id
+      const productId = product.id
+      const result = confirm(`Are you sure to delete this ${product.name} from your wishlist ?`)
+      if (result) {
+        await this.$store.dispatch(`${DELETE_WISHLIST_PRODUCT}`, { userId, productId })
+      }
+    },
+  },
+  computed: {
+    ...mapGetters({
+      user: 'getCurrentUser',
+    }),
   },
 }
 </script>

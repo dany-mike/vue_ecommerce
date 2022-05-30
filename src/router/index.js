@@ -15,6 +15,7 @@ import CartPage from '@/pages/CartPage.vue'
 import FavoritesPage from '@/pages/FavoritesPage.vue'
 import SignupPage from '@/pages/SignupPage.vue'
 import SigninPage from '@/pages/SigninPage.vue'
+import AddWishlistItem from '@/pages/AddWishlistItem.vue'
 import NotFound from '@/pages/NotFound.vue'
 // import store from '@/store'
 // import { GET_CURRENT_USER } from '@/store/modules/auth/types'
@@ -99,6 +100,11 @@ const routes = [
     path: '/signup',
     name: 'SignupPage',
     component: SignupPage,
+  },
+  {
+    path: '/wishlist/:userId/:productId',
+    name: 'AddWishlistItem',
+    component: AddWishlistItem,
   },
   {
     path: '/:pathMatch(.*)*',

@@ -53,9 +53,9 @@
         <p class="mt-6 text-center text-base font-medium text-gray-500">
           Don't have an account ?
           {{ ' ' }}
-          <router-link :to="'/signup'" class="text-indigo-600 hover:text-indigo-500">
+          <span @click="handleSignup" class="text-indigo-600 hover:text-indigo-500 cursor-pointer">
             Sign up
-          </router-link>
+          </span>
         </p>
         <!-- Implement OAuth2 on v2 -->
         <!-- <MOAuth2 /> -->
@@ -85,6 +85,20 @@ export default {
     }
   },
   methods: {
+    handleSignup() {
+      if (this.$router.currentRoute._value.query.type === 'add-wishlist') {
+        this.$router.push({
+          path: '/signup',
+          query: {
+            type: 'add-wishlist',
+            productId: this.$router.currentRoute._value.query.productId,
+          },
+        })
+      }
+      if (this.$router.currentRoute._value.query.type === 'wishlist') {
+        this.$router.push({ path: '/signup', query: { type: 'wishlist' } })
+      }
+    },
     async onSubmit() {
       const body = {
         email: this.email,
@@ -97,13 +111,21 @@ export default {
         this.errorResponse = this.payloadResponse.message
       }
 
-      if (this.user?.role === 'user') {
-        this.$router.push('/')
+      if (this.user && this.$router.currentRoute._value.query.type === 'add-wishlist') {
+        this.$router.push(
+          `/wishlist/${this.user.id}/${this.$router.currentRoute._value.query.productId}`,
+        )
       }
 
-      if (this.user.role === 'admin' || this.user.role === 'superAdmin') {
+      if (this.user && this.$router.currentRoute._value.query.type === 'wishlist') {
+        this.$router.push(`/favorites`)
+      }
+
+      if (this.user?.role === 'admin' || this.user?.role === 'superAdmin') {
         this.$router.push('/admin')
       }
+
+      this.$router.push('/')
     },
   },
   computed: {
