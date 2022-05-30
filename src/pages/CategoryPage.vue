@@ -1,6 +1,6 @@
 <template>
   <div class="category-page lg:px-16 mt-12">
-    <p class="text-4xl mb-8">{{ categoryItem.name }}</p>
+    <p class="text-4xl mb-8 pl-4 lg:pl-0">{{ categoryItem.name }}</p>
     <OListingProducts :products="products" />
   </div>
 </template>
