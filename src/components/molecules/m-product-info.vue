@@ -14,7 +14,7 @@
           {{ product.description }}
         </p>
       </div>
-      <AProductCta />
+      <AProductCta :product="product" />
     </div>
   </div>
 </template>

@@ -3,9 +3,9 @@ import * as types from './types'
 import { authHeader } from '@/helpers/authHeader'
 
 export default {
-  [types.ADD_PRODUCT_TO_WISHLIST]({ commit }, body) {
+  [types.ADD_PRODUCT_TO_WISHLIST]({ commit }, { body, userId }) {
     return axios
-      .post(`${process.env.VUE_APP_API_BASE_URL}/wishlist`, body, {
+      .post(`${process.env.VUE_APP_API_BASE_URL}/wishlist/${userId}`, body, {
         headers: authHeader(),
       })
       .then((response) => {

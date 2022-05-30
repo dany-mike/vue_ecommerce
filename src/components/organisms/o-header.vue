@@ -205,9 +205,10 @@ export default {
       this.$router.go(this.$router.currentRoute)
     },
     handleCartRoute() {
-      this.user?.role !== 'user' ? this.$router.push('/signin') : this.$router.push('/cart')
+      this.$router.push('/cart')
     },
     handleFavoriteRoute() {
+      // Add a query params to check scheme difference
       this.user?.role !== 'user' ? this.$router.push('/signin') : this.$router.push('/favorites')
     },
   },
