@@ -16,6 +16,8 @@ import FavoritesPage from '@/pages/FavoritesPage.vue'
 import SignupPage from '@/pages/SignupPage.vue'
 import SigninPage from '@/pages/SigninPage.vue'
 import AddWishlistItem from '@/pages/AddWishlistItem.vue'
+import AddImage from '@/pages/admin/uploadImage/AddImage'
+import ImageList from '@/pages/admin/uploadImage/ImageList'
 import NotFound from '@/pages/NotFound.vue'
 // import store from '@/store'
 // import { GET_CURRENT_USER } from '@/store/modules/auth/types'
@@ -105,6 +107,16 @@ const routes = [
     path: '/wishlist/:userId/:productId',
     name: 'AddWishlistItem',
     component: AddWishlistItem,
+  },
+  {
+    path: '/admin/upload-image',
+    name: 'AddImage',
+    component: AddImage,
+  },
+  {
+    path: '/admin/image-list',
+    name: 'ImageList',
+    component: ImageList,
   },
   {
     path: '/:pathMatch(.*)*',
