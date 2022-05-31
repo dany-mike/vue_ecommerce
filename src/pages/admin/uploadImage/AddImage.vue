@@ -78,6 +78,11 @@
         {{ validationMessage }}
       </p>
     </div>
+    <div class="flex justify-center w-full">
+      <p class="text-base font-semibold px-24" v-if="response">
+        {{ response }}
+      </p>
+    </div>
     <div class="lg:px-96 px-16 mt-10">
       <AButton :classValue="'bg-indigo-500 w-full'" @click="onSubmit">
         {{ 'Submit' }}
@@ -96,6 +101,7 @@
 <script>
 import AButton from '@/components/atoms/a-button.vue'
 import { UPLOAD_IMAGE } from '@/store/modules/cloudinary/types'
+import { mapGetters } from 'vuex'
 export default {
   name: 'AddImage',
   components: {
@@ -121,11 +127,20 @@ export default {
           file: `${process.env.VUE_APP_IMAGE_TO_UPLOAD_PATH}/${this.files[0]?.name}`,
           publicId: this.files[0]?.name,
         }
-        await this.$store.dispatch(`${UPLOAD_IMAGE}`, body)
+        try {
+          await this.$store.dispatch(`${UPLOAD_IMAGE}`, body)
+        } catch (err) {
+          console.log(err)
+        }
       } else {
         this.validationMessage = 'Please upload a file'
       }
     },
+  },
+  computed: {
+    ...mapGetters({
+      response: 'getImagePayload',
+    }),
   },
 }
 </script>

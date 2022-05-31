@@ -8,10 +8,10 @@ export default {
       .post(`${process.env.VUE_APP_API_BASE_URL}/cloudinary`, body, {
         headers: authHeader(),
       })
-      .then((response) => {
-        commit(types.SET_IMAGE_PAYLOAD, response.data)
+      .then(() => {
+        commit(types.SET_IMAGE_PAYLOAD, 'Image uploaded successfully')
       })
-      .catch((err) => console.log(err))
+      .catch((err) => commit(types.SET_IMAGE_PAYLOAD, err.response.data))
   },
   [types.FETCH_IMAGES]({ commit }) {
     return axios
