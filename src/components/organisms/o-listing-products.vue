@@ -7,7 +7,7 @@
             <div class="">
               <div class="relative w-full mb-3 h-96 lg:mb-0">
                 <img
-                  src="https://res.cloudinary.com/http-danymike-com/image/upload/v1653982330/ecommerce/revolt-164_6wVEHfI-unsplash_yrrzu8.jpg"
+                  :src="imageUrl(product)"
                   alt="Just a flower"
                   class="object-cover w-full h-96 rounded"
                 />
@@ -65,6 +65,12 @@ export default {
       if (result) {
         await this.$store.dispatch(`${DELETE_WISHLIST_PRODUCT}`, { userId, productId })
       }
+    },
+    imageUrl(product) {
+      const imageUrl = product.image
+        ? product.image
+        : 'https://res.cloudinary.com/http-danymike-com/image/upload/v1654028697/ecommerce/marcus-ganahl-W5qgKZj-qnk-unsplash_h2vxby.jpg'
+      return imageUrl
     },
   },
   computed: {

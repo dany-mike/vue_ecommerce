@@ -3,12 +3,12 @@
     <router-link :to="`/products/${item.id}`">
       <div class="p-3 bg-white rounded shadow-md">
         <div class="">
-          <div class="relative w-full mb-3 lg:h-96 h-64 lg:mb-0">
+          <div class="relative w-full mb-3 h-96 lg:mb-0">
             <div class="max-w-md lg:max-w-none">
               <img
-                src="https://res.cloudinary.com/http-danymike-com/image/upload/v1653982330/ecommerce/revolt-164_6wVEHfI-unsplash_yrrzu8.jpg"
+                :src="imageUrl(item)"
                 alt="Just a flower"
-                class="object-cover lg:h-96 h-64 rounded"
+                class="object-cover h-96 rounded w-96 lg:w-full"
               />
             </div>
           </div>
@@ -38,6 +38,14 @@ export default {
     item: {
       type: [Object, String, Number],
       required: true,
+    },
+  },
+  methods: {
+    imageUrl(product) {
+      const imageUrl = product.image
+        ? product.image
+        : 'https://res.cloudinary.com/http-danymike-com/image/upload/v1654028697/ecommerce/marcus-ganahl-W5qgKZj-qnk-unsplash_h2vxby.jpg'
+      return imageUrl
     },
   },
 }
