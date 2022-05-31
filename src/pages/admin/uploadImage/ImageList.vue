@@ -10,6 +10,13 @@
         </AButton>
       </router-link>
     </div>
+    <div class="lg:px-96 px-16">
+      <router-link :to="'/admin'" class="w-full lg:px-96 px-16">
+        <AButton :classValue="'bg-red-500 w-full'">
+          {{ 'Back' }}
+        </AButton>
+      </router-link>
+    </div>
   </div>
 </template>
 

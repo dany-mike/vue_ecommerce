@@ -66,6 +66,7 @@ import { required, numeric } from '@vuelidate/validators'
 import { firstLetterToUppercase } from '@/helpers/format.js'
 import { formatPrice } from '@/helpers/price.js'
 import useVuelidate from '@vuelidate/core'
+import { FETCH_IMAGES } from '@/store/modules/cloudinary/types'
 
 export default {
   name: 'MProductForm',
@@ -79,6 +80,7 @@ export default {
   },
   async mounted() {
     await this.$store.dispatch(`${FETCH_CATEGORIES}`)
+    await this.$store.dispatch(`${FETCH_IMAGES}`)
     if (!this.isCreateProduct) {
       await this.$store.dispatch(`${FETCH_PRODUCT}`, this.$route.params.id)
       this.name.value = this.productItem?.name
@@ -116,6 +118,7 @@ export default {
     ...mapGetters({
       productItem: 'getProductResponse',
       categories: 'getCategoryResponse',
+      images: 'getImages',
     }),
     formattedCategories() {
       let formattedCategories = []

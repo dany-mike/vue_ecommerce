@@ -16,7 +16,7 @@ export const mutations = {
 }
 
 const getters = {
-  getImagesResponse: (state) => state.imagesResponse,
+  getImages: (state) => state.imagesResponse,
   getImagePayload: (state) => state.imagePayload,
 }
 

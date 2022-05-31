@@ -121,6 +121,7 @@ export default {
       if (!files.length) return
     },
     async onSubmit() {
+      // TODO: add a loader below
       if (this.files.length > 0) {
         const body = {
           // Check the right path on the readme
