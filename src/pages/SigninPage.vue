@@ -121,11 +121,14 @@ export default {
         this.$router.push(`/favorites`)
       }
 
+      console.log(this.$router)
+
       if (this.user?.role === 'admin' || this.user?.role === 'superAdmin') {
         this.$router.push('/admin')
       }
-
-      this.$router.push('/')
+      if (this.user?.role === 'user') {
+        await this.$router.push('/')
+      }
     },
   },
   computed: {

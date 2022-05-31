@@ -2,7 +2,7 @@
   <!-- Todo: Make style of the button component dynamic -->
   <div class="pt-8">
     <div class="pl-4">
-      <p class="text-3xl">Hello {{ user.firstname }}</p>
+      <p v-if="user" class="text-3xl">Hello {{ user.firstname }}</p>
     </div>
     <div class="flex justify-center">
       <p class="text-4xl mb-6 pt-6">Admin Homepage</p>
