@@ -17,7 +17,7 @@ export default {
     return axios
       .get(`${process.env.VUE_APP_API_BASE_URL}/cloudinary`)
       .then((response) => {
-        commit(types.SET_IMAGE_RESPONSE, response.data)
+        commit(types.SET_IMAGE_RESPONSE, response.data.resources)
       })
       .catch((err) => console.log(err))
   },

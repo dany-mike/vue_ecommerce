@@ -27,8 +27,15 @@
         :name="'description'"
       />
     </div>
+    <div class="flex justify-center items-center mb-1">
+      <p class="text-lg font-medium">Images</p>
+    </div>
     <div class="flex w-full justify-center items-center">
-      <AinputAdmin :label="'Image'" v-model="image" />
+      <v-select
+        :options="formattedImages"
+        class="w-1/4 my-2 bg-gray-200"
+        v-model="selectedImage"
+      ></v-select>
     </div>
     <div class="flex justify-center items-center mb-1">
       <p class="text-lg font-medium">Category product</p>
@@ -102,6 +109,7 @@ export default {
       description: '',
       image: '',
       selectedCategory: '',
+      selectedImage: '',
     }
   },
   props: {
@@ -131,6 +139,21 @@ export default {
       })
 
       return formattedCategories
+    },
+    formattedImages() {
+      let formattedImages = []
+
+      console.log(this.images)
+
+      this.images.forEach((image) => {
+        image = {
+          ...image,
+          label: image.public_id,
+        }
+        formattedImages.push(image)
+      })
+
+      return formattedImages
     },
   },
   validations() {
@@ -162,7 +185,7 @@ export default {
         name: firstLetterToUppercase(this.name.value),
         price: formatPrice(this.price.value),
         description: this.description,
-        image: this.image,
+        image: this.selectedImage.secure_url,
         categoryId: this.selectedCategory.id,
       }
 
