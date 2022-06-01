@@ -143,8 +143,6 @@ export default {
     formattedImages() {
       let formattedImages = []
 
-      console.log(this.images)
-
       this.images.forEach((image) => {
         image = {
           ...image,

@@ -37,7 +37,11 @@
           </select>
 
           <div class="absolute top-0 right-0">
-            <button type="button" class="-m-2 p-2 inline-flex text-gray-400 hover:text-gray-500">
+            <button
+              type="button"
+              class="-m-2 p-2 inline-flex text-gray-400 hover:text-gray-500"
+              @click="deleteCartItem(item)"
+            >
               <span class="sr-only">Remove</span>
               <svg
                 class="h-5 w-5"
@@ -107,6 +111,19 @@ export default {
       })
       localStorage.setItem('products', JSON.stringify(products))
       await this.getOrderTotal()
+    },
+    async deleteCartItem(item) {
+      const result = confirm(`Are you sure to remove ${item.name} from your cart`)
+
+      if (result) {
+        const products = this.cart
+        const filteredProducts = products.filter((p) => {
+          return p.id !== item.id
+        })
+        localStorage.setItem('products', JSON.stringify(filteredProducts))
+        await this.getOrderTotal()
+        this.$router.go(this.$router.currentRoute)
+      }
     },
   },
   computed: {
