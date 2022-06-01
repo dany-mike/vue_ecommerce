@@ -4,6 +4,7 @@ import products from '@/store/modules/products/store'
 import auth from '@/store/modules/auth/store'
 import wishlist from '@/store/modules/wishlist/store'
 import cloudinary from '@/store/modules/cloudinary/store'
+import cart from '@/store/modules/cart/store'
 
 const store = createStore({
   modules: {
@@ -12,6 +13,7 @@ const store = createStore({
     auth,
     wishlist,
     cloudinary,
+    cart,
   },
 })
 
