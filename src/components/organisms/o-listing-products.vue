@@ -5,11 +5,11 @@
         <router-link :to="`/products/${product.id}`">
           <div class="p-3 bg-white rounded shadow-md">
             <div class="">
-              <div class="relative w-full mb-3 h-62 lg:mb-0">
+              <div class="relative w-full mb-3 h-96 lg:mb-0">
                 <img
-                  src="https://cdn.pixabay.com/photo/2017/01/11/11/33/cake-1971552__480.jpg"
+                  :src="imageUrl(product)"
                   alt="Just a flower"
-                  class="object-fill w-full h-full rounded"
+                  class="object-cover w-full h-96 rounded"
                 />
               </div>
               <div class="flex-auto p-2 justify-evenly">
@@ -65,6 +65,12 @@ export default {
       if (result) {
         await this.$store.dispatch(`${DELETE_WISHLIST_PRODUCT}`, { userId, productId })
       }
+    },
+    imageUrl(product) {
+      const imageUrl = product.image
+        ? product.image
+        : 'https://res.cloudinary.com/http-danymike-com/image/upload/v1654028697/ecommerce/marcus-ganahl-W5qgKZj-qnk-unsplash_h2vxby.jpg'
+      return imageUrl
     },
   },
   computed: {
