@@ -98,14 +98,15 @@ export default {
         : 'https://res.cloudinary.com/http-danymike-com/image/upload/v1654028697/ecommerce/marcus-ganahl-W5qgKZj-qnk-unsplash_h2vxby.jpg'
       return imageUrl
     },
-    updateQuantity(item, event) {
-      const cart = this.cart
-      cart.forEach((c) => {
+    async updateQuantity(item, event) {
+      const products = this.cart
+      products.forEach((c) => {
         if (item.id === c.id) {
           item.qty = Number(event.target.value)
         }
       })
-      localStorage.setItem('products', cart)
+      localStorage.setItem('products', JSON.stringify(products))
+      await this.getOrderTotal()
     },
   },
   computed: {
