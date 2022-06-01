@@ -1,5 +1,4 @@
 <template>
-  <!-- Todo: Make style of the button component dynamic -->
   <div class="pt-8">
     <div class="pl-4">
       <p v-if="user" class="text-3xl">Hello {{ user.firstname }}</p>

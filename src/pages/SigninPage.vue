@@ -120,9 +120,6 @@ export default {
       if (this.user && this.$router.currentRoute._value.query.type === 'wishlist') {
         this.$router.push(`/favorites`)
       }
-
-      console.log(this.$router)
-
       if (this.user?.role === 'admin' || this.user?.role === 'superAdmin') {
         this.$router.push('/admin')
       }

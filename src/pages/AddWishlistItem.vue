@@ -7,7 +7,6 @@ import { ADD_PRODUCT_TO_WISHLIST } from '@/store/modules/wishlist/types'
 export default {
   name: 'AddWishlistItem',
   async mounted() {
-    console.log(this.$router.currentRoute)
     const body = {
       productId: this.$router.currentRoute._value.params.productId,
     }
