@@ -169,7 +169,7 @@ export default {
         this.$router.push('/admin')
       }
 
-      if (this.user) {
+      if (this.user?.role === 'user' && !this.$router.currentRoute._value) {
         this.$router.push('/')
       }
     },

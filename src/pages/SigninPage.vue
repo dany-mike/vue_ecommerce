@@ -123,8 +123,9 @@ export default {
       if (this.user?.role === 'admin' || this.user?.role === 'superAdmin') {
         this.$router.push('/admin')
       }
-      if (this.user?.role === 'user') {
-        await this.$router.push('/')
+
+      if (this.user?.role === 'user' && !this.$router.currentRoute._value) {
+        this.$router.push('/')
       }
     },
   },
