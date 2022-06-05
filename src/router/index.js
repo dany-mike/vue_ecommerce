@@ -16,11 +16,10 @@ import FavoritesPage from '@/pages/FavoritesPage.vue'
 import SignupPage from '@/pages/SignupPage.vue'
 import SigninPage from '@/pages/SigninPage.vue'
 import AddWishlistItem from '@/pages/AddWishlistItem.vue'
-import AddImage from '@/pages/admin/uploadImage/AddImage'
-import ImageList from '@/pages/admin/uploadImage/ImageList'
+import AddImage from '@/pages/admin/uploadImage/AddImage.vue'
+import ImageList from '@/pages/admin/uploadImage/ImageList.vue'
 import NotFound from '@/pages/NotFound.vue'
-// import store from '@/store'
-// import { GET_CURRENT_USER } from '@/store/modules/auth/types'
+import CheckoutPage from '@/pages/CheckoutPage.vue'
 
 const routes = [
   {
@@ -121,6 +120,11 @@ const routes = [
   {
     path: '/:pathMatch(.*)*',
     component: NotFound,
+  },
+  {
+    path: '/checkout',
+    name: 'CheckoutPage',
+    component: CheckoutPage,
   },
 ]
 

@@ -32,7 +32,7 @@ export default {
     Pagination,
     Navigation,
   },
-  name: 'OCarousel',
+  name: 'OProductCarousel',
   props: {
     products: {
       type: [Array, Object],
