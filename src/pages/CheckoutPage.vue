@@ -5,11 +5,11 @@
 
       <div>
         <div>Shipping address carousel</div>
-        <router-link :to="'/add-address'" class="w-full">
+        <router-link :to="'/add-address?type=shipping&from=checkout'" class="w-full">
           <AButton :classValue="'bg-indigo-500 w-full'">Add shipping address</AButton>
         </router-link>
         <div>Billing address carousel</div>
-        <router-link :to="'/add-address'" class="w-full">
+        <router-link :to="'/add-address?type=billing&from=checkout'" class="w-full">
           <AButton :classValue="'bg-indigo-500 w-full'">Add billing address</AButton>
         </router-link>
         <div>

@@ -20,6 +20,7 @@ import AddImage from '@/pages/admin/uploadImage/AddImage.vue'
 import ImageList from '@/pages/admin/uploadImage/ImageList.vue'
 import NotFound from '@/pages/NotFound.vue'
 import CheckoutPage from '@/pages/CheckoutPage.vue'
+import AddAddress from '@/pages/AddAddress.vue'
 
 const routes = [
   {
@@ -125,6 +126,11 @@ const routes = [
     path: '/checkout',
     name: 'CheckoutPage',
     component: CheckoutPage,
+  },
+  {
+    path: '/add-address',
+    name: 'AddAddress',
+    component: AddAddress,
   },
 ]
 
