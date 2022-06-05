@@ -35,6 +35,7 @@
     </div>
     <div class="mt-8">
       <AButton
+        @click="onSubmit"
         :classValue="'w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bgw-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'"
       >
         Add {{ addressPageTitle() }}
@@ -82,6 +83,9 @@ export default {
     }
   },
   methods: {
+    onSubmit() {
+      console.log('on submit')
+    },
     addressPageTitle() {
       return this.$router.currentRoute._value.query.type === 'shipping'
         ? 'shipping address'
