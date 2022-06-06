@@ -1,6 +1,6 @@
 <template>
   <div class="o-carousel">
-    <p class="text-2xl">{{ title }}</p>
+    <p class="text-2xl font-medium">{{ title }}</p>
     <div class="o-carousel-desktop">
       <carousel :items-to-show="3" class="o-carousel">
         <slide v-for="address in addresses" :key="address.id">

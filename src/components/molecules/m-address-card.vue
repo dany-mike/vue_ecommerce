@@ -1,28 +1,30 @@
 <template>
-  <div class="m-address-card px-24 min-w-max">
-    <div class="p-10">
-      <!--Card 1-->
+  <div class="m-address-card py-8 px-48 min-w-max">
+    <div class="card-container">
       <div class="max-w-sm rounded overflow-hidden shadow-lg">
         <div class="px-6 py-4">
-          <div class="font-bold text-xl mb-2">City: {{ item.city }}</div>
+          <div class="font-normal text-xl mb-2">City: {{ item.city }}</div>
           <p class="text-gray-700 text-base">
             Street: {{ item.streetNumber }} {{ item.streetName }}
           </p>
           <p class="text-gray-700 text-base">Postal code: {{ item.postalCode }}</p>
         </div>
         <div class="px-6 pt-4 pb-2">
-          <span
-            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-            >#photography</span
+          <AButton
+            :classValue="'w-full flex justify-center mb-2 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'"
           >
-          <span
-            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-            >#travel</span
+            Choose this address
+          </AButton>
+          <AButton
+            :classValue="'w-full flex justify-center mb-2 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'"
           >
-          <span
-            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-            >#winter</span
+            Update
+          </AButton>
+          <AButton
+            :classValue="'w-full flex justify-center mb-2 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'"
           >
+            Delete
+          </AButton>
         </div>
       </div>
     </div>
@@ -30,8 +32,12 @@
 </template>
 
 <script>
+import AButton from '@/components/atoms/a-button.vue'
 export default {
   name: 'MAddressCard',
+  components: {
+    AButton,
+  },
   props: {
     item: {
       type: [Object, String, Number],

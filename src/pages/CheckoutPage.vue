@@ -3,16 +3,26 @@
     <div class="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
       <h2 class="sr-only">Checkout</h2>
       <div>
-        <OAddressCarousel :title="'Shipping addresses'" :addresses="shippingAddresses" />
+        <div class="my-4">
+          <OAddressCarousel :title="'Shipping addresses'" :addresses="shippingAddresses" />
+        </div>
         <router-link :to="'/add-address?type=shipping&from=checkout'" class="w-full">
-          <AButton :classValue="'bg-indigo-500 w-full'">Add shipping address</AButton>
+          <AButton :classValue="'bg-indigo-600 hover:bg-indigo-700 w-full'"
+            >Add shipping address</AButton
+          >
         </router-link>
-        <OAddressCarousel :title="'Billing addresses'" :addresses="billingAddresses" />
+        <div class="my-4">
+          <OAddressCarousel :title="'Billing addresses'" :addresses="billingAddresses" />
+        </div>
         <router-link :to="'/add-address?type=billing&from=checkout'" class="w-full">
-          <AButton :classValue="'bg-indigo-500 w-full'">Add billing address</AButton>
+          <AButton :classValue="'bg-indigo-600 hover:bg-indigo-700 w-full'"
+            >Add billing address</AButton
+          >
         </router-link>
-        <div>
-          <p>Choose same billing address as shipping address CTA</p>
+        <div class="same-as-shipping mt-4 mb-8">
+          <AButton :classValue="'bg-indigo-600 hover:bg-indigo-700 w-full'"
+            >Same billing address as shipping</AButton
+          >
         </div>
 
         <!-- Payment -->
@@ -101,8 +111,7 @@
 
       <!-- Order summary -->
       <div class="mt-10 lg:mt-0">
-        <h2 class="text-lg font-medium text-gray-900">Order summary</h2>
-
+        <h2 class="text-2xl font-medium text-gray-900">Order summary</h2>
         <div class="mt-4 bg-white border border-gray-200 rounded-lg shadow-sm">
           <h3 class="sr-only">Items in your cart</h3>
           <ul role="list" class="divide-y divide-gray-200">
