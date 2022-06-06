@@ -46,13 +46,13 @@
         @click="onSubmit"
         :classValue="'w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bgw-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'"
       >
-        Submit wording
+        {{ buttonText }}
       </AButton>
     </div>
     <div class="mt-4">
       <AButton
         @click="handleBack"
-        :classValue="'w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bgw-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'"
+        :classValue="'w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bgw-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'"
       >
         Back
       </AButton>
@@ -83,6 +83,8 @@ export default {
     return { v$: useVuelidate() }
   },
   async mounted() {
+    this.type = this.$route.query.type
+    this.from = this.$route.query.from
     if (this.type === 'shipping' && this.isUpdateAddress) {
       await this.$store.dispatch(`${FETCH_SHIPPING_ADDRESS}`, {
         userId: this.user.id,
@@ -100,6 +102,8 @@ export default {
   },
   data() {
     return {
+      type: '',
+      from: '',
       streetName: {
         value: '',
         errorMessage: '',
@@ -118,14 +122,6 @@ export default {
     }
   },
   props: {
-    from: {
-      type: String,
-      default: '',
-    },
-    type: {
-      type: String,
-      default: '',
-    },
     isUpdateAddress: {
       type: Boolean,
       default: false,
@@ -140,8 +136,8 @@ export default {
     },
     handleBack() {
       this.$router.currentRoute._value.query.from === 'checkout'
-        ? this.$router.push('checkout')
-        : this.$router.push('my-account')
+        ? this.$router.push('/checkout')
+        : this.$router.push('/my-account')
     },
     async onSubmit() {
       this.streetName.errorMessage = ''
@@ -180,6 +176,17 @@ export default {
       user: 'getCurrentUser',
       addressItem: 'getAddressItem',
     }),
+    buttonText() {
+      if (this.isUpdateAddress) {
+        return this.type === 'shipping' ? 'Update shipping address' : 'Update billing address'
+      }
+
+      if (!this.isUpdateAddress) {
+        return this.type === 'shipping' ? 'Add shipping address' : 'Add billing address'
+      }
+
+      return 'Submit'
+    },
   },
   validations() {
     return {

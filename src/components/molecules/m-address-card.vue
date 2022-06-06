@@ -59,13 +59,12 @@ export default {
     handleSelect(address) {
       console.log(address)
     },
-    handleUpdate() {
+    handleUpdate(item) {
       if (this.type === 'shipping') {
         this.from === 'checkout'
-          ? this.$router.push(`/update-address/${this.item.id}?type=shipping&from=checkout`)
-          : this.$router.push(`/update-address/${this.item.id}?type=shipping&from=my-account`)
+          ? this.$router.push(`/update-address/${item.id}?type=shipping&from=checkout`)
+          : this.$router.push(`/update-address/${item.id}?type=shipping&from=my-account`)
       }
-
       if (this.type !== 'shipping') {
         this.from === 'checkout'
           ? this.$router.push(`/update-address/${this.item.id}?type=billing&from=checkout`)
