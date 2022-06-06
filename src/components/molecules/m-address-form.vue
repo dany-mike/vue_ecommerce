@@ -65,7 +65,7 @@ import AInput from '@/components/atoms/a-input.vue'
 import AButton from '@/components/atoms/a-button.vue'
 import useVuelidate from '@vuelidate/core'
 import { required, numeric } from '@vuelidate/validators'
-import { CREATE_SHIPPING_ADDRESS } from '@/store/modules/address/types'
+import { CREATE_BILLING_ADDRESS, CREATE_SHIPPING_ADDRESS } from '@/store/modules/address/types'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -139,7 +139,7 @@ export default {
       }
 
       if (this.type !== 'shipping') {
-        console.log('billing')
+        await this.$store.dispatch(`${CREATE_BILLING_ADDRESS}`, body)
       }
 
       this.from === 'checkout' ? this.$router.push('/checkout') : this.$router.push('/my-account')

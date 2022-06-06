@@ -1,5 +1,7 @@
 // mutations types
 export const SET_ADDRESS_RESPONSE = 'SET_ADDRESS_RESPONSE'
+export const SET_USER_SHIPPING_ADDRESSES = 'SET_USER_SHIPPING_ADDRESSES'
+export const SET_USER_BILLING_ADDRESSES = 'SET_USER_BILLING_ADDRESSES'
 
 // actions types
 export const FETCH_USER_BILLING_ADDRESSES = 'fetchUserBillingAddresses'

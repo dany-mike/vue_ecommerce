@@ -2,13 +2,12 @@
   <div class="bg-gray-50">
     <div class="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
       <h2 class="sr-only">Checkout</h2>
-
       <div>
-        <div>Shipping address carousel</div>
+        <OAddressCarousel :title="'Shipping addresses'" :addresses="shippingAddresses" />
         <router-link :to="'/add-address?type=shipping&from=checkout'" class="w-full">
           <AButton :classValue="'bg-indigo-500 w-full'">Add shipping address</AButton>
         </router-link>
-        <div>Billing address carousel</div>
+        <OAddressCarousel :title="'Billing addresses'" :addresses="billingAddresses" />
         <router-link :to="'/add-address?type=billing&from=checkout'" class="w-full">
           <AButton :classValue="'bg-indigo-500 w-full'">Add billing address</AButton>
         </router-link>
@@ -213,10 +212,28 @@
 
 <script>
 import AButton from '@/components/atoms/a-button.vue'
+import OAddressCarousel from '@/components/organisms/o-address-carousel.vue'
+import {
+  FETCH_USER_BILLING_ADDRESSES,
+  FETCH_USER_SHIPPING_ADDRESSES,
+} from '@/store/modules/address/types'
+import { mapGetters } from 'vuex'
 export default {
   name: 'CheckoutPage',
   components: {
+    OAddressCarousel,
     AButton,
+  },
+  async mounted() {
+    await this.$store.dispatch(`${FETCH_USER_BILLING_ADDRESSES}`, this.user.id)
+    await this.$store.dispatch(`${FETCH_USER_SHIPPING_ADDRESSES}`, this.user.id)
+  },
+  computed: {
+    ...mapGetters({
+      user: 'getCurrentUser',
+      billingAddresses: 'getBillingAddresses',
+      shippingAddresses: 'getShippingAddresses',
+    }),
   },
 }
 </script>
