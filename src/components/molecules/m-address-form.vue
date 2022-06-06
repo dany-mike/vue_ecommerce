@@ -46,7 +46,7 @@
         @click="onSubmit"
         :classValue="'w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bgw-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'"
       >
-        Add
+        Add {{ type }} address
       </AButton>
     </div>
     <div class="mt-4">
@@ -65,6 +65,8 @@ import AInput from '@/components/atoms/a-input.vue'
 import AButton from '@/components/atoms/a-button.vue'
 import useVuelidate from '@vuelidate/core'
 import { required, numeric } from '@vuelidate/validators'
+import { CREATE_SHIPPING_ADDRESS } from '@/store/modules/address/types'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'MAddressForm',
@@ -75,6 +77,7 @@ export default {
   setup() {
     return { v$: useVuelidate() }
   },
+  async mounted() {},
   data() {
     return {
       streetName: {
@@ -110,7 +113,7 @@ export default {
         ? this.$router.push('checkout')
         : this.$router.push('my-account')
     },
-    onSubmit() {
+    async onSubmit() {
       this.streetName.errorMessage = ''
       ;(this.city.errorMessage = ''), (this.postalCode.errorMessage = '')
       if (this.v$.$invalid) {
@@ -119,7 +122,33 @@ export default {
         this.postalCode.errorMessage = this.v$.postalCode.$silentErrors[0]?.$message
         return
       }
+
+      const body = {
+        streetName: this.streetName.value,
+        streetNumber: this.streetNumber.value,
+        city: this.city.value,
+        postalCode: this.postalCode.value,
+        // TODO: handle property below when i18n
+        countryCode: 'FR',
+        userId: this.user.id,
+      }
+
+      if (this.type === 'shipping') {
+        await this.$store.dispatch(`${CREATE_SHIPPING_ADDRESS}`, body)
+        console.log('shipping')
+      }
+
+      if (this.type !== 'shipping') {
+        console.log('billing')
+      }
+
+      this.from === 'checkout' ? this.$router.push('/checkout') : this.$router.push('/my-account')
     },
+  },
+  computed: {
+    ...mapGetters({
+      user: 'getCurrentUser',
+    }),
   },
   validations() {
     return {
