@@ -1,8 +1,8 @@
 <template>
   <div class="add-address px-4">
-    <p class="text-2xl lg:text-4xl py-6">Add {{ addressPageTitle() }}</p>
+    <p class="text-2xl lg:text-4xl py-6">{{ addressPageTitle() }}</p>
     <!-- TODO: m-address-form component below -->
-    <MAddressForm :type="type" :from="from" />
+    <MAddressForm :type="type" :from="from" :addressId="addressId" />
   </div>
 </template>
 
@@ -17,21 +17,32 @@ export default {
     return {
       type: '',
       from: '',
+      addressId: '',
     }
   },
-  mounted() {
+  async mounted() {
     this.$router.currentRoute._value.query.type === 'shipping'
       ? (this.type = 'shipping')
       : (this.type = 'billing')
     this.$router.currentRoute._value.query.from === 'checkout'
       ? (this.from = 'checkout')
       : (this.from = 'my-account')
+    this.$router.currentRoute._value.query.addressId
+      ? (this.addressId = this.$router.currentRoute._value.query.addressId)
+      : (this.addressId = null)
   },
   methods: {
     addressPageTitle() {
-      return this.$router.currentRoute._value.query.type === 'shipping'
-        ? 'shipping address'
-        : 'billing address'
+      if (this.$router.currentRoute._value.query.type === 'shipping') {
+        return this.$router.currentRoute._value.query.addressId
+          ? 'Update shipping address'
+          : 'Add shipping address'
+      }
+      if (this.$router.currentRoute._value.query.type !== 'shipping') {
+        return this.$router.currentRoute._value.query.addressId
+          ? 'Update shipping address'
+          : 'Add shipping address'
+      }
     },
   },
 }

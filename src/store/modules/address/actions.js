@@ -45,11 +45,11 @@ export default {
   },
   [types.FETCH_BILLING_ADDRESS]({ commit }, { userId, addressId }) {
     return axios
-      .post(`${process.env.VUE_APP_API_BASE_URL}/address/billing/${userId}/${addressId}`, {
+      .get(`${process.env.VUE_APP_API_BASE_URL}/address/billing/${userId}/${addressId}`, {
         headers: authHeader(),
       })
       .then((response) => {
-        commit(types.SET_ADDRESS_RESPONSE, response.data)
+        commit(types.SET_ADDRESS_ITEM, response.data)
       })
       .catch((err) => console.log(err))
   },
@@ -59,7 +59,7 @@ export default {
         headers: authHeader(),
       })
       .then((response) => {
-        commit(types.SET_ADDRESS_RESPONSE, response.data)
+        commit(types.SET_ADDRESS_ITEM, response.data)
       })
       .catch((err) => console.log(err))
   },

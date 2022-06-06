@@ -46,7 +46,7 @@
         @click="onSubmit"
         :classValue="'w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bgw-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'"
       >
-        Add {{ type }} address
+        {{ action }} {{ type }} address
       </AButton>
     </div>
     <div class="mt-4">
@@ -65,7 +65,12 @@ import AInput from '@/components/atoms/a-input.vue'
 import AButton from '@/components/atoms/a-button.vue'
 import useVuelidate from '@vuelidate/core'
 import { required, numeric } from '@vuelidate/validators'
-import { CREATE_BILLING_ADDRESS, CREATE_SHIPPING_ADDRESS } from '@/store/modules/address/types'
+import {
+  CREATE_BILLING_ADDRESS,
+  CREATE_SHIPPING_ADDRESS,
+  FETCH_BILLING_ADDRESS,
+  FETCH_SHIPPING_ADDRESS,
+} from '@/store/modules/address/types'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -77,7 +82,24 @@ export default {
   setup() {
     return { v$: useVuelidate() }
   },
-  async mounted() {},
+  async mounted() {
+    console.log(this.addressIdd)
+    if (this.type === 'shipping' && this.addressIdd) {
+      await this.$store.dispatch(`${FETCH_SHIPPING_ADDRESS}`, {
+        userId: this.user.id,
+        addressId: this.addressIdd,
+      })
+      await this.setFormItems()
+    }
+
+    if (this.type !== 'shipping' && this.addressId) {
+      await this.$store.dispatch(`${FETCH_BILLING_ADDRESS}`, {
+        userId: this.user.id,
+        addressId: this.addressId,
+      })
+      await this.setFormItems()
+    }
+  },
   data() {
     return {
       streetName: {
@@ -106,8 +128,18 @@ export default {
       type: String,
       default: '',
     },
+    addressId: {
+      type: String,
+      default: '',
+    },
   },
   methods: {
+    async setFormItems() {
+      this.streetName.value = this.addressItem?.streetName
+      this.streetNumber.value = this.addressItem?.streetNumber
+      this.city.value = this.addressItem?.city
+      this.postalCode.value = this.addressItem?.postalCode
+    },
     handleBack() {
       this.$router.currentRoute._value.query.from === 'checkout'
         ? this.$router.push('checkout')
@@ -148,7 +180,14 @@ export default {
   computed: {
     ...mapGetters({
       user: 'getCurrentUser',
+      addressItem: 'getAddressItem',
     }),
+    action() {
+      return this.addressId ? 'Update' : 'Add'
+    },
+    addressIdd() {
+      return this.addressId
+    },
   },
   validations() {
     return {
