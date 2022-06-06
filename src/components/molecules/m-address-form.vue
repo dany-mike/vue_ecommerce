@@ -70,6 +70,8 @@ import {
   CREATE_SHIPPING_ADDRESS,
   FETCH_BILLING_ADDRESS,
   FETCH_SHIPPING_ADDRESS,
+  UPDATE_BILLING_ADDRESS,
+  UPDATE_SHIPPING_ADDRESS,
 } from '@/store/modules/address/types'
 import { mapGetters } from 'vuex'
 
@@ -160,12 +162,22 @@ export default {
       }
 
       if (this.type === 'shipping') {
-        await this.$store.dispatch(`${CREATE_SHIPPING_ADDRESS}`, body)
+        this.isUpdateAddress
+          ? await this.$store.dispatch(`${UPDATE_SHIPPING_ADDRESS}`, {
+              body,
+              id: this.$route.params.id,
+            })
+          : await this.$store.dispatch(`${CREATE_SHIPPING_ADDRESS}`, body)
         console.log('shipping')
       }
 
       if (this.type !== 'shipping') {
-        await this.$store.dispatch(`${CREATE_BILLING_ADDRESS}`, body)
+        this.isUpdateAddress
+          ? await this.$store.dispatch(`${UPDATE_BILLING_ADDRESS}`, {
+              body,
+              id: this.$route.params.id,
+            })
+          : await this.$store.dispatch(`${CREATE_BILLING_ADDRESS}`, body)
       }
 
       this.from === 'checkout' ? this.$router.push('/checkout') : this.$router.push('/my-account')
