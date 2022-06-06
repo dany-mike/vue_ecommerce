@@ -21,6 +21,7 @@ import ImageList from '@/pages/admin/uploadImage/ImageList.vue'
 import NotFound from '@/pages/NotFound.vue'
 import CheckoutPage from '@/pages/CheckoutPage.vue'
 import AddAddress from '@/pages/AddAddress.vue'
+import UpdateAddress from '@/pages/UpdateAddress.vue'
 
 const routes = [
   {
@@ -131,6 +132,11 @@ const routes = [
     path: '/add-address',
     name: 'AddAddress',
     component: AddAddress,
+  },
+  {
+    path: '/update-address/:id',
+    name: 'UpdateAddress',
+    component: UpdateAddress,
   },
 ]
 

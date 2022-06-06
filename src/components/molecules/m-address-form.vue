@@ -46,7 +46,7 @@
         @click="onSubmit"
         :classValue="'w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bgw-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'"
       >
-        {{ action }} {{ type }} address
+        Submit wording
       </AButton>
     </div>
     <div class="mt-4">
@@ -83,18 +83,17 @@ export default {
     return { v$: useVuelidate() }
   },
   async mounted() {
-    if (this.type === 'shipping' && this.addressId) {
+    if (this.type === 'shipping' && this.isUpdateAddress) {
       await this.$store.dispatch(`${FETCH_SHIPPING_ADDRESS}`, {
         userId: this.user.id,
-        addressId: this.addressId,
+        addressId: this.$route.params.id,
       })
       await this.setFormItems()
     }
-
-    if (this.type !== 'shipping' && this.addressId) {
+    if (this.type !== 'shipping' && this.isUpdateAddress) {
       await this.$store.dispatch(`${FETCH_BILLING_ADDRESS}`, {
         userId: this.user.id,
-        addressId: this.addressId,
+        addressId: this.$route.params.id,
       })
       await this.setFormItems()
     }
@@ -127,9 +126,9 @@ export default {
       type: String,
       default: '',
     },
-    addressId: {
-      type: String,
-      default: '',
+    isUpdateAddress: {
+      type: Boolean,
+      default: false,
     },
   },
   methods: {
@@ -181,9 +180,6 @@ export default {
       user: 'getCurrentUser',
       addressItem: 'getAddressItem',
     }),
-    action() {
-      return this.addressId ? 'Update' : 'Add'
-    },
   },
   validations() {
     return {

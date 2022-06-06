@@ -1,7 +1,7 @@
 <template>
   <div class="add-address px-4">
     <p class="text-2xl lg:text-4xl py-6">{{ addressPageTitle() }}</p>
-    <MAddressForm :type="type" :from="from" />
+    <MAddressForm :type="type" :from="from" :is-update-address="true" />
   </div>
 </template>
 
@@ -29,10 +29,10 @@ export default {
   methods: {
     addressPageTitle() {
       if (this.$router.currentRoute._value.query.type === 'shipping') {
-        return 'Add shipping address'
+        return 'Update shipping address'
       }
       if (this.$router.currentRoute._value.query.type !== 'shipping') {
-        return 'Add billing address'
+        return 'Update billing address'
       }
     },
   },

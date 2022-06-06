@@ -62,16 +62,14 @@ export default {
     handleUpdate() {
       if (this.type === 'shipping') {
         this.from === 'checkout'
-          ? this.$router.push(`/add-address?type=shipping&from=checkout&addressId=${this.item.id}`)
-          : this.$router.push(
-              `/add-address?type=shipping&from=my-account&addressId=${this.item.id}`,
-            )
+          ? this.$router.push(`/update-address/${this.item.id}?type=shipping&from=checkout`)
+          : this.$router.push(`/update-address/${this.item.id}?type=shipping&from=my-account`)
       }
 
       if (this.type !== 'shipping') {
         this.from === 'checkout'
-          ? this.$router.push(`/add-address?billing&from=checkout&addressId=${this.item.id}`)
-          : this.$router.push(`/add-address?billing&from=my-account&addressId=${this.item.id}`)
+          ? this.$router.push(`/update-address/${this.item.id}?type=billing&from=checkout`)
+          : this.$router.push(`/update-address/${this.item.id}?type=billing&from=my-account`)
       }
     },
     handleDelete(address) {
