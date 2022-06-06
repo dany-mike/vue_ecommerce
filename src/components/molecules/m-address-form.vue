@@ -83,11 +83,10 @@ export default {
     return { v$: useVuelidate() }
   },
   async mounted() {
-    console.log(this.addressIdd)
-    if (this.type === 'shipping' && this.addressIdd) {
+    if (this.type === 'shipping' && this.addressId) {
       await this.$store.dispatch(`${FETCH_SHIPPING_ADDRESS}`, {
         userId: this.user.id,
-        addressId: this.addressIdd,
+        addressId: this.addressId,
       })
       await this.setFormItems()
     }
@@ -184,9 +183,6 @@ export default {
     }),
     action() {
       return this.addressId ? 'Update' : 'Add'
-    },
-    addressIdd() {
-      return this.addressId
     },
   },
   validations() {

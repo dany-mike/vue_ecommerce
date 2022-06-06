@@ -27,21 +27,16 @@ export default {
     this.$router.currentRoute._value.query.from === 'checkout'
       ? (this.from = 'checkout')
       : (this.from = 'my-account')
-    this.$router.currentRoute._value.query.addressId
-      ? (this.addressId = this.$router.currentRoute._value.query.addressId)
-      : (this.addressId = null)
+
+    this.addressId = this.$route.query?.addressId
   },
   methods: {
     addressPageTitle() {
       if (this.$router.currentRoute._value.query.type === 'shipping') {
-        return this.$router.currentRoute._value.query.addressId
-          ? 'Update shipping address'
-          : 'Add shipping address'
+        return this.$route.query.addressId ? 'Update shipping address' : 'Add shipping address'
       }
       if (this.$router.currentRoute._value.query.type !== 'shipping') {
-        return this.$router.currentRoute._value.query.addressId
-          ? 'Update shipping address'
-          : 'Add shipping address'
+        return this.$route.query.addressId ? 'Update shipping address' : 'Add shipping address'
       }
     },
   },
