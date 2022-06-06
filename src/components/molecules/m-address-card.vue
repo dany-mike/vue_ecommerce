@@ -23,7 +23,7 @@
             Update
           </AButton>
           <AButton
-            @click="handleDelete(item)"
+            @click="handleDelete(item, type)"
             :classValue="'w-full flex justify-center mb-2 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'"
           >
             Delete
@@ -36,6 +36,7 @@
 
 <script>
 import AButton from '@/components/atoms/a-button.vue'
+import { DELETE_BILLING_ADDRESS, DELETE_SHIPPING_ADDRESS } from '@/store/modules/address/types'
 export default {
   name: 'MAddressCard',
   components: {
@@ -71,8 +72,21 @@ export default {
           : this.$router.push(`/update-address/${this.item.id}?type=billing&from=my-account`)
       }
     },
-    handleDelete(address) {
+    async handleDelete(address, type) {
       console.log(address)
+      console.log(type)
+      const result = confirm(`Are you sure to delete this ${type} address`)
+      if (result) {
+        let loader = this.$loading.show()
+        if (type === 'shipping') {
+          await this.$store.dispatch(`${DELETE_SHIPPING_ADDRESS}`, address.id)
+        }
+        if (type === 'billing') {
+          await this.$store.dispatch(`${DELETE_BILLING_ADDRESS}`, address.id)
+        }
+        this.$router.go(this.$router.currentRoute)
+        loader.hide()
+      }
     },
   },
 }
