@@ -11,16 +11,19 @@
         </div>
         <div class="px-6 pt-4 pb-2">
           <AButton
+            @click="handleSelect(item)"
             :classValue="'w-full flex justify-center mb-2 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'"
           >
-            Choose this address
+            Select this address
           </AButton>
           <AButton
+            @click="handleUpdate(item)"
             :classValue="'w-full flex justify-center mb-2 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'"
           >
             Update
           </AButton>
           <AButton
+            @click="handleDelete(item)"
             :classValue="'w-full flex justify-center mb-2 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'"
           >
             Delete
@@ -43,10 +46,6 @@ export default {
       type: [Object, String, Number],
       required: true,
     },
-    addressId: {
-      type: Number,
-      required: true,
-    },
     from: {
       type: String,
       required: true,
@@ -54,6 +53,17 @@ export default {
     type: {
       type: String,
       required: true,
+    },
+  },
+  methods: {
+    handleSelect(address) {
+      console.log(address)
+    },
+    handleUpdate(address) {
+      console.log(address)
+    },
+    handleDelete(address) {
+      console.log(address)
     },
   },
 }

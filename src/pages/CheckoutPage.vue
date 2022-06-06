@@ -1,10 +1,16 @@
 <template>
   <div class="bg-gray-50">
-    <div class="max-w-2xl mx-auto pt-16 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+    <div class="max-w-2xl mx-auto pt-6 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+      <p class="text-3xl font-bold">Checkout page</p>
       <h2 class="sr-only">Checkout</h2>
       <div>
         <div class="my-4">
-          <OAddressCarousel :title="'Shipping addresses'" :addresses="shippingAddresses" />
+          <OAddressCarousel
+            :title="'Shipping addresses'"
+            :addresses="shippingAddresses"
+            :from="'checkout'"
+            :type="'shipping'"
+          />
         </div>
         <router-link :to="'/add-address?type=shipping&from=checkout'" class="w-full">
           <AButton :classValue="'bg-indigo-600 hover:bg-indigo-700 w-full'"
@@ -12,7 +18,12 @@
           >
         </router-link>
         <div class="my-4">
-          <OAddressCarousel :title="'Billing addresses'" :addresses="billingAddresses" />
+          <OAddressCarousel
+            :title="'Billing addresses'"
+            :addresses="billingAddresses"
+            :from="'checkout'"
+            :type="'billing'"
+          />
         </div>
         <router-link :to="'/add-address?type=billing&from=checkout'" class="w-full">
           <AButton :classValue="'bg-indigo-600 hover:bg-indigo-700 w-full'"

@@ -4,7 +4,7 @@
     <div class="o-carousel-desktop">
       <carousel :items-to-show="3" class="o-carousel">
         <slide v-for="address in addresses" :key="address.id">
-          <MAddressCard :item="address" />
+          <MAddressCard :item="address" :from="from" :type="type" />
         </slide>
         <template #addons>
           <navigation />
@@ -12,9 +12,14 @@
         </template>
       </carousel>
     </div>
-    <!-- TODO: Add an index to fix integration of the first iteration -->
     <div class="o-carousel-mobile overflow-x-auto">
-      <MAddressCard v-for="address in addresses" :key="address.id" :item="address" />
+      <MAddressCard
+        v-for="address in addresses"
+        :key="address.id"
+        :item="address"
+        :from="from"
+        :type="type"
+      />
     </div>
   </div>
 </template>
@@ -39,6 +44,14 @@ export default {
       required: true,
     },
     title: {
+      type: String,
+      default: '',
+    },
+    type: {
+      type: String,
+      default: '',
+    },
+    from: {
       type: String,
       default: '',
     },
