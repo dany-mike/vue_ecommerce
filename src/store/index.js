@@ -6,6 +6,7 @@ import wishlist from '@/store/modules/wishlist/store'
 import cloudinary from '@/store/modules/cloudinary/store'
 import cart from '@/store/modules/cart/store'
 import address from '@/store/modules/address/store'
+import order from '@/store/modules/order/store'
 
 const store = createStore({
   modules: {
@@ -16,6 +17,7 @@ const store = createStore({
     cloudinary,
     cart,
     address,
+    order,
   },
 })
 
