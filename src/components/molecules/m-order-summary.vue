@@ -12,8 +12,8 @@
 
     <div class="mt-6">
       <button
-        type="submit"
-        class="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
+        @click="onSubmit"
+        class="w-full bg-indigo-600 cursor-pointer border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
       >
         Checkout
       </button>
@@ -29,6 +29,13 @@ export default {
       type: Number,
       default: 0,
     },
+    cart: {
+      type: Object,
+      default: () => {},
+    },
+  },
+  methods: {
+    async onSubmit() {},
   },
 }
 </script>

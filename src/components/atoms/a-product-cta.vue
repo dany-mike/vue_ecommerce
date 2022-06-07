@@ -24,6 +24,7 @@
 import { HeartIcon } from '@heroicons/vue/outline'
 import { ADD_PRODUCT_TO_WISHLIST, FETCH_WISHLIST_PRODUCTS } from '@/store/modules/wishlist/types'
 import { mapGetters } from 'vuex'
+import { GET_CART } from '@/store/modules/cart/types'
 export default {
   name: 'AProductCta',
   components: {
@@ -45,7 +46,8 @@ export default {
   },
   methods: {
     // TODO: use the store to refacto this method
-    addToCart() {
+    async addToCart() {
+      this.$store.dispatch(`${GET_CART}`)
       let products = []
       if (this.cart.length > 0) {
         products = JSON.parse(localStorage.getItem('products'))
@@ -72,7 +74,8 @@ export default {
         name: this.product.name,
         price: this.product.price,
         image: this.product.image,
-        qty: 1,
+        // TODO: add select quantity on this page
+        quantity: 1,
       })
     },
     async addToFavorite() {
