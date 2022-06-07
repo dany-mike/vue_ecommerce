@@ -46,13 +46,11 @@ export default {
   },
   methods: {
     // TODO: use the store to refacto this method
-    async addToCart() {
-      this.$store.dispatch(`${GET_CART}`)
+    addToCart() {
       let products = []
       if (this.cart.length > 0) {
         products = JSON.parse(localStorage.getItem('products'))
       }
-
       let canAdd = true
       products.forEach((product) => {
         if (product.id === this.product.id) {
@@ -67,6 +65,7 @@ export default {
       }
 
       localStorage.setItem('products', JSON.stringify(products))
+      this.$store.dispatch(GET_CART)
     },
     addItemIntoCart(products) {
       products.push({

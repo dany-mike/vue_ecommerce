@@ -33,6 +33,7 @@ import MCartItems from '@/components/molecules/m-cart-items.vue'
 import MOrderSummary from '@/components/molecules/m-order-summary.vue'
 import AButton from '@/components/atoms/a-button.vue'
 import { mapGetters } from 'vuex'
+
 export default {
   components: {
     MCartItems,
