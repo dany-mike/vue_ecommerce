@@ -49,29 +49,33 @@
           </div>
         </div>
       </div>
+      <MCheckoutOrderSummary :user="user" />
     </div>
-
-    <!-- Order summary -->
   </div>
 </template>
 
 <script>
 import AButton from '@/components/atoms/a-button.vue'
 import OAddressCarousel from '@/components/organisms/o-address-carousel.vue'
+import MCheckoutOrderSummary from '@/components/molecules/m-checkout-order-summary.vue'
 import {
   FETCH_USER_BILLING_ADDRESSES,
   FETCH_USER_SHIPPING_ADDRESSES,
 } from '@/store/modules/address/types'
 import { mapGetters } from 'vuex'
+// Retrieve orderId by adding a params in the url of this page
+// import { FETCH_ORDER_SUMMARY } from '@/store/modules/order/types'
 export default {
   name: 'CheckoutPage',
   components: {
     OAddressCarousel,
     AButton,
+    MCheckoutOrderSummary,
   },
   async mounted() {
     await this.$store.dispatch(`${FETCH_USER_BILLING_ADDRESSES}`, this.user.id)
     await this.$store.dispatch(`${FETCH_USER_SHIPPING_ADDRESSES}`, this.user.id)
+    // await this.$store.dispatch(`${FETCH_ORDER_SUMMARY}`, this.)
   },
   computed: {
     ...mapGetters({

@@ -34,8 +34,5 @@ export default {
       default: () => {},
     },
   },
-  methods: {
-    async onSubmit() {},
-  },
 }
 </script>

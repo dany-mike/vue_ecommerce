@@ -38,6 +38,10 @@
             <dt class="text-sm">Subtotal</dt>
             <dd class="text-sm font-medium text-gray-900">€</dd>
           </div>
+          <div class="flex items-center justify-between">
+            <dt class="text-sm">Tax</dt>
+            <dd class="text-sm font-medium text-gray-900">€</dd>
+          </div>
           <div class="flex items-center justify-between border-t border-gray-200 pt-6">
             <dt class="text-base font-medium">Total</dt>
             <dd class="text-base font-medium text-gray-900">€</dd>
@@ -63,6 +67,21 @@ export default {
     orderTotal: {
       type: Number,
       default: 0,
+    },
+    user: {
+      type: Object,
+      default: () => {},
+    },
+  },
+  methods: {
+    async onSubmit() {
+      const body = {
+        orderItems: this.cart,
+        status: 'CREATED',
+        userToken: this.user.token,
+      }
+
+      console.log(body)
     },
   },
 }
