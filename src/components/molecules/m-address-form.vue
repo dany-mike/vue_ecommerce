@@ -168,7 +168,6 @@ export default {
               id: this.$route.params.id,
             })
           : await this.$store.dispatch(`${CREATE_SHIPPING_ADDRESS}`, body)
-        console.log('shipping')
       }
 
       if (this.type !== 'shipping') {

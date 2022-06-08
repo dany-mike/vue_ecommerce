@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import { CREATE_ORDER } from '@/store/modules/order/types'
+import { mapGetters } from 'vuex'
 export default {
   name: 'MOrderSummary',
   props: {
@@ -33,11 +35,26 @@ export default {
       type: Object,
       default: () => {},
     },
+    user: {
+      type: Object,
+      default: () => {},
+    },
   },
   methods: {
-    onSubmit() {
-      console.log('TEST')
+    async onSubmit() {
+      const body = {
+        orderItems: this.cart,
+        status: 'CREATED',
+        userToken: this.user.accessToken,
+      }
+      await this.$store.dispatch(CREATE_ORDER, body)
+      this.$router.push(`/checkout/${this.order.id}`)
     },
+  },
+  computed: {
+    ...mapGetters({
+      order: 'getOrderResponse',
+    }),
   },
 }
 </script>

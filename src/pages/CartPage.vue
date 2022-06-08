@@ -13,7 +13,7 @@
         <AButton :classValue="'bg-indigo-600 hover:bg-indigo-700 w-full'">Back to home</AButton>
       </router-link>
     </div>
-    <form
+    <div
       class="mt-12 lg:grid lg:grid-cols-12 lg:gap-x-12 lg:items-start xl:gap-x-16"
       v-if="!isEmpty"
     >
@@ -23,8 +23,8 @@
           <MCartItems :cart-items="cart" @order-total="setOrderTotal" />
         </ul>
       </section>
-      <MOrderSummary :orderTotal="orderTotal" :cart="cart" />
-    </form>
+      <MOrderSummary :orderTotal="orderTotal" :cart="cart" :user="user" />
+    </div>
   </div>
 </template>
 
@@ -54,6 +54,7 @@ export default {
   computed: {
     ...mapGetters({
       cart: 'getCart',
+      user: 'getCurrentUser',
     }),
     isEmpty() {
       return this.cart.length === 0 ? 'empty' : ''

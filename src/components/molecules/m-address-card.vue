@@ -73,8 +73,6 @@ export default {
       }
     },
     async handleDelete(address, type) {
-      console.log(address)
-      console.log(type)
       const result = confirm(`Are you sure to delete this ${type} address`)
       if (result) {
         let loader = this.$loading.show()
