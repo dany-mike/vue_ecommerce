@@ -124,7 +124,7 @@ const routes = [
     component: NotFound,
   },
   {
-    path: '/checkout',
+    path: '/checkout/:id',
     name: 'CheckoutPage',
     component: CheckoutPage,
   },

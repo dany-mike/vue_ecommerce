@@ -1,6 +1,6 @@
 <template>
   <div class="a-product-cta mt-6">
-    <div class="mt-10 flex sm:flex-col1">
+    <div class="mt-10 flex justify-between">
       <button
         type="submit"
         class="max-w-xs flex-1 bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 sm:w-full"
@@ -8,7 +8,15 @@
       >
         Add to cart
       </button>
-
+      <select
+        @change="updateQuantity($event)"
+        class="w-10 ml-4 lg:ml-0 rounded-md border-gray-300 py-1.5 text-base leading-5 font-medium text-gray-700 shadow-s"
+      >
+        <option :value="selectedQuantity" selected="selected">{{ selectedQuantity }}</option>
+        <option v-for="q in quantities" :key="q.value">
+          {{ q.value }}
+        </option>
+      </select>
       <button
         type="button"
         class="ml-4 py-3 px-3 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500"
@@ -33,6 +41,8 @@ export default {
   data() {
     return {
       cartProduct: {},
+      selectedQuantity: 1,
+      fProduct: this.product,
     }
   },
   props: {
@@ -73,8 +83,7 @@ export default {
         name: this.product.name,
         price: this.product.price,
         image: this.product.image,
-        // TODO: add select quantity on this page
-        quantity: 1,
+        quantity: this.selectedQuantity,
       })
     },
     async addToFavorite() {
@@ -106,6 +115,9 @@ export default {
 
       return isWishlistIcon
     },
+    updateQuantity(e) {
+      this.selectedQuantity = Number(e.target.value)
+    },
   },
   computed: {
     ...mapGetters({
@@ -113,6 +125,18 @@ export default {
       user: 'getCurrentUser',
       cart: 'getCart',
     }),
+    quantities() {
+      let quantities = []
+
+      for (let index = 1; index <= 8; index++) {
+        quantities.push({
+          label: index,
+          value: index,
+        })
+      }
+
+      return quantities
+    },
   },
 }
 </script>

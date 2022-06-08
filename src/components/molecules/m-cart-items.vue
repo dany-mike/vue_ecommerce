@@ -93,7 +93,7 @@ export default {
       this.cartItems.forEach((item) => {
         totalPrice += item.price * item.quantity
       })
-      // Check how to use emit on vue3 to fix the warning
+      // TODO: Check how to use emit on vue3 to fix the warning
       this.$emit('order-total', totalPrice)
     },
     imageUrl(product) {
