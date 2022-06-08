@@ -110,6 +110,7 @@ export default {
         }
       })
       localStorage.setItem('products', JSON.stringify(products))
+      this.$store.dispatch(GET_CART)
       await this.getOrderTotal()
     },
     async deleteCartItem(item) {
