@@ -34,5 +34,10 @@ export default {
       default: () => {},
     },
   },
+  methods: {
+    onSubmit() {
+      console.log('TEST')
+    },
+  },
 }
 </script>

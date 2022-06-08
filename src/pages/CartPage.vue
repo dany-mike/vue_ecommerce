@@ -33,6 +33,7 @@ import MCartItems from '@/components/molecules/m-cart-items.vue'
 import MOrderSummary from '@/components/molecules/m-order-summary.vue'
 import AButton from '@/components/atoms/a-button.vue'
 import { mapGetters } from 'vuex'
+import { GET_CART } from '@/store/modules/cart/types'
 
 export default {
   components: {
@@ -42,6 +43,9 @@ export default {
   },
   name: 'CartPage',
   emits: ['order-total'],
+  mounted() {
+    this.$store.dispatch(GET_CART)
+  },
   data() {
     return {
       orderTotal: 0,

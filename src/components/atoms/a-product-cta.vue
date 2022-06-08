@@ -61,18 +61,9 @@ export default {
       if (this.cart.length > 0) {
         products = JSON.parse(localStorage.getItem('products'))
       }
-      let canAdd = true
-      products.forEach((product) => {
-        if (product.id === this.product.id) {
-          canAdd = false
-          this.$toast.show(`${this.product.name} is already in your cart`)
-        }
-      })
 
-      if (canAdd) {
-        this.addItemIntoCart(products)
-        this.$toast.show(`${this.product.name} added to your cart`)
-      }
+      this.addItemIntoCart(products)
+      this.$toast.show(`${this.product.name} added to your cart`)
 
       localStorage.setItem('products', JSON.stringify(products))
       this.$store.dispatch(GET_CART)
