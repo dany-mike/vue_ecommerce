@@ -69,11 +69,22 @@ export default {
       })
 
       if (canAdd) {
-        this.addItemIntoCart(products)
+        const filteredProducts = products.filter((p) => {
+          return p.id !== this.product.id
+        })
+
+        localStorage.setItem('products', JSON.stringify(filteredProducts))
+
+        this.addItemIntoCart(filteredProducts)
+
+        localStorage.setItem('products', JSON.stringify(filteredProducts))
+
         this.$toast.show(`${this.product.name} added to your cart`)
       }
-      localStorage.setItem('products', JSON.stringify(products))
+
       this.$store.dispatch(GET_CART)
+
+      console.log(localStorage.getItem('products'))
     },
     addItemIntoCart(products) {
       products.push({
