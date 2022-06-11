@@ -95,8 +95,20 @@ export default {
           },
         })
       }
+      if (this.$route.query.type === 'checkout') {
+        this.$router.push({
+          path: '/signup',
+          query: {
+            type: 'checkout',
+          },
+        })
+      }
       if (this.$route.query.type === 'wishlist') {
         this.$router.push({ path: '/signup', query: { type: 'wishlist' } })
+      }
+
+      if (Object.entries(this.$route.query).length === 0) {
+        this.$router.push('/signup')
       }
     },
     async onSubmit() {

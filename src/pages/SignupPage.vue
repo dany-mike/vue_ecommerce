@@ -127,8 +127,22 @@ export default {
           },
         })
       }
+
+      if (this.$route.query.type === 'checkout') {
+        this.$router.push({
+          path: '/signin',
+          query: {
+            type: 'checkout',
+          },
+        })
+      }
+
       if (this.$route.query.type === 'wishlist') {
         this.$router.push({ path: '/signin', query: { type: 'wishlist' } })
+      }
+
+      if (Object.entries(this.$route.query).length === 0) {
+        this.$router.push('/signin')
       }
     },
     async onSubmit() {

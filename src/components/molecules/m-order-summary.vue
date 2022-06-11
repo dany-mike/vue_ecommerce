@@ -46,7 +46,7 @@ export default {
         this.$router.push({ path: '/signin', query: { type: 'checkout' } })
       }
 
-      if (this.user.role === 'user') {
+      if (this.user?.role === 'user') {
         const body = {
           orderItems: this.cart,
           status: 'CREATED',
