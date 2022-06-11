@@ -19,19 +19,15 @@ export default {
     }
   },
   async mounted() {
-    this.$router.currentRoute._value.query.type === 'shipping'
-      ? (this.type = 'shipping')
-      : (this.type = 'billing')
-    this.$router.currentRoute._value.query.from === 'checkout'
-      ? (this.from = 'checkout')
-      : (this.from = 'my-account')
+    this.$route.query.type === 'shipping' ? (this.type = 'shipping') : (this.type = 'billing')
+    this.$route.query.from === 'checkout' ? (this.from = 'checkout') : (this.from = 'my-account')
   },
   methods: {
     addressPageTitle() {
-      if (this.$router.currentRoute._value.query.type === 'shipping') {
+      if (this.$route.query.type === 'shipping') {
         return 'Add shipping address'
       }
-      if (this.$router.currentRoute._value.query.type !== 'shipping') {
+      if (this.$route.query.type !== 'shipping') {
         return 'Add billing address'
       }
     },

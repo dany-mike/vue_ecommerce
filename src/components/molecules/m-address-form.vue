@@ -137,7 +137,7 @@ export default {
       this.postalCode.value = this.addressItem?.postalCode
     },
     handleBack() {
-      this.$router.currentRoute._value.query.from === 'checkout'
+      this.$route.query.from === 'checkout'
         ? this.$router.push('/checkout')
         : this.$router.push('/my-account')
     },

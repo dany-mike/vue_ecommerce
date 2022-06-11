@@ -86,16 +86,16 @@ export default {
   },
   methods: {
     handleSignup() {
-      if (this.$router.currentRoute._value.query.type === 'add-wishlist') {
+      if (this.$route.query.type === 'add-wishlist') {
         this.$router.push({
           path: '/signup',
           query: {
             type: 'add-wishlist',
-            productId: this.$router.currentRoute._value.query.productId,
+            productId: this.$route.query.productId,
           },
         })
       }
-      if (this.$router.currentRoute._value.query.type === 'wishlist') {
+      if (this.$route.query.type === 'wishlist') {
         this.$router.push({ path: '/signup', query: { type: 'wishlist' } })
       }
     },
@@ -112,13 +112,11 @@ export default {
         this.errorResponse = this.payloadResponse.message
       }
 
-      if (this.user && this.$router.currentRoute._value.query.type === 'add-wishlist') {
-        this.$router.push(
-          `/wishlist/${this.user.id}/${this.$router.currentRoute._value.query.productId}`,
-        )
+      if (this.user && this.$route.query.type === 'add-wishlist') {
+        this.$router.push(`/wishlist/${this.user.id}/${this.$route.query.productId}`)
       }
 
-      if (this.user && this.$router.currentRoute._value.query.type === 'wishlist') {
+      if (this.user && this.$route.query.type === 'wishlist') {
         this.$router.push(`/favorites`)
       }
       if (this.user?.role === 'admin' || this.user?.role === 'superAdmin') {

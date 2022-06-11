@@ -42,18 +42,25 @@ export default {
   },
   methods: {
     async onSubmit() {
-      const body = {
-        orderItems: this.cart,
-        status: 'CREATED',
-        userToken: this.user.accessToken,
+      if (this.user?.role !== 'user') {
+        this.$router.push({ path: '/signin', query: { type: 'checkout' } })
       }
-      await this.$store.dispatch(CREATE_ORDER, body)
-      this.$router.push(`/checkout/${this.order.id}`)
+
+      if (this.user.role === 'user') {
+        const body = {
+          orderItems: this.cart,
+          status: 'CREATED',
+          userToken: this.user?.accessToken,
+        }
+        await this.$store.dispatch(CREATE_ORDER, body)
+        this.$router.push(`/checkout/${this.order.id}`)
+      }
     },
   },
   computed: {
     ...mapGetters({
       order: 'getOrderResponse',
+      user: 'getCurrentUser',
     }),
   },
 }
