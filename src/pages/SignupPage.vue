@@ -177,6 +177,10 @@ export default {
         this.$router.push(`/favorites`)
       }
 
+      if (this.$route.query.type === 'checkout') {
+        this.$router.push('/add-order')
+      }
+
       if (this.user?.role === 'admin' || this.user?.role === 'superAdmin') {
         this.$router.push('/admin')
       }
