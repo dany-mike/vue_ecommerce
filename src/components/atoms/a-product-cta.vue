@@ -62,11 +62,12 @@ export default {
       }
       let canAdd = true
       products.forEach((product) => {
-        if (product.id === this.product.id) {
+        if (product.id === this.product.id && product.quantity === this.selectedQuantity) {
           canAdd = false
           this.$toast.show(`${this.product.name} is already in your cart`)
         }
       })
+
       if (canAdd) {
         this.addItemIntoCart(products)
         this.$toast.show(`${this.product.name} added to your cart`)
