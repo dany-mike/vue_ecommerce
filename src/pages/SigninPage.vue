@@ -135,6 +135,10 @@ export default {
         this.$router.push('/admin')
       }
 
+      if (this.$route.query.type === 'checkout') {
+        this.$router.push('/add-order')
+      }
+
       if (this.user?.role === 'user' && Object.entries(this.$route.query).length === 0) {
         this.$router.push('/')
       }

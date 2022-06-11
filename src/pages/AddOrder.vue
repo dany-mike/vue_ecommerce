@@ -3,21 +3,25 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { ADD_PRODUCT_TO_WISHLIST } from '@/store/modules/wishlist/types'
+import { CREATE_ORDER } from '@/store/modules/order/types'
+import { GET_CART } from '@/store/modules/cart/types'
 export default {
   name: 'AddWishlistItem',
   async mounted() {
+    this.$store.dispatch(GET_CART)
     const body = {
-      productId: this.$route.params.productId,
+      orderItems: this.cart,
+      status: 'CREATED',
+      userToken: this.user?.accessToken,
     }
-    const userId = this.$route.params.userId
-    await this.$store.dispatch(`${ADD_PRODUCT_TO_WISHLIST}`, { body, userId })
-    this.$router.push(`/products/${body.productId}`)
+    await this.$store.dispatch(CREATE_ORDER, body)
+    this.$router.push(`/checkout/${this.order.id}`)
   },
   computed: {
     ...mapGetters({
-      wishlistProducts: 'getWishlistResponse',
       user: 'getCurrentUser',
+      cart: 'getCart',
+      order: 'getOrderResponse',
     }),
   },
 }

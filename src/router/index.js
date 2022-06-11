@@ -22,6 +22,7 @@ import NotFound from '@/pages/NotFound.vue'
 import CheckoutPage from '@/pages/CheckoutPage.vue'
 import AddAddress from '@/pages/AddAddress.vue'
 import UpdateAddress from '@/pages/UpdateAddress.vue'
+import AddOrder from '@/pages/AddOrder.vue'
 
 const routes = [
   {
@@ -137,6 +138,11 @@ const routes = [
     path: '/update-address/:id',
     name: 'UpdateAddress',
     component: UpdateAddress,
+  },
+  {
+    path: '/add-order',
+    name: 'AddOrder',
+    component: AddOrder,
   },
 ]
 
