@@ -5,7 +5,7 @@
       <div class="mt-4 bg-white border border-gray-200 rounded-lg shadow-sm">
         <h3 class="sr-only">Items in your cart</h3>
         <ul role="list" class="divide-y divide-gray-200">
-          <li class="flex py-6 px-4 sm:px-6">
+          <li class="flex py-6 px-4 sm:px-6" :key="item.id" v-for="item in items">
             <div class="flex-shrink-0">
               <img
                 src="https://tailwindui.com/img/ecommerce-images/checkout-page-02-product-01.jpg"
@@ -19,16 +19,14 @@
                 <div class="min-w-0 flex-1">
                   <h4 class="text-sm">
                     <a href="#" class="font-medium text-gray-700 hover:text-gray-800">
-                      Basic Tee
+                      {{ item.name }}
                     </a>
                   </h4>
-                  <p class="mt-1 text-sm text-gray-500">Black</p>
-                  <p class="mt-1 text-sm text-gray-500">Large</p>
                 </div>
               </div>
 
               <div class="flex-1 pt-2 flex items-end justify-between">
-                <p class="mt-1 text-sm font-medium text-gray-900">32.00€</p>
+                <p class="mt-1 text-sm font-medium text-gray-900">{{ item.price }}€</p>
               </div>
             </div>
           </li>
@@ -72,12 +70,16 @@ export default {
       type: Object,
       default: () => {},
     },
+    items: {
+      type: Array,
+      default: () => [],
+    },
   },
   methods: {
     async onSubmit() {
       const body = {
         orderItems: this.cart,
-        status: 'CREATED',
+        status: 'COMPLETE',
         userToken: this.user.token,
       }
 

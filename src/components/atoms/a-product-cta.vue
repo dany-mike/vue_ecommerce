@@ -83,8 +83,6 @@ export default {
       }
 
       this.$store.dispatch(GET_CART)
-
-      console.log(localStorage.getItem('products'))
     },
     addItemIntoCart(products) {
       products.push({

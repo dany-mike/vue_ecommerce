@@ -138,7 +138,7 @@ export default {
     },
     handleBack() {
       this.$route.query.from === 'checkout'
-        ? this.$router.push('/checkout')
+        ? this.$router.push(`/checkout/${this.$route.query.orderId}`)
         : this.$router.push('/my-account')
     },
     async onSubmit() {
@@ -179,7 +179,9 @@ export default {
           : await this.$store.dispatch(`${CREATE_BILLING_ADDRESS}`, body)
       }
 
-      this.from === 'checkout' ? this.$router.push('/checkout') : this.$router.push('/my-account')
+      this.from === 'checkout'
+        ? this.$router.push(`/checkout/${this.$route.query.orderId}`)
+        : this.$router.push('/my-account')
     },
   },
   computed: {

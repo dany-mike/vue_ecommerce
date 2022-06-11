@@ -1,16 +1,17 @@
 <template>
-  <div class="m-address-card py-8 px-48 min-w-max">
+  <div class="m-address-card py-8 px-48 min-w-max" v-if="item">
     <div class="card-container">
       <div class="max-w-sm rounded overflow-hidden shadow-lg">
         <div class="px-6 py-4">
-          <div class="font-normal text-xl mb-2">City: {{ item.city }}</div>
+          <div class="font-normal text-xl mb-2">City: {{ item?.city }}</div>
           <p class="text-gray-700 text-base">
-            Street: {{ item.streetNumber }} {{ item.streetName }}
+            Street: {{ item?.streetNumber }} {{ item?.streetName }}
           </p>
-          <p class="text-gray-700 text-base">Postal code: {{ item.postalCode }}</p>
+          <p class="text-gray-700 text-base">Postal code: {{ item?.postalCode }}</p>
         </div>
         <div class="px-6 pt-4 pb-2">
           <AButton
+            v-if="!isSelected"
             @click="handleSelect(item)"
             :classValue="'w-full flex justify-center mb-2 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'"
           >
@@ -44,8 +45,12 @@ export default {
   },
   props: {
     item: {
-      type: [Object, String, Number],
+      type: [Object, null],
       required: true,
+    },
+    isSelected: {
+      type: Boolean,
+      default: false,
     },
     from: {
       type: String,
@@ -56,20 +61,29 @@ export default {
       required: true,
     },
   },
+  emits: ['m-address-card'],
   methods: {
     handleSelect(address) {
-      console.log(address)
+      this.$emit('m-address-card', address)
     },
     handleUpdate(item) {
       if (this.type === 'shipping') {
         this.from === 'checkout'
-          ? this.$router.push(`/update-address/${item.id}?type=shipping&from=checkout`)
-          : this.$router.push(`/update-address/${item.id}?type=shipping&from=my-account`)
+          ? this.$router.push(
+              `/update-address/${item.id}?type=shipping&from=checkout&orderId=${this.orderId}`,
+            )
+          : this.$router.push(
+              `/update-address/${item.id}?type=shipping&from=my-account&orderId=${this.orderId}`,
+            )
       }
       if (this.type !== 'shipping') {
         this.from === 'checkout'
-          ? this.$router.push(`/update-address/${this.item.id}?type=billing&from=checkout`)
-          : this.$router.push(`/update-address/${this.item.id}?type=billing&from=my-account`)
+          ? this.$router.push(
+              `/update-address/${this.item.id}?type=billing&from=checkout&orderId=${this.orderId}`,
+            )
+          : this.$router.push(
+              `/update-address/${this.item.id}?type=billing&from=my-account&orderId=${this.orderId}`,
+            )
       }
     },
     async handleDelete(address, type) {
@@ -85,6 +99,11 @@ export default {
         this.$router.go(this.$router.currentRoute)
         loader.hide()
       }
+    },
+  },
+  computed: {
+    orderId() {
+      return this.$route.params.id
     },
   },
 }

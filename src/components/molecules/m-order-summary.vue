@@ -60,7 +60,6 @@ export default {
   computed: {
     ...mapGetters({
       order: 'getOrderResponse',
-      user: 'getCurrentUser',
     }),
   },
 }

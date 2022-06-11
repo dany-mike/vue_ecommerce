@@ -4,7 +4,7 @@
     <div class="o-carousel-desktop">
       <carousel :items-to-show="3" class="o-carousel">
         <slide v-for="address in addresses" :key="address.id">
-          <MAddressCard :item="address" :from="from" :type="type" />
+          <MAddressCard :item="address" :from="from" :type="type" @m-address-card="emitAddress" />
         </slide>
         <template #addons>
           <navigation />
@@ -14,6 +14,7 @@
     </div>
     <div class="o-carousel-mobile overflow-x-auto">
       <MAddressCard
+        @m-address-card="emitAddress"
         v-for="address in addresses"
         :key="address.id"
         :item="address"
@@ -37,6 +38,7 @@ export default {
     Pagination,
     Navigation,
   },
+  emits: ['o-address-carousel'],
   name: 'OAddressCarousel',
   props: {
     addresses: {
@@ -54,6 +56,11 @@ export default {
     from: {
       type: String,
       default: '',
+    },
+  },
+  methods: {
+    emitAddress(address) {
+      this.$emit('o-address-carousel', address)
     },
   },
 }
