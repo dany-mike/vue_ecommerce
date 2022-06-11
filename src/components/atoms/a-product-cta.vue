@@ -55,7 +55,6 @@ export default {
     await this.$store.dispatch(`${FETCH_WISHLIST_PRODUCTS}`, this.user?.id)
   },
   methods: {
-    // TODO: use the store to refacto this method
     addToCart() {
       let products = []
       if (this.cart.length > 0) {

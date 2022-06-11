@@ -100,6 +100,7 @@ export default {
       }
     },
     async onSubmit() {
+      this.errorResponse = ''
       const body = {
         email: this.email,
         password: this.password,
@@ -124,7 +125,7 @@ export default {
         this.$router.push('/admin')
       }
 
-      if (this.user?.role === 'user' && !this.$router.currentRoute._value) {
+      if (this.user?.role === 'user' && Object.entries(this.$route.query).length === 0) {
         this.$router.push('/')
       }
     },
