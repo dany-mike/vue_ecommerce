@@ -2,7 +2,70 @@
   <div class="my-account max-w-2xl mx-auto pt-6 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
     <MAccountTabs @active-tab="setActiveTab" />
     <div class="profile-container" v-if="selectedTab === 'My profile'">
-      <p class="font-medium pl-4">My profile</p>
+      <p class="text-2xl font-medium py-4">Update profile</p>
+      <div class="shadow sm:rounded-md sm:overflow-hidden">
+        <div class="bg-white py-6 px-4 sm:p-6">
+          <div class="mt-6 grid grid-cols-4 gap-6">
+            <div class="col-span-4 sm:col-span-2">
+              <label for="first-name" class="block text-sm font-medium text-gray-700"
+                >First name</label
+              >
+              <input
+                type="text"
+                name="first-name"
+                id="first-name"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-900 focus:border-gray-900 sm:text-sm"
+              />
+            </div>
+
+            <div class="col-span-4 sm:col-span-2">
+              <label for="last-name" class="block text-sm font-medium text-gray-700"
+                >Last name</label
+              >
+              <input
+                type="text"
+                name="last-name"
+                id="last-name"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-900 focus:border-gray-900 sm:text-sm"
+              />
+            </div>
+
+            <div class="col-span-4 sm:col-span-2">
+              <label for="email-address" class="block text-sm font-medium text-gray-700"
+                >Email address</label
+              >
+              <input
+                type="text"
+                name="email-address"
+                id="email-address"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-900 focus:border-gray-900 sm:text-sm"
+              />
+            </div>
+            <div class="col-span-4 sm:col-span-2">
+              <label for="email-address" class="block text-sm font-medium text-gray-700"
+                >Enter your password</label
+              >
+              <input
+                type="password"
+                name="password"
+                id="password"
+                class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-gray-900 focus:border-gray-900 sm:text-sm"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+          <button
+            type="submit"
+            class="bg-gray-800 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="paswword-container" v-if="selectedTab === 'My password'">
+      <p class="py-4">Update password</p>
     </div>
     <div class="wishlist-container" v-if="selectedTab === 'My wishlist'">
       <OListingProducts
