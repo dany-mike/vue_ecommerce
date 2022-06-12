@@ -49,6 +49,9 @@
             <div class="flex w-full justify-center items-center">
               <p class="text-red-700 font-semibold">{{ password.errMsg }}</p>
             </div>
+            <div class="flex w-full justify-center items-center">
+              <p class="text-red-700 font-semibold">{{ errRes?.message }}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -69,6 +72,8 @@ import AInput from '@/components/atoms/a-input.vue'
 import AButton from '@/components/atoms/a-button.vue'
 import useVuelidate from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
+import { FETCH_USER_BY_ID, UPDATE_USER_INFO } from '@/store/modules/auth/types'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'MUpdateProfile',
@@ -76,7 +81,8 @@ export default {
     AInput,
     AButton,
   },
-  mounted() {
+  async mounted() {
+    await this.$store.dispatch(FETCH_USER_BY_ID, this.userId)
     this.setFormItems()
   },
   setup() {
@@ -103,7 +109,7 @@ export default {
     }
   },
   props: {
-    user: {
+    userId: {
       type: Object,
       default: () => {},
     },
@@ -124,7 +130,29 @@ export default {
         this.password.errMsg = this.v$.password.$silentErrors[0]?.$message
         return
       }
+
+      const body = {
+        firstname: this.firstname.value,
+        lastname: this.lastname.value,
+        email: this.user.email,
+        newEmail: this.email.value,
+        password: this.password.value,
+      }
+
+      await this.$store.dispatch(UPDATE_USER_INFO, body)
+
+      if (this.errRes) {
+        return
+      }
+
+      this.$router.go(this.$router.currentRoute)
     },
+  },
+  computed: {
+    ...mapGetters({
+      errRes: 'getErrorResponse',
+      user: 'getDbUser',
+    }),
   },
   validations() {
     return {

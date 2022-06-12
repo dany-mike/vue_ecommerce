@@ -8,15 +8,15 @@ export default {
       .then((response) => {
         commit(types.SET_TOKEN, response.data)
       })
-      .catch((err) => commit(types.SET_PAYLOAD_RESPONSE, err.response.data))
+      .catch((err) => commit(types.SET_ERROR_RESPONSE, err.response.data))
   },
   [types.SIGNUP]({ commit }, body) {
     return axios
       .post(`${process.env.VUE_APP_API_BASE_URL}/auth/signup`, body)
       .then(() => {
-        commit(types.SET_PAYLOAD_RESPONSE, false)
+        commit(types.SET_ERROR_RESPONSE, false)
       })
-      .catch((err) => commit(types.SET_PAYLOAD_RESPONSE, err.response.data))
+      .catch((err) => commit(types.SET_ERROR_RESPONSE, err.response.data))
   },
   [types.CREATE_ADMIN]({ commit }, formData) {
     return axios
@@ -42,7 +42,7 @@ export default {
       .then((response) => {
         commit(types.SET_AUTH_RESPONSE, response.data)
       })
-      .catch((err) => console.log(err))
+      .catch((err) => commit(types.SET_ERROR_RESPONSE, err.response.data))
   },
   [types.UPDATE_USER_INFO]({ commit }, body) {
     return axios
@@ -52,6 +52,17 @@ export default {
 
       .then((response) => {
         commit(types.SET_AUTH_RESPONSE, response.data)
+      })
+      .catch((err) => commit(types.SET_ERROR_RESPONSE, err.response.data))
+  },
+  [types.FETCH_USER_BY_ID]({ commit }, id) {
+    return axios
+      .get(`${process.env.VUE_APP_API_BASE_URL}/auth/user/${id}`, {
+        headers: {},
+      })
+
+      .then((response) => {
+        commit(types.SET_DB_USER, response.data)
       })
       .catch((err) => console.log(err))
   },

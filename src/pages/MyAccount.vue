@@ -2,18 +2,19 @@
   <div class="my-account max-w-2xl mx-auto pt-6 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
     <MAccountTabs @active-tab="setActiveTab" />
     <div class="profile-container" v-if="selectedTab === 'My profile'">
-      <MUpdateProfile :user="user" />
+      <MUpdateProfile :user-id="user.id" />
     </div>
     <div class="paswword-container" v-if="selectedTab === 'My password'">
       <MUpdatePassword />
     </div>
     <div class="wishlist-container" v-if="selectedTab === 'My wishlist'">
+      <p class="text-2xl font-medium py-4">My wishlist</p>
       <OListingProducts
         v-if="isWishlistProducts(wishlistProducts)"
         :products="wishlistProducts"
         :type="'wishlist'"
       />
-      <p class="font-medium pl-4" v-else>You don't have favorites yet !</p>
+      <p class="font-medium" v-else>You don't have favorites yet !</p>
     </div>
     <div class="addresses-container" v-if="selectedTab === 'My addresses'">
       <div class="my-4">

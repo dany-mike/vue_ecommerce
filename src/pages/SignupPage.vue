@@ -113,7 +113,7 @@ export default {
   computed: {
     ...mapGetters({
       user: 'getCurrentUser',
-      payloadResponse: 'getPayloadResponse',
+      errRes: 'getErrorResponse',
     }),
   },
   methods: {
@@ -156,7 +156,7 @@ export default {
       }
 
       await this.$store.dispatch(`${SIGNUP}`, body)
-      this.apiErrorResponse = this.payloadResponse
+      this.apiErrorResponse = this.errRes
 
       const signInbody = {
         email: this.email.value,
@@ -164,10 +164,6 @@ export default {
       }
       await this.$store.dispatch(`${SIGNIN}`, signInbody)
       await this.$store.dispatch(`${GET_CURRENT_USER}`)
-
-      if (this.payloadResponse) {
-        this.errorResponse = this.payloadResponse.message
-      }
 
       if (this.user && this.$route.query.type === 'add-wishlist') {
         this.$router.push(`/wishlist/${this.user.id}/${this.$route.query.productId}`)

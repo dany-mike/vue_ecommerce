@@ -3,7 +3,8 @@ import actions from './actions'
 
 export const state = {
   currentUser: null,
-  payloadResponse: null,
+  errorResponse: null,
+  dbUser: null,
 }
 
 export const mutations = {
@@ -17,14 +18,18 @@ export const mutations = {
       state.currentUser = user
     }
   },
-  [types.SET_PAYLOAD_RESPONSE](state, payloadResponse) {
-    state.payloadResponse = payloadResponse
+  [types.SET_ERROR_RESPONSE](state, errorResponse) {
+    state.errorResponse = errorResponse
+  },
+  [types.SET_DB_USER](state, dbUser) {
+    state.dbUser = dbUser
   },
 }
 
 const getters = {
   getCurrentUser: (state) => state.currentUser,
-  getPayloadResponse: (state) => state.payloadResponse,
+  getErrorResponse: (state) => state.errorResponse,
+  getDbUser: (state) => state.dbUser,
 }
 
 export default {
