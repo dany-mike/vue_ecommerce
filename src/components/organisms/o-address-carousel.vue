@@ -4,7 +4,13 @@
     <div class="o-carousel-desktop">
       <carousel :items-to-show="3" class="o-carousel">
         <slide v-for="address in addresses" :key="address.id">
-          <MAddressCard :item="address" :from="from" :type="type" @m-address-card="emitAddress" />
+          <MAddressCard
+            :item="address"
+            :from="from"
+            :type="type"
+            @m-address-card="emitAddress"
+            :is-my-account="isMyAccount"
+          />
         </slide>
         <template #addons>
           <navigation />
@@ -20,6 +26,7 @@
         :item="address"
         :from="from"
         :type="type"
+        :is-my-account="isMyAccount"
       />
     </div>
   </div>
@@ -56,6 +63,10 @@ export default {
     from: {
       type: String,
       default: '',
+    },
+    isMyAccount: {
+      type: Boolean,
+      default: false,
     },
   },
   methods: {
