@@ -92,14 +92,14 @@ export default {
         userId: this.user.id,
         addressId: this.$route.params.id,
       })
-      await this.setFormItems()
+      this.setFormItems()
     }
     if (this.type !== 'shipping' && this.isUpdateAddress) {
       await this.$store.dispatch(`${FETCH_BILLING_ADDRESS}`, {
         userId: this.user.id,
         addressId: this.$route.params.id,
       })
-      await this.setFormItems()
+      this.setFormItems()
     }
   },
   data() {
@@ -130,7 +130,7 @@ export default {
     },
   },
   methods: {
-    async setFormItems() {
+    setFormItems() {
       this.streetName.value = this.addressItem?.streetName
       this.streetNumber.value = this.addressItem?.streetNumber
       this.city.value = this.addressItem?.city
