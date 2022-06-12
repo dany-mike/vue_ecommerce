@@ -107,8 +107,6 @@
         :shippingAddressErr="selectedShippingAddress.errMsg"
         @shipping-address-error="setShippingAddressError"
         @billing-address-error="setBillingAddressError"
-        @clear-billing-address-error="clearBillingAddressError"
-        @clear-shipping-address-error="clearShippingAddressError"
       />
     </div>
   </div>

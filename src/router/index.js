@@ -24,6 +24,8 @@ import AddAddress from '@/pages/AddAddress.vue'
 import UpdateAddress from '@/pages/UpdateAddress.vue'
 import AddOrder from '@/pages/AddOrder.vue'
 import PaymentPage from '@/pages/PaymentPage.vue'
+import MyAccount from '@/pages/MyAccount.vue'
+
 import { parseJwt } from '@/helpers/parseJwt'
 
 const routes = [
@@ -167,6 +169,12 @@ const routes = [
     component: PaymentPage,
     beforeEnter: [isTokenValid],
   },
+  {
+    path: '/my-account',
+    name: 'MyAccount',
+    component: MyAccount,
+    beforeEnter: [isTokenValid],
+  },
 ]
 
 const router = createRouter({
@@ -181,6 +189,9 @@ function isTokenValid(to, from, next) {
     if (jwtPayload.exp < Date.now() / 1000) {
       localStorage.removeItem('user')
       next('/signin')
+    }
+    if (jwtPayload.exp > Date.now() / 1000) {
+      next()
     }
   }
 }

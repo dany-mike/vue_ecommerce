@@ -5,7 +5,7 @@
   >
     <dl class="mt-6 space-y-4">
       <div class="border-t border-gray-200 pt-4 flex items-center justify-between">
-        <dt class="text-base font-medium text-gray-900">Order total</dt>
+        <dt class="text-base font-medium text-gray-900">Order total incl. tax</dt>
         <dd class="text-base font-medium text-gray-900">{{ orderTotal }}€</dd>
       </div>
     </dl>
