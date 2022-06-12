@@ -37,6 +37,9 @@
           Save
         </AButton>
       </div>
+      <div class="flex w-full justify-center items-center">
+        <p class="text-green-700 font-semibold">{{ successMessage }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -67,6 +70,7 @@ export default {
   computed: {
     ...mapGetters({
       errRes: 'getErrorResponse',
+      authRes: 'getAuthResponse',
     }),
   },
   setup() {
@@ -74,6 +78,7 @@ export default {
   },
   data() {
     return {
+      successMessage: '',
       password: {
         value: '',
         errMsg: '',
@@ -103,8 +108,8 @@ export default {
 
       await this.$store.dispatch(UPDATE_PASSWORD, body)
 
-      if (this.errRes) {
-        return
+      if (this.authRes) {
+        this.successMessage = 'Password updated successfuly'
       }
     },
   },

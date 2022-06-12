@@ -5,7 +5,7 @@
       <MUpdateProfile v-if="dbUser" :user="dbUser" />
     </div>
     <div class="paswword-container" v-if="selectedTab === 'My password'">
-      <MUpdatePassword :user="dbUser" />
+      <MUpdatePassword v-if="dbUser" :user="dbUser" />
     </div>
     <div class="wishlist-container" v-if="selectedTab === 'My wishlist'">
       <p class="text-2xl font-medium py-4">My wishlist</p>
