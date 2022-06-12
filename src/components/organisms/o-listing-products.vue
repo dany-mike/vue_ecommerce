@@ -69,6 +69,7 @@ export default {
       if (result) {
         await this.$store.dispatch(`${DELETE_WISHLIST_PRODUCT}`, { userId, productId })
       }
+      this.$router.go(this.$router.currentRoute)
     },
     imageUrl(product) {
       const imageUrl = product.image
