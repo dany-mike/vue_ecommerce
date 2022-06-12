@@ -33,4 +33,26 @@ export default {
     const user = JSON.parse(localStorage.getItem('user'))
     commit(types.SET_CURRENT_USER, user)
   },
+  [types.UPDATE_PASSWORD]({ commit }, body) {
+    return axios
+      .put(`${process.env.VUE_APP_API_BASE_URL}/auth/password`, body, {
+        headers: {},
+      })
+
+      .then((response) => {
+        commit(types.SET_AUTH_RESPONSE, response.data)
+      })
+      .catch((err) => console.log(err))
+  },
+  [types.UPDATE_USER_INFO]({ commit }, body) {
+    return axios
+      .put(`${process.env.VUE_APP_API_BASE_URL}/auth/`, body, {
+        headers: {},
+      })
+
+      .then((response) => {
+        commit(types.SET_AUTH_RESPONSE, response.data)
+      })
+      .catch((err) => console.log(err))
+  },
 }
