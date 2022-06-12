@@ -5,21 +5,11 @@
         class="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10"
       >
         <router-link :to="'/'">
-          <span class="sr-only">Workflow</span>
-          <img
-            class="h-8 w-auto sm:h-10 icon-desktop"
-            src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-            alt=""
-          />
+          <HomeIcon class="w-10 h-10 ml-4 cursor-pointer icon-desktop" />
         </router-link>
         <div class="flex lg:w-0 lg:flex-1 items-center icon-container-mobile">
           <router-link :to="'/'">
-            <span class="sr-only">Workflow</span>
-            <img
-              class="h-8 w-auto sm:h-10"
-              src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-              alt=""
-            />
+            <HomeIcon class="w-10 h-10 ml-4 lg:hidden cursor-pointer" />
           </router-link>
           <ShoppingCartIcon
             class="w-10 h-10 ml-4 lg:hidden cursor-pointer"
@@ -32,7 +22,7 @@
             class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
           >
             <span class="sr-only">Open menu</span>
-            <MenuIcon class="h-6 w-6" aria-hidden="true" />
+            <MenuIcon class="h-6 w-6" aria-hidden="true" @click="toggleIsOpen" />
           </PopoverButton>
         </div>
         <PopoverGroup as="nav" class="hidden md:flex space-x-10">
@@ -67,14 +57,14 @@
                         :key="category.id"
                         class="text-base truncate"
                       >
-                        <router-link
-                          :to="`/category/${category.id}`"
-                          class="font-medium text-gray-900 hover:text-gray-700 w-full"
-                        >
-                          <span class="w-full">
+                        <div class="font-medium text-gray-900 hover:text-gray-700 w-full">
+                          <span
+                            class="w-full cursor-pointer"
+                            @click="handleCategoryRoute(category)"
+                          >
                             {{ category.name }}
                           </span>
-                        </router-link>
+                        </div>
                       </li>
                     </ul>
                   </div>
@@ -111,6 +101,9 @@
       </div>
     </div>
     <PopoverPanel
+      :class="{
+        hidden: !isOpen,
+      }"
       focus
       class="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden lg:z-0 z-10"
     >
@@ -124,14 +117,14 @@
               <h3 class="text-sm tracking-wide font-medium text-gray-500 uppercase">Categories</h3>
               <ul role="list" class="mt-4 space-y-4">
                 <li v-for="category in categories" :key="category.id" class="text-base truncate">
-                  <router-link
+                  <div
                     :to="`/category/${category.id}`"
                     class="font-medium text-gray-900 hover:text-gray-700 w-full"
                   >
-                    <span class="w-full">
+                    <span class="w-full cursor-pointer" @click="handleCategoryRoute(category)">
                       {{ category.name }}
                     </span>
-                  </router-link>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -140,7 +133,7 @@
                 class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
               >
                 <span class="sr-only">Close menu</span>
-                <XIcon class="h-6 w-6" aria-hidden="true" />
+                <XIcon class="h-6 w-6" aria-hidden="true" @click="toggleIsOpen" />
               </PopoverButton>
             </div>
           </div>
@@ -177,7 +170,7 @@
 
 <script>
 import { Popover, PopoverButton, PopoverGroup, PopoverPanel } from '@headlessui/vue'
-import { MenuIcon, XIcon, ShoppingCartIcon, HeartIcon } from '@heroicons/vue/outline'
+import { MenuIcon, XIcon, ShoppingCartIcon, HeartIcon, HomeIcon } from '@heroicons/vue/outline'
 import { ChevronDownIcon } from '@heroicons/vue/solid'
 import { FETCH_CATEGORIES } from '@/store/modules/categories/types'
 import { mapGetters } from 'vuex'
@@ -194,12 +187,25 @@ export default {
     PopoverButton,
     PopoverGroup,
     PopoverPanel,
+    HomeIcon,
+  },
+  data() {
+    return {
+      isOpen: false,
+    }
   },
   mounted() {
     this.$store.dispatch(`${FETCH_CATEGORIES}`)
     this.$store.dispatch(`${GET_CURRENT_USER}`)
   },
   methods: {
+    toggleIsOpen() {
+      this.isOpen = !this.isOpen
+    },
+    handleCategoryRoute(category) {
+      this.$router.push(`/category/${category.id}`)
+      this.isOpen = false
+    },
     logout() {
       localStorage.removeItem('user')
       this.$router.go(this.$router.currentRoute)

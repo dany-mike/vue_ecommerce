@@ -23,6 +23,7 @@ import CheckoutPage from '@/pages/CheckoutPage.vue'
 import AddAddress from '@/pages/AddAddress.vue'
 import UpdateAddress from '@/pages/UpdateAddress.vue'
 import AddOrder from '@/pages/AddOrder.vue'
+import PaymentPage from '@/pages/PaymentPage.vue'
 
 const routes = [
   {
@@ -143,6 +144,11 @@ const routes = [
     path: '/add-order',
     name: 'AddOrder',
     component: AddOrder,
+  },
+  {
+    path: '/payment',
+    name: 'PaymentPage',
+    component: PaymentPage,
   },
 ]
 
