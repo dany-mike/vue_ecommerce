@@ -1,20 +1,20 @@
 <template>
   <div class="home-page">
     <OFullLayerImage :image="image" :text="text" />
-    <OCarousel class="px-8 mt-12" :products="products" :title="title" />
+    <OProductCarousel class="px-8 mt-12" :products="products" :title="title" />
   </div>
 </template>
 
 <script>
 import OFullLayerImage from '@/components/organisms/o-full-layer-image.vue'
-import OCarousel from '@/components/organisms/o-carousel.vue'
+import OProductCarousel from '@/components/organisms/o-product-carousel.vue'
 import { mapGetters } from 'vuex'
 import { FETCH_PRODUCTS } from '@/store/modules/products/types'
 export default {
   name: 'HomePage',
   components: {
     OFullLayerImage,
-    OCarousel,
+    OProductCarousel,
   },
   data() {
     return {

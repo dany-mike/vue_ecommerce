@@ -30,7 +30,7 @@
             name="quantity-0"
             class="max-w-full rounded-md border border-gray-300 py-1.5 text-base leading-5 font-medium text-gray-700 text-left shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
-            <option :value="item.qty">{{ item.qty }}</option>
+            <option :value="item.quantity">{{ item.quantity }}</option>
             <option v-for="q in quantities" :key="q.value">
               {{ q.value }}
             </option>
@@ -75,6 +75,7 @@ export default {
       default: () => [],
     },
   },
+  emits: ['order-total'],
   data() {
     return {
       defaultValue: {
@@ -91,9 +92,8 @@ export default {
     async getOrderTotal() {
       let totalPrice = 0
       this.cartItems.forEach((item) => {
-        totalPrice += item.price * item.qty
+        totalPrice += item.price * item.quantity
       })
-      // Check how to use emit on vue3 to fix the warning
       this.$emit('order-total', totalPrice)
     },
     imageUrl(product) {
@@ -106,10 +106,11 @@ export default {
       const products = this.cart
       products.forEach((c) => {
         if (item.id === c.id) {
-          item.qty = Number(event.target.value)
+          item.quantity = Number(event.target.value)
         }
       })
       localStorage.setItem('products', JSON.stringify(products))
+      this.$store.dispatch(GET_CART)
       await this.getOrderTotal()
     },
     async deleteCartItem(item) {

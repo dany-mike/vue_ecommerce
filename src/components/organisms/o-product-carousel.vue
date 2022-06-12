@@ -12,7 +12,7 @@
         </template>
       </carousel>
     </div>
-    <!-- Add an index to fix integration of the first iteration -->
+    <!-- TODO: Add an index to fix integration of the first iteration -->
     <div class="o-carousel-mobile overflow-x-auto">
       <MProductCard v-for="product in products" :key="product.id" :item="product" />
     </div>
@@ -32,7 +32,7 @@ export default {
     Pagination,
     Navigation,
   },
-  name: 'OCarousel',
+  name: 'OProductCarousel',
   props: {
     products: {
       type: [Array, Object],

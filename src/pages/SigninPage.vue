@@ -86,20 +86,33 @@ export default {
   },
   methods: {
     handleSignup() {
-      if (this.$router.currentRoute._value.query.type === 'add-wishlist') {
+      if (this.$route.query.type === 'add-wishlist') {
         this.$router.push({
           path: '/signup',
           query: {
             type: 'add-wishlist',
-            productId: this.$router.currentRoute._value.query.productId,
+            productId: this.$route.query.productId,
           },
         })
       }
-      if (this.$router.currentRoute._value.query.type === 'wishlist') {
+      if (this.$route.query.type === 'checkout') {
+        this.$router.push({
+          path: '/signup',
+          query: {
+            type: 'checkout',
+          },
+        })
+      }
+      if (this.$route.query.type === 'wishlist') {
         this.$router.push({ path: '/signup', query: { type: 'wishlist' } })
+      }
+
+      if (Object.entries(this.$route.query).length === 0) {
+        this.$router.push('/signup')
       }
     },
     async onSubmit() {
+      this.errorResponse = ''
       const body = {
         email: this.email,
         password: this.password,
@@ -111,20 +124,23 @@ export default {
         this.errorResponse = this.payloadResponse.message
       }
 
-      if (this.user && this.$router.currentRoute._value.query.type === 'add-wishlist') {
-        this.$router.push(
-          `/wishlist/${this.user.id}/${this.$router.currentRoute._value.query.productId}`,
-        )
+      if (this.user && this.$route.query.type === 'add-wishlist') {
+        this.$router.push(`/wishlist/${this.user.id}/${this.$route.query.productId}`)
       }
 
-      if (this.user && this.$router.currentRoute._value.query.type === 'wishlist') {
+      if (this.user && this.$route.query.type === 'wishlist') {
         this.$router.push(`/favorites`)
       }
       if (this.user?.role === 'admin' || this.user?.role === 'superAdmin') {
         this.$router.push('/admin')
       }
-      if (this.user?.role === 'user') {
-        await this.$router.push('/')
+
+      if (this.$route.query.type === 'checkout') {
+        this.$router.push('/add-order')
+      }
+
+      if (this.user?.role === 'user' && Object.entries(this.$route.query).length === 0) {
+        this.$router.push('/')
       }
     },
   },

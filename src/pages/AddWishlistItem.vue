@@ -8,9 +8,9 @@ export default {
   name: 'AddWishlistItem',
   async mounted() {
     const body = {
-      productId: this.$router.currentRoute._value.params.productId,
+      productId: this.$route.params.productId,
     }
-    const userId = this.$router.currentRoute._value.params.userId
+    const userId = this.$route.params.userId
     await this.$store.dispatch(`${ADD_PRODUCT_TO_WISHLIST}`, { body, userId })
     this.$router.push(`/products/${body.productId}`)
   },
