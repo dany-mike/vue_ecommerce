@@ -13,7 +13,10 @@
             :type="'shipping'"
           />
         </div>
-        <router-link :to="`/add-address?type=shipping&from=checkout`" class="w-full">
+        <router-link
+          :to="`/add-address?type=shipping&from=checkout&orderId=${orderId}`"
+          class="w-full"
+        >
           <AButton :classValue="'bg-indigo-600 hover:bg-indigo-700 w-full'"
             >Add shipping address</AButton
           >
@@ -58,7 +61,7 @@
       </div>
       <div class="mt-4" v-if="selectedBillingAddress.value || selectedShippingAddress.value">
         <p class="text-2xl font-medium">Selected addresses</p>
-        <div>
+        <div class="pt-2 lg:pt-4 mb-2 lg:mb-4">
           <p class="text-xl font-medium" v-if="selectedShippingAddress.value">
             Selected shipping address:
           </p>
@@ -69,7 +72,7 @@
             :is-selected="true"
           />
         </div>
-        <div>
+        <div class="mt-2 mb-2">
           <p class="text-xl font-medium" v-if="selectedBillingAddress">Selected billing address:</p>
           <MAddressCard
             :type="'billing'"
@@ -79,12 +82,33 @@
           />
         </div>
       </div>
+      <div class="err-message-container lg:hidden">
+        <p
+          v-if="selectedShippingAddress.errMsg && !selectedShippingAddress.value"
+          class="text-red-700 font-semibold"
+        >
+          Shipping address {{ selectedShippingAddress.errMsg.toLowerCase() }}
+        </p>
+        <p
+          v-if="selectedBillingAddress.errMsg && !selectedBillingAddress.value"
+          class="text-red-700 font-semibold"
+        >
+          Billing address {{ selectedBillingAddress.errMsg.toLowerCase() }}
+        </p>
+      </div>
       <MCheckoutOrderSummary
         :user="user"
         :order-summary="orderSummary"
         :items="cart"
         :shipping-address-id="shippingAddressId"
         :billing-address-id="billingAddressId"
+        :vuelidate="v$"
+        :billingAddressErr="selectedBillingAddress.errMsg"
+        :shippingAddressErr="selectedShippingAddress.errMsg"
+        @shipping-address-error="setShippingAddressError"
+        @billing-address-error="setBillingAddressError"
+        @clear-billing-address-error="clearBillingAddressError"
+        @clear-shipping-address-error="clearShippingAddressError"
       />
     </div>
   </div>
@@ -129,15 +153,21 @@ export default {
     return {
       selectedShippingAddress: {
         value: null,
-        shippingAddressErrorMsg: '',
+        errMsg: '',
       },
       selectedBillingAddress: {
         value: null,
-        billingAddressErrorMsg: '',
+        errMsg: '',
       },
     }
   },
   methods: {
+    setBillingAddressError(errMsg) {
+      this.selectedBillingAddress.errMsg = errMsg
+    },
+    setShippingAddressError(errMsg) {
+      this.selectedShippingAddress.errMsg = errMsg
+    },
     setSelectedShippingAddress(address) {
       this.selectedShippingAddress.value = address
       this.$toast.show('Shipping address selected')

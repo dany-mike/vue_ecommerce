@@ -56,6 +56,16 @@
         </dl>
       </div>
     </div>
+    <div class="err-message-container hidden lg:flex lg:justify-center lg:mt-3">
+      <p v-if="shippingAddressErr && !shippingAddressId" class="text-red-700 font-semibold">
+        Shipping address {{ shippingAddressErr.toLowerCase() }}
+      </p>
+    </div>
+    <div class="err-message-container hidden lg:flex lg:justify-center lg:mt-3">
+      <p v-if="billingAddressErr && !billingAddressId" class="text-red-700 font-semibold">
+        Billing address {{ billingAddressErr.toLowerCase() }}
+      </p>
+    </div>
     <div class="border-t border-gray-200 py-6 px-4 sm:px-6">
       <button
         @click="onSubmit"
@@ -96,9 +106,38 @@ export default {
       type: Number,
       default: null,
     },
+    vuelidate: {
+      type: Object,
+      default: () => {},
+    },
+    shippingAddressErr: {
+      type: String,
+      default: '',
+    },
+    billingAddressErr: {
+      type: String,
+      default: '',
+    },
   },
+  emits: [
+    'shipping-address-error',
+    'billing-address-error',
+    'clear-shipping-address-error',
+    'clear-billing-address-error',
+  ],
   methods: {
     async onSubmit() {
+      if (this.vuelidate.$invalid) {
+        this.$emit(
+          'shipping-address-error',
+          this.vuelidate.selectedShippingAddress.$silentErrors[0]?.$message,
+        )
+        this.$emit(
+          'billing-address-error',
+          this.vuelidate.selectedShippingAddress.$silentErrors[0]?.$message,
+        )
+        return
+      }
       const body = {
         status: 'COMPLETE',
         userToken: this.user.accessToken,

@@ -1,7 +1,18 @@
 <template>
-  <div class="m-address-card py-8 px-48 min-w-max" v-if="item">
+  <div
+    :class="{
+      'm-address-card py-8 px-48 min-w-max': !isSelected,
+      'w-full': isSelected,
+    }"
+    v-if="item"
+  >
     <div class="card-container">
-      <div class="max-w-sm rounded overflow-hidden shadow-lg">
+      <div
+        class="rounded overflow-hidden shadow-lg"
+        :class="{
+          'max-w-sm': !isSelected,
+        }"
+      >
         <div class="px-6 py-4">
           <div class="font-normal text-xl mb-2">City: {{ item?.city }}</div>
           <p class="text-gray-700 text-base">
