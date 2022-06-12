@@ -24,6 +24,7 @@ import AddAddress from '@/pages/AddAddress.vue'
 import UpdateAddress from '@/pages/UpdateAddress.vue'
 import AddOrder from '@/pages/AddOrder.vue'
 import PaymentPage from '@/pages/PaymentPage.vue'
+import { parseJwt } from '@/helpers/parseJwt'
 
 const routes = [
   {
@@ -35,46 +36,55 @@ const routes = [
     path: '/admin',
     name: 'AdminHome',
     component: AdminHome,
+    beforeEnter: [isTokenValid],
   },
   {
     path: '/admin/category/add',
     name: 'AddCategory',
     component: AddCategory,
+    beforeEnter: [isTokenValid],
   },
   {
     path: '/admin/category/update/:id',
     name: 'UpdateCategory',
     component: UpdateCategory,
+    beforeEnter: [isTokenValid],
   },
   {
     path: '/admin/category',
     name: 'CategoryList',
     component: CategoryList,
+    beforeEnter: [isTokenValid],
   },
   {
     path: '/admin/category/:id',
     name: 'CategoryItem',
     component: CategoryItem,
+    beforeEnter: [isTokenValid],
   },
   {
     path: '/admin/products/add',
     name: 'AddProduct',
     component: AddProduct,
+    beforeEnter: [isTokenValid],
   },
   {
     path: '/admin/products/update/:id',
     name: 'UpdateProduct',
     component: UpdateProduct,
+    beforeEnter: [isTokenValid],
   },
   {
     path: '/admin/products',
     name: 'ProductList',
     component: ProductList,
+    beforeEnter: [isTokenValid],
   },
   {
     path: '/admin/products/:id',
     name: 'ProductItem',
     component: ProductItem,
+    beforeEnter: [isTokenValid],
   },
   {
     path: '/products/:id',
@@ -95,6 +105,7 @@ const routes = [
     path: '/favorites',
     name: 'FavoritesPage',
     component: FavoritesPage,
+    beforeEnter: [isTokenValid],
   },
   {
     path: '/signin',
@@ -115,11 +126,13 @@ const routes = [
     path: '/admin/upload-image',
     name: 'AddImage',
     component: AddImage,
+    beforeEnter: [isTokenValid],
   },
   {
     path: '/admin/image-list',
     name: 'ImageList',
     component: ImageList,
+    beforeEnter: [isTokenValid],
   },
   {
     path: '/:pathMatch(.*)*',
@@ -129,16 +142,19 @@ const routes = [
     path: '/checkout/:id',
     name: 'CheckoutPage',
     component: CheckoutPage,
+    beforeEnter: [isTokenValid],
   },
   {
     path: '/add-address',
     name: 'AddAddress',
     component: AddAddress,
+    beforeEnter: [isTokenValid],
   },
   {
     path: '/update-address/:id',
     name: 'UpdateAddress',
     component: UpdateAddress,
+    beforeEnter: [isTokenValid],
   },
   {
     path: '/add-order',
@@ -149,6 +165,7 @@ const routes = [
     path: '/payment',
     name: 'PaymentPage',
     component: PaymentPage,
+    beforeEnter: [isTokenValid],
   },
 ]
 
@@ -156,6 +173,17 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 })
+
+function isTokenValid(to, from, next) {
+  const user = JSON.parse(localStorage.getItem('user'))
+  if (user) {
+    const jwtPayload = parseJwt(user.accessToken)
+    if (jwtPayload.exp < Date.now() / 1000) {
+      localStorage.removeItem('user')
+      next('/signin')
+    }
+  }
+}
 
 // use this function for the future front
 // async function handleRouterGuard(to, store, fullPath) {
