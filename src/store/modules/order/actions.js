@@ -28,13 +28,12 @@ export default {
       .post(`${process.env.VUE_APP_API_BASE_URL}/order/cancel`, body, {
         headers: authHeader(),
       })
-
       .then((response) => {
         commit(types.SET_ORDER_RESPONSE, response.data)
       })
       .catch((err) => console.log(err))
   },
-  [types.FETCH_ORDER_SUMMARY]({ commit }, { orderId }) {
+  [types.FETCH_ORDER_SUMMARY]({ commit }, orderId) {
     return axios
       .get(`${process.env.VUE_APP_API_BASE_URL}/order/summary/i/${orderId}`, {
         headers: authHeader(),

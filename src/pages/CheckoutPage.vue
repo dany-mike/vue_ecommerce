@@ -56,16 +56,16 @@
           </div>
         </div> -->
       </div>
-      <div class="mt-4" v-if="selectedBillingAddress || selectedShippingAddress">
+      <div class="mt-4" v-if="selectedBillingAddress.value || selectedShippingAddress.value">
         <p class="text-2xl font-medium">Selected addresses</p>
         <div>
-          <p class="text-xl font-medium" v-if="selectedShippingAddress">
+          <p class="text-xl font-medium" v-if="selectedShippingAddress.value">
             Selected shipping address:
           </p>
           <MAddressCard
             :type="'shipping'"
             :from="'checkout'"
-            :item="selectedShippingAddress"
+            :item="selectedShippingAddress.value"
             :is-selected="true"
           />
         </div>
@@ -74,12 +74,18 @@
           <MAddressCard
             :type="'billing'"
             :from="'checkout'"
-            :item="selectedBillingAddress"
+            :item="selectedBillingAddress.value"
             :is-selected="true"
           />
         </div>
       </div>
-      <MCheckoutOrderSummary :user="user" />
+      <MCheckoutOrderSummary
+        :user="user"
+        :order-summary="orderSummary"
+        :items="cart"
+        :shipping-address-id="shippingAddressId"
+        :billing-address-id="billingAddressId"
+      />
     </div>
   </div>
 </template>
@@ -89,12 +95,16 @@ import AButton from '@/components/atoms/a-button.vue'
 import OAddressCarousel from '@/components/organisms/o-address-carousel.vue'
 import MCheckoutOrderSummary from '@/components/molecules/m-checkout-order-summary.vue'
 import MAddressCard from '@/components/molecules/m-address-card.vue'
+import useVuelidate from '@vuelidate/core'
+import { required } from '@vuelidate/validators'
 
 import {
   FETCH_USER_BILLING_ADDRESSES,
   FETCH_USER_SHIPPING_ADDRESSES,
 } from '@/store/modules/address/types'
 import { mapGetters } from 'vuex'
+import { FETCH_ORDER_SUMMARY } from '@/store/modules/order/types'
+import { GET_CART } from '@/store/modules/cart/types'
 export default {
   name: 'CheckoutPage',
   components: {
@@ -104,36 +114,69 @@ export default {
     MAddressCard,
   },
   async mounted() {
+    this.$store.dispatch(GET_CART)
+    await this.$store.dispatch(`${FETCH_ORDER_SUMMARY}`, this.$route.params.id)
     await this.$store.dispatch(`${FETCH_USER_BILLING_ADDRESSES}`, this.user?.id)
     await this.$store.dispatch(`${FETCH_USER_SHIPPING_ADDRESSES}`, this.user?.id)
     if (!this.user) {
       this.$router.push('/cart')
     }
   },
+  setup() {
+    return { v$: useVuelidate() }
+  },
   data() {
     return {
-      selectedShippingAddress: null,
-      selectedBillingAddress: null,
+      selectedShippingAddress: {
+        value: null,
+        shippingAddressErrorMsg: '',
+      },
+      selectedBillingAddress: {
+        value: null,
+        billingAddressErrorMsg: '',
+      },
     }
   },
   methods: {
     setSelectedShippingAddress(address) {
-      this.selectedShippingAddress = address
+      this.selectedShippingAddress.value = address
       this.$toast.show('Shipping address selected')
     },
     setSelectedBillingAddress(address) {
-      this.selectedBillingAddress = address
+      this.selectedBillingAddress.value = address
       this.$toast.show('Billing address selected')
     },
+  },
+  validations() {
+    return {
+      selectedShippingAddress: {
+        value: {
+          required,
+        },
+      },
+      selectedBillingAddress: {
+        value: {
+          required,
+        },
+      },
+    }
   },
   computed: {
     ...mapGetters({
       user: 'getCurrentUser',
       billingAddresses: 'getBillingAddresses',
       shippingAddresses: 'getShippingAddresses',
+      orderSummary: 'getOrderResponse',
+      cart: 'getCart',
     }),
     orderId() {
       return this.$route.params.id
+    },
+    shippingAddressId() {
+      return this.selectedShippingAddress.value?.id
+    },
+    billingAddressId() {
+      return this.selectedBillingAddress.value?.id
     },
   },
 }

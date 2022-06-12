@@ -8,9 +8,9 @@
           <li class="flex py-6 px-4 sm:px-6" :key="item.id" v-for="item in items">
             <div class="flex-shrink-0">
               <img
-                src="https://tailwindui.com/img/ecommerce-images/checkout-page-02-product-01.jpg"
-                alt="Front of men&#039;s Basic Tee in black."
-                class="w-20 rounded-md"
+                :src="item.image"
+                :alt="`Front of men&#039;s ${item.name} in black.`"
+                class="w-24 h-24 rounded-md object-center object-cover sm:w-48 sm:h-48"
               />
             </div>
 
@@ -22,11 +22,18 @@
                       {{ item.name }}
                     </a>
                   </h4>
+                  <h4 class="text-sm">
+                    <a href="#" class="font-medium text-gray-700 hover:text-gray-800">
+                      Quantity: {{ item.quantity }}
+                    </a>
+                  </h4>
                 </div>
               </div>
 
               <div class="flex-1 pt-2 flex items-end justify-between">
-                <p class="mt-1 text-sm font-medium text-gray-900">{{ item.price }}€</p>
+                <p class="mt-1 text-sm font-medium text-gray-900">
+                  Price: {{ productPrice(item) }}€ (incl: tax)
+                </p>
               </div>
             </div>
           </li>
@@ -34,22 +41,24 @@
         <dl class="border-t border-gray-200 py-6 px-4 space-y-6 sm:px-6">
           <div class="flex items-center justify-between">
             <dt class="text-sm">Subtotal</dt>
-            <dd class="text-sm font-medium text-gray-900">€</dd>
+            <dd class="text-sm font-medium text-gray-900">{{ orderSummary.subtotal }}€</dd>
           </div>
           <div class="flex items-center justify-between">
             <dt class="text-sm">Tax</dt>
-            <dd class="text-sm font-medium text-gray-900">€</dd>
+            <dd class="text-sm font-medium text-gray-900">{{ orderSummary.tax }}€</dd>
           </div>
           <div class="flex items-center justify-between border-t border-gray-200 pt-6">
             <dt class="text-base font-medium">Total</dt>
-            <dd class="text-base font-medium text-gray-900">€</dd>
+            <dd class="text-base font-medium text-gray-900">{{ orderSummary.totalPrice }}€</dd>
           </div>
+          <!-- <p class="mt-1 text-sm text-gray-500">Black</p>
+          <p class="mt-1 text-sm text-gray-500">Large</p> -->
         </dl>
       </div>
     </div>
     <div class="border-t border-gray-200 py-6 px-4 sm:px-6">
       <button
-        type="submit"
+        @click="onSubmit"
         class="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500"
       >
         Confirm order
@@ -59,6 +68,7 @@
 </template>
 
 <script>
+import { COMPLETE_ORDER } from '@/store/modules/order/types'
 export default {
   name: 'MCheckoutOrderSummary',
   props: {
@@ -74,16 +84,33 @@ export default {
       type: Array,
       default: () => [],
     },
+    orderSummary: {
+      type: Object,
+      default: () => {},
+    },
+    shippingAddressId: {
+      type: Number,
+      default: null,
+    },
+    billingAddressId: {
+      type: Number,
+      default: null,
+    },
   },
   methods: {
     async onSubmit() {
       const body = {
-        orderItems: this.cart,
         status: 'COMPLETE',
-        userToken: this.user.token,
+        userToken: this.user.accessToken,
+        orderId: this.orderSummary.id,
+        billingAddressId: this.billingAddressId,
+        shippingAddressId: this.shippingAddressId,
       }
 
-      console.log(body)
+      await this.$store.dispatch(`${COMPLETE_ORDER}`, body)
+    },
+    productPrice(item) {
+      return item.price * item.quantity
     },
   },
 }
