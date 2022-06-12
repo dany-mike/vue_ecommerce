@@ -2,10 +2,10 @@
   <div class="my-account max-w-2xl mx-auto pt-6 pb-24 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
     <MAccountTabs @active-tab="setActiveTab" />
     <div class="profile-container" v-if="selectedTab === 'My profile'">
-      <MUpdateProfile :user-id="user.id" />
+      <MUpdateProfile v-if="dbUser" :user="dbUser" />
     </div>
     <div class="paswword-container" v-if="selectedTab === 'My password'">
-      <MUpdatePassword />
+      <MUpdatePassword :user="dbUser" />
     </div>
     <div class="wishlist-container" v-if="selectedTab === 'My wishlist'">
       <p class="text-2xl font-medium py-4">My wishlist</p>
@@ -62,6 +62,7 @@ import {
   FETCH_USER_BILLING_ADDRESSES,
   FETCH_USER_SHIPPING_ADDRESSES,
 } from '@/store/modules/address/types'
+import { FETCH_USER_BY_ID } from '@/store/modules/auth/types'
 export default {
   name: 'MyAccount',
   components: {
@@ -78,6 +79,8 @@ export default {
     }
   },
   async mounted() {
+    await this.$store.dispatch(`${FETCH_USER_BY_ID}`, this.user?.id)
+
     if (!this.user) {
       this.$router.push({ path: '/signin', query: { type: 'my-account' } })
     }
@@ -91,6 +94,7 @@ export default {
       user: 'getCurrentUser',
       billingAddresses: 'getBillingAddresses',
       shippingAddresses: 'getShippingAddresses',
+      dbUser: 'getDbUser',
     }),
   },
   methods: {

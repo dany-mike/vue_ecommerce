@@ -72,7 +72,7 @@ import AInput from '@/components/atoms/a-input.vue'
 import AButton from '@/components/atoms/a-button.vue'
 import useVuelidate from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
-import { FETCH_USER_BY_ID, UPDATE_USER_INFO } from '@/store/modules/auth/types'
+import { UPDATE_USER_INFO } from '@/store/modules/auth/types'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -81,8 +81,7 @@ export default {
     AInput,
     AButton,
   },
-  async mounted() {
-    await this.$store.dispatch(FETCH_USER_BY_ID, this.userId)
+  mounted() {
     this.setFormItems()
   },
   setup() {
@@ -109,16 +108,16 @@ export default {
     }
   },
   props: {
-    userId: {
+    user: {
       type: Object,
       default: () => {},
     },
   },
   methods: {
     setFormItems() {
-      this.firstname.value = this.user.firstname
-      this.lastname.value = this.user.lastname
-      this.email.value = this.user.email
+      this.firstname.value = this.user?.firstname
+      this.lastname.value = this.user?.lastname
+      this.email.value = this.user?.email
     },
     async onSubmit() {
       this.email.errMsg = ''
@@ -134,24 +133,22 @@ export default {
       const body = {
         firstname: this.firstname.value,
         lastname: this.lastname.value,
-        email: this.user.email,
+        email: this.user?.email,
         newEmail: this.email.value,
         password: this.password.value,
       }
 
       await this.$store.dispatch(UPDATE_USER_INFO, body)
 
-      if (this.errRes) {
-        return
+      if (this.authRes) {
+        this.$router.go(this.$router.currentRoute)
       }
-
-      this.$router.go(this.$router.currentRoute)
     },
   },
   computed: {
     ...mapGetters({
       errRes: 'getErrorResponse',
-      user: 'getDbUser',
+      authRes: 'getAuthResponse',
     }),
   },
   validations() {

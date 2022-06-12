@@ -38,7 +38,6 @@ export default {
       .put(`${process.env.VUE_APP_API_BASE_URL}/auth/password`, body, {
         headers: {},
       })
-
       .then((response) => {
         commit(types.SET_AUTH_RESPONSE, response.data)
       })

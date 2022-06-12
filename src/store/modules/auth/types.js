@@ -4,6 +4,7 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER'
 export const SET_DB_USER = 'SET_DB_USER'
 export const SET_ERROR_RESPONSE = 'SET_ERROR_RESPONSE'
 export const SET_AUTH_RESPONSE = 'SET_AUTH_RESPONSE'
+export const CLEAR_ERR_MSG = 'CLEAR_ERR_MSG'
 
 // actions types
 export const SIGNIN = 'signin'
