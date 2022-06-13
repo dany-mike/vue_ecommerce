@@ -21,6 +21,9 @@
         Subtotal: {{ item.subtotal }}€
       </p>
       <p class="font-normal text-gray-700 dark:text-gray-400 mt-2">Tax: {{ item.tax }}€</p>
+      <div class="my-12">
+        <OProductCarousel :title="'Products order'" :products="item.products" :items-to-show="2" />
+      </div>
       <AButton
         :classValue="'bg-indigo-500 mt-2 w-full'"
         v-if="item.status === 'COMPLETE'"
@@ -44,10 +47,12 @@
 
 <script>
 import AButton from '@/components/atoms/a-button.vue'
+import OProductCarousel from '@/components/organisms/o-product-carousel.vue'
 export default {
   name: 'MOrderDetails',
   components: {
     AButton,
+    OProductCarousel,
   },
   mounted() {},
   props: {
