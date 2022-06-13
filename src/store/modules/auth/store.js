@@ -29,9 +29,6 @@ export const mutations = {
   [types.SET_DB_USER](state, dbUser) {
     state.dbUser = dbUser
   },
-  [types.CLEAR_ERR_MSG](state) {
-    state.dbUser = null
-  },
   [types.SET_PASSWORD_ERROR_RESPONSE](state, errorResponse) {
     state.passwordErrRes = errorResponse
   },
