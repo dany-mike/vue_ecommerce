@@ -68,8 +68,8 @@ export default {
       const result = confirm(`Are you sure to delete this ${product.name} from your wishlist ?`)
       if (result) {
         await this.$store.dispatch(`${DELETE_WISHLIST_PRODUCT}`, { userId, productId })
+        this.$router.go(this.$router.currentRoute)
       }
-      this.$router.go(this.$router.currentRoute)
     },
     imageUrl(product) {
       const imageUrl = product.image

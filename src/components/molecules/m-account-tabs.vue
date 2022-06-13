@@ -3,7 +3,7 @@
     class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700"
   >
     <ul class="flex overflow-scroll lg:overflow-hidden -mb-px">
-      <li class="mr-2" v-for="tab in tabs" :key="tab.name">
+      <li class="mr-2 cursor-pointer" v-for="tab in tabs" :key="tab.name">
         <span
           @click="activeTab(tab)"
           class="inline-block p-4 rounded-t-lg border-b-2 border-transparent"
