@@ -8,7 +8,7 @@
       <MUpdatePassword v-if="dbUser" :user="dbUser" />
     </div>
     <div class="m-orders-list-container" v-if="selectedTab === 'My orders'">
-      <MOrdersList v-if="dbUser" :user="dbUser" />
+      <MOrdersList v-if="dbUser" :user="dbUser" :orders="orders" />
     </div>
     <div class="wishlist-container" v-if="selectedTab === 'My wishlist'">
       <p class="text-2xl font-medium py-4">My wishlist</p>
@@ -67,6 +67,7 @@ import {
   FETCH_USER_SHIPPING_ADDRESSES,
 } from '@/store/modules/address/types'
 import { FETCH_USER_BY_ID } from '@/store/modules/auth/types'
+import { FETCH_USER_ORDERS } from '@/store/modules/order/types'
 export default {
   name: 'MyAccount',
   components: {
@@ -92,6 +93,7 @@ export default {
     await this.$store.dispatch(`${FETCH_WISHLIST_PRODUCTS}`, this.user?.id)
     await this.$store.dispatch(`${FETCH_USER_BILLING_ADDRESSES}`, this.user?.id)
     await this.$store.dispatch(`${FETCH_USER_SHIPPING_ADDRESSES}`, this.user?.id)
+    await this.$store.dispatch(FETCH_USER_ORDERS, this.user?.accessToken)
   },
   computed: {
     ...mapGetters({
@@ -100,6 +102,7 @@ export default {
       billingAddresses: 'getBillingAddresses',
       shippingAddresses: 'getShippingAddresses',
       dbUser: 'getDbUser',
+      orders: 'getUserOrders',
     }),
   },
   methods: {
