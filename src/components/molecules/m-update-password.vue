@@ -14,7 +14,9 @@
             <div class="flex w-full justify-center items-center" v-if="!password.value">
               <p class="text-red-700 font-semibold">{{ password.errMsg }}</p>
             </div>
-            <p class="text-red-700 font-semibold">{{ errRes?.message }}</p>
+            <div class="flex w-full justify-center items-center">
+              <p class="text-red-700 font-semibold">{{ errRes?.message }}</p>
+            </div>
           </div>
           <div class="col-span-4 sm:col-span-2">
             <AInput
@@ -38,7 +40,7 @@
         </AButton>
       </div>
       <div class="flex w-full justify-center items-center">
-        <p class="text-green-700 font-semibold">{{ successMessage }}</p>
+        <p class="text-green-700 font-semibold py-8">{{ successMessage }}</p>
       </div>
     </div>
   </div>
@@ -50,7 +52,7 @@ import AButton from '@/components/atoms/a-button.vue'
 import useVuelidate from '@vuelidate/core'
 import { required, helpers } from '@vuelidate/validators'
 import { mapGetters } from 'vuex'
-import { UPDATE_PASSWORD } from '@/store/modules/auth/types'
+import { CLEAR_PASSWORD_ERROR_MESSAGE, UPDATE_PASSWORD } from '@/store/modules/auth/types'
 
 const regexPasswordValidation = helpers.regex(
   /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
@@ -69,7 +71,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      errRes: 'getErrorResponse',
+      errRes: 'getPasswordErrRes',
       authRes: 'getAuthResponse',
     }),
   },
@@ -110,6 +112,7 @@ export default {
 
       if (this.authRes) {
         this.successMessage = 'Password updated successfuly'
+        this.$store.dispatch(CLEAR_PASSWORD_ERROR_MESSAGE)
       }
     },
   },

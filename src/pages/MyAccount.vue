@@ -7,6 +7,9 @@
     <div class="paswword-container" v-if="selectedTab === 'My password'">
       <MUpdatePassword v-if="dbUser" :user="dbUser" />
     </div>
+    <div class="m-orders-list-container" v-if="selectedTab === 'My orders'">
+      <MOrdersList v-if="dbUser" :user="dbUser" />
+    </div>
     <div class="wishlist-container" v-if="selectedTab === 'My wishlist'">
       <p class="text-2xl font-medium py-4">My wishlist</p>
       <OListingProducts
@@ -51,6 +54,7 @@
 
 <script>
 import MAccountTabs from '@/components/molecules/m-account-tabs.vue'
+import MOrdersList from '@/components/molecules/m-orders-list.vue'
 import OListingProducts from '@/components/organisms/o-listing-products.vue'
 import MUpdatePassword from '@/components/molecules/m-update-password.vue'
 import MUpdateProfile from '@/components/molecules/m-update-profile.vue'
@@ -72,6 +76,7 @@ export default {
     OAddressCarousel,
     MUpdatePassword,
     MUpdateProfile,
+    MOrdersList,
   },
   data() {
     return {

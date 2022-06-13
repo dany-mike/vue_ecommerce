@@ -41,7 +41,7 @@ export default {
       .then((response) => {
         commit(types.SET_AUTH_RESPONSE, response.data)
       })
-      .catch((err) => commit(types.SET_ERROR_RESPONSE, err.response.data))
+      .catch((err) => commit(types.SET_PASSWORD_ERROR_RESPONSE, err.response.data))
   },
   [types.UPDATE_USER_INFO]({ commit }, body) {
     return axios
@@ -64,5 +64,8 @@ export default {
         commit(types.SET_DB_USER, response.data)
       })
       .catch((err) => console.log(err))
+  },
+  [types.CLEAR_PASSWORD_ERROR_MESSAGE]({ commit }) {
+    commit(types.SET_CLEAR_PASSWORD_ERROR_MESSAGE)
   },
 }

@@ -34,6 +34,10 @@ export default {
           isActive: false,
         },
         {
+          name: 'My orders',
+          isActive: false,
+        },
+        {
           name: 'My wishlist',
           isActive: false,
         },

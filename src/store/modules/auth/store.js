@@ -6,6 +6,7 @@ export const state = {
   errorResponse: null,
   dbUser: null,
   authResponse: null,
+  passwordErrRes: null,
 }
 
 export const mutations = {
@@ -31,6 +32,12 @@ export const mutations = {
   [types.CLEAR_ERR_MSG](state) {
     state.dbUser = null
   },
+  [types.SET_PASSWORD_ERROR_RESPONSE](state, errorResponse) {
+    state.passwordErrRes = errorResponse
+  },
+  [types.SET_CLEAR_PASSWORD_ERROR_MESSAGE](state) {
+    state.passwordErrRes = null
+  },
 }
 
 const getters = {
@@ -38,6 +45,7 @@ const getters = {
   getErrorResponse: (state) => state.errorResponse,
   getDbUser: (state) => state.dbUser,
   getAuthResponse: (state) => state.authResponse,
+  getPasswordErrRes: (state) => state.passwordErrRes,
 }
 
 export default {
