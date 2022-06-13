@@ -1,6 +1,6 @@
 <template>
   <div
-    class="m-orders-list mt-10 block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+    class="m-orders-list w-full mt-10 block p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
     v-for="order in fOrders"
     :key="order.id"
   >
@@ -23,7 +23,7 @@
     <AButton
       :classValue="'bg-indigo-500 mt-2'"
       v-if="order.status === 'COMPLETE'"
-      @click="handlePaymentRoute"
+      @click="handlePaymentRoute(order)"
     >
       Pay this order
     </AButton>
@@ -63,9 +63,10 @@ export default {
       })
     },
     handleCheckoutRoute(item) {
-      if (this.user?.role === 'user') {
-        this.$router.push(`/checkout/${item.id}`)
-      }
+      this.$router.push(`/checkout/${item.id}`)
+    },
+    handlePaymentRoute(item) {
+      this.$router.push(`/payment/${item.id}`)
     },
   },
   computed: {

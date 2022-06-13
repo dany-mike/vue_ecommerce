@@ -164,7 +164,7 @@ const routes = [
     component: AddOrder,
   },
   {
-    path: '/payment',
+    path: '/payment/:orderId',
     name: 'PaymentPage',
     component: PaymentPage,
     beforeEnter: [isTokenValid],
