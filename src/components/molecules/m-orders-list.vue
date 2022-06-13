@@ -20,11 +20,19 @@
     </p>
     <p class="font-normal text-gray-700 dark:text-gray-400 mt-2">Subtotal: {{ order.subtotal }}€</p>
     <p class="font-normal text-gray-700 dark:text-gray-400 mt-2">Tax: {{ order.tax }}€</p>
-    <AButton :classValue="'bg-indigo-500 mt-2'" v-if="order.status === 'COMPLETE'">
+    <AButton
+      :classValue="'bg-indigo-500 mt-2'"
+      v-if="order.status === 'COMPLETE'"
+      @click="handlePaymentRoute"
+    >
       Pay this order
     </AButton>
-    <AButton :classValue="'bg-indigo-500 mt-2'" v-if="order.status === 'CREATED'">
-      Go checkout
+    <AButton
+      :classValue="'bg-indigo-500 mt-2'"
+      v-if="order.status === 'CREATED'"
+      @click="handleCheckoutRoute(order)"
+    >
+      Complete my order
     </AButton>
   </div>
 </template>
@@ -53,6 +61,11 @@ export default {
         width,
         color,
       })
+    },
+    handleCheckoutRoute(item) {
+      if (this.user?.role === 'user') {
+        this.$router.push(`/checkout/${item.id}`)
+      }
     },
   },
   computed: {
