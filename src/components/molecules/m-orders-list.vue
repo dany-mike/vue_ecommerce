@@ -21,18 +21,21 @@
     <p class="font-normal text-gray-700 dark:text-gray-400 mt-2">Subtotal: {{ order.subtotal }}€</p>
     <p class="font-normal text-gray-700 dark:text-gray-400 mt-2">Tax: {{ order.tax }}€</p>
     <AButton
-      :classValue="'bg-indigo-500 mt-2'"
+      :classValue="'bg-indigo-500 mt-2 w-full'"
       v-if="order.status === 'COMPLETE'"
       @click="handlePaymentRoute(order)"
     >
       Pay this order
     </AButton>
     <AButton
-      :classValue="'bg-indigo-500 mt-2'"
+      :classValue="'bg-indigo-500 mt-2 w-full'"
       v-if="order.status === 'CREATED'"
       @click="handleCheckoutRoute(order)"
     >
       Complete my order
+    </AButton>
+    <AButton :classValue="'bg-indigo-500 mt-2 w-full'" @click="emitOrderDetails(order)">
+      Order details
     </AButton>
   </div>
 </template>
@@ -41,6 +44,7 @@
 import AButton from '@/components/atoms/a-button.vue'
 export default {
   name: 'MordersList',
+  emits: ['m-orders-list'],
   components: {
     AButton,
   },
@@ -67,6 +71,9 @@ export default {
     },
     handlePaymentRoute(item) {
       this.$router.push(`/payment/${item.id}`)
+    },
+    emitOrderDetails(item) {
+      this.$emit('m-orders-list', item)
     },
   },
   computed: {

@@ -53,4 +53,7 @@ export default {
       })
       .catch((err) => console.log(err))
   },
+  [types.CLEAR_ORDER_DETAILS]({ commit }) {
+    commit(types.SET_CLEAR_ORDER_DETAILS)
+  },
 }

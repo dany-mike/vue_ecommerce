@@ -13,6 +13,9 @@ export const mutations = {
   [types.SET_USER_ORDERS](state, userOrders) {
     state.userOrders = userOrders
   },
+  [types.SET_CLEAR_ORDER_DETAILS](state) {
+    state.orderResponse = {}
+  },
 }
 
 const getters = {

@@ -8,7 +8,17 @@
       <MUpdatePassword v-if="dbUser" :user="dbUser" />
     </div>
     <div class="m-orders-list-container" v-if="selectedTab === 'My orders'">
-      <MOrdersList v-if="dbUser" :user="dbUser" :orders="orders" />
+      <MOrdersList
+        v-if="dbUser && Object.entries(orderDetails).length === 0"
+        :user="dbUser"
+        :orders="orders"
+        @m-orders-list="setOrderDetails"
+      />
+      <MOrderDetails
+        @m-order-details="setOrdersList"
+        v-if="Object.entries(orderDetails).length > 0"
+        :item="orderDetails"
+      />
     </div>
     <div class="wishlist-container" v-if="selectedTab === 'My wishlist'">
       <p class="text-2xl font-medium py-4">My wishlist</p>
@@ -55,6 +65,7 @@
 <script>
 import MAccountTabs from '@/components/molecules/m-account-tabs.vue'
 import MOrdersList from '@/components/molecules/m-orders-list.vue'
+import MOrderDetails from '@/components/molecules/m-order-details.vue'
 import OListingProducts from '@/components/organisms/o-listing-products.vue'
 import MUpdatePassword from '@/components/molecules/m-update-password.vue'
 import MUpdateProfile from '@/components/molecules/m-update-profile.vue'
@@ -67,7 +78,11 @@ import {
   FETCH_USER_SHIPPING_ADDRESSES,
 } from '@/store/modules/address/types'
 import { FETCH_USER_BY_ID } from '@/store/modules/auth/types'
-import { FETCH_USER_ORDERS } from '@/store/modules/order/types'
+import {
+  CLEAR_ORDER_DETAILS,
+  FETCH_ORDER_SUMMARY,
+  FETCH_USER_ORDERS,
+} from '@/store/modules/order/types'
 export default {
   name: 'MyAccount',
   components: {
@@ -78,6 +93,7 @@ export default {
     MUpdatePassword,
     MUpdateProfile,
     MOrdersList,
+    MOrderDetails,
   },
   data() {
     return {
@@ -103,6 +119,7 @@ export default {
       shippingAddresses: 'getShippingAddresses',
       dbUser: 'getDbUser',
       orders: 'getUserOrders',
+      orderDetails: 'getOrderResponse',
     }),
   },
   methods: {
@@ -114,6 +131,13 @@ export default {
     },
     setActiveTab(tab) {
       this.selectedTab = tab.name
+    },
+    async setOrderDetails(item) {
+      await this.$store.dispatch(FETCH_ORDER_SUMMARY, item.id)
+    },
+
+    setOrdersList() {
+      this.$store.dispatch(CLEAR_ORDER_DETAILS)
     },
   },
 }
