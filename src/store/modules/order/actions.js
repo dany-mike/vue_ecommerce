@@ -43,4 +43,17 @@ export default {
       })
       .catch((err) => console.log(err))
   },
+  [types.FETCH_USER_ORDERS]({ commit }, token) {
+    return axios
+      .get(`${process.env.VUE_APP_API_BASE_URL}/order/c/all/${token}`, {
+        headers: authHeader(),
+      })
+      .then((response) => {
+        commit(types.SET_USER_ORDERS, response.data)
+      })
+      .catch((err) => console.log(err))
+  },
+  [types.CLEAR_ORDER_DETAILS]({ commit }) {
+    commit(types.SET_CLEAR_ORDER_DETAILS)
+  },
 }

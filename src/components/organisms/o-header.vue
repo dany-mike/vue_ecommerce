@@ -16,6 +16,7 @@
             @click="handleCartRoute"
           />
           <HeartIcon class="w-10 h-10 ml-2 lg:hidden cursor-pointer" @click="handleFavoriteRoute" />
+          <UserIcon class="w-10 h-10 ml-2 lg:hidden cursor-pointer" @click="handleAccountRoute" />
         </div>
         <div class="my-2 md:hidden ml-auto">
           <PopoverButton
@@ -76,6 +77,7 @@
         <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
           <ShoppingCartIcon class="w-10 h-10 mr-5 cursor-pointer" @click="handleCartRoute" />
           <HeartIcon class="w-10 h-10 mr-5 cursor-pointer" @click="handleFavoriteRoute" />
+          <UserIcon class="w-10 h-10 ml-2 cursor-pointer" @click="handleAccountRoute" />
           <router-link
             v-if="!user"
             :to="'/signin'"
@@ -170,7 +172,14 @@
 
 <script>
 import { Popover, PopoverButton, PopoverGroup, PopoverPanel } from '@headlessui/vue'
-import { MenuIcon, XIcon, ShoppingCartIcon, HeartIcon, HomeIcon } from '@heroicons/vue/outline'
+import {
+  MenuIcon,
+  XIcon,
+  ShoppingCartIcon,
+  HeartIcon,
+  HomeIcon,
+  UserIcon,
+} from '@heroicons/vue/outline'
 import { ChevronDownIcon } from '@heroicons/vue/solid'
 import { FETCH_CATEGORIES } from '@/store/modules/categories/types'
 import { mapGetters } from 'vuex'
@@ -188,6 +197,7 @@ export default {
     PopoverGroup,
     PopoverPanel,
     HomeIcon,
+    UserIcon,
   },
   data() {
     return {
@@ -217,6 +227,11 @@ export default {
       this.user?.role !== 'user'
         ? this.$router.push({ path: '/signin', query: { type: 'wishlist' } })
         : this.$router.push('/favorites')
+    },
+    handleAccountRoute() {
+      this.user?.role !== 'user'
+        ? this.$router.push({ path: '/signin', query: { type: 'account' } })
+        : this.$router.push('/my-account')
     },
   },
   computed: {

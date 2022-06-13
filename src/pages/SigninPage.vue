@@ -120,8 +120,8 @@ export default {
       await this.$store.dispatch(`${SIGNIN}`, body)
       await this.$store.dispatch(`${GET_CURRENT_USER}`)
 
-      if (this.payloadResponse) {
-        this.errorResponse = this.payloadResponse.message
+      if (this.errRes) {
+        this.errorResponse = this.errRes.message
       }
 
       if (this.user && this.$route.query.type === 'add-wishlist') {
@@ -147,7 +147,7 @@ export default {
   computed: {
     ...mapGetters({
       user: 'getCurrentUser',
-      payloadResponse: 'getPayloadResponse',
+      errRes: 'getErrorResponse',
     }),
   },
 }
