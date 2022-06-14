@@ -19,7 +19,7 @@
               </a>
             </h3>
           </div>
-          <p class="mt-1 text-sm font-medium text-gray-900">{{ item.price }}€</p>
+          <p class="mt-1 text-sm font-medium text-gray-900">{{ productPrice(item) }}€</p>
         </div>
 
         <div class="mt-4 sm:mt-0 sm:pr-9">
@@ -67,6 +67,7 @@
 <script>
 import { GET_CART } from '@/store/modules/cart/types'
 import { mapGetters } from 'vuex'
+import { formatPrice } from '@/helpers/price'
 export default {
   name: 'MCartItems',
   props: {
@@ -95,6 +96,9 @@ export default {
         totalPrice += item.price * item.quantity
       })
       this.$emit('order-total', totalPrice)
+    },
+    productPrice(item) {
+      return formatPrice(item.price * item.quantity)
     },
     imageUrl(product) {
       const imageUrl = product.image
