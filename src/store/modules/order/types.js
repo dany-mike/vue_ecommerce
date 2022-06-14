@@ -2,6 +2,7 @@
 export const SET_ORDER_RESPONSE = 'SET_ORDER_RESPONSE'
 export const SET_USER_ORDERS = 'SET_USER_ORDERS'
 export const SET_CLEAR_ORDER_DETAILS = 'SET_CLEAR_ORDER_DETAILS'
+export const SET_ORDER_COMPLETED = 'SET_ORDER_COMPLETED'
 
 // actions types
 export const FETCH_ORDER_SUMMARY = 'fetchOrderSummary'

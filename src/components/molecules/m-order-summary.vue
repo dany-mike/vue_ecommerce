@@ -28,8 +28,8 @@ export default {
   name: 'MOrderSummary',
   props: {
     orderTotal: {
-      type: Number,
-      default: 0,
+      type: String,
+      default: '',
     },
     cart: {
       type: Object,

@@ -19,7 +19,7 @@ export default {
         headers: authHeader(),
       })
       .then((response) => {
-        commit(types.SET_ORDER_RESPONSE, response.data)
+        commit(types.SET_ORDER_COMPLETED, response.data)
       })
       .catch((err) => console.log(err))
   },
