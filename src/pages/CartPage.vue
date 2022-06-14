@@ -35,6 +35,8 @@ import AButton from '@/components/atoms/a-button.vue'
 import { mapGetters } from 'vuex'
 import { GET_CART } from '@/store/modules/cart/types'
 
+import { formatPrice } from '@/helpers/price'
+
 export default {
   components: {
     MCartItems,
@@ -62,7 +64,7 @@ export default {
   },
   methods: {
     setOrderTotal(orderTotal) {
-      this.orderTotal = orderTotal
+      this.orderTotal = formatPrice(orderTotal)
     },
   },
 }

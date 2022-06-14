@@ -41,15 +41,15 @@
         <dl class="border-t border-gray-200 py-6 px-4 space-y-6 sm:px-6">
           <div class="flex items-center justify-between">
             <dt class="text-sm">Subtotal</dt>
-            <dd class="text-sm font-medium text-gray-900">{{ orderSummary.subtotal }}€</dd>
+            <dd class="text-sm font-medium text-gray-900">{{ formattedSubtotal }}€</dd>
           </div>
           <div class="flex items-center justify-between">
             <dt class="text-sm">Tax</dt>
-            <dd class="text-sm font-medium text-gray-900">{{ orderSummary.tax }}€</dd>
+            <dd class="text-sm font-medium text-gray-900">{{ formattedTax }}€</dd>
           </div>
           <div class="flex items-center justify-between border-t border-gray-200 pt-6">
             <dt class="text-base font-medium">Total</dt>
-            <dd class="text-base font-medium text-gray-900">{{ orderSummary.totalPrice }}€</dd>
+            <dd class="text-base font-medium text-gray-900">{{ formattedTotal }}€</dd>
           </div>
           <!-- <p class="mt-1 text-sm text-gray-500">Black</p>
           <p class="mt-1 text-sm text-gray-500">Large</p> -->
@@ -79,6 +79,9 @@
 
 <script>
 import { COMPLETE_ORDER } from '@/store/modules/order/types'
+
+import { formatPrice } from '@/helpers/price'
+
 export default {
   name: 'MCheckoutOrderSummary',
   props: {
@@ -149,7 +152,18 @@ export default {
       await this.$store.dispatch(`${COMPLETE_ORDER}`, body)
     },
     productPrice(item) {
-      return item.price * item.quantity
+      return formatPrice(item.price * item.quantity)
+    },
+  },
+  computed: {
+    formattedTax() {
+      return formatPrice(this.orderSummary.tax)
+    },
+    formattedSubtotal() {
+      return formatPrice(this.orderSummary.subtotal)
+    },
+    formattedTotal() {
+      return formatPrice(this.orderSummary.totalPrice)
     },
   },
 }
