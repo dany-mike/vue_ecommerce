@@ -27,7 +27,7 @@
       </div>
       <AButton
         :classValue="'bg-indigo-500 mt-2 w-full'"
-        v-if="item.status === 'COMPLETE' && item.product.length > 0"
+        v-if="item.status === 'COMPLETE' && item.products.length > 0"
         @click="handlePaymentRoute(item)"
       >
         Pay this order
@@ -39,10 +39,10 @@
       >
         Complete my order
       </AButton>
+      <AButton :classValue="'bg-indigo-500 mt-2 w-full'" @click="emitOrderList">
+        Back to orders list
+      </AButton>
     </div>
-    <AButton :classValue="'bg-indigo-500 mt-2 w-full'" @click="emitOrderList">
-      Back to orders list
-    </AButton>
   </div>
 </template>
 

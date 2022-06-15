@@ -25,6 +25,7 @@ import UpdateAddress from '@/pages/UpdateAddress.vue'
 import AddOrder from '@/pages/AddOrder.vue'
 import PaymentPage from '@/pages/PaymentPage.vue'
 import MyAccount from '@/pages/MyAccount.vue'
+import SuccessPage from '@/pages/SuccessPage.vue'
 
 import { parseJwt } from '@/helpers/parseJwt'
 
@@ -173,6 +174,12 @@ const routes = [
     path: '/my-account',
     name: 'MyAccount',
     component: MyAccount,
+    beforeEnter: [isTokenValid],
+  },
+  {
+    path: '/success/:orderId',
+    name: 'SuccessPage',
+    component: SuccessPage,
     beforeEnter: [isTokenValid],
   },
 ]

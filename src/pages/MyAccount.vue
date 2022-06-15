@@ -133,6 +133,7 @@ export default {
       this.selectedTab = tab.name
     },
     async setOrderDetails(item) {
+      console.log(item)
       await this.$store.dispatch(FETCH_ORDER_SUMMARY, item.id)
     },
 
