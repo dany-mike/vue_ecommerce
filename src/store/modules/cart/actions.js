@@ -7,4 +7,8 @@ export default {
       commit(types.SET_CART, products)
     }
   },
+  [types.CLEAR_CART]({ commit }) {
+    localStorage.removeItem('products')
+    commit(types.SET_CLEAR_CART)
+  },
 }

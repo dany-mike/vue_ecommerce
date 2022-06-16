@@ -7,6 +7,7 @@ import cloudinary from '@/store/modules/cloudinary/store'
 import cart from '@/store/modules/cart/store'
 import address from '@/store/modules/address/store'
 import order from '@/store/modules/order/store'
+import payment from '@/store/modules/payment/store'
 
 const store = createStore({
   modules: {
@@ -18,6 +19,7 @@ const store = createStore({
     cart,
     address,
     order,
+    payment,
   },
 })
 

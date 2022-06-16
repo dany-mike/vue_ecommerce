@@ -22,13 +22,6 @@
     <p class="font-normal text-gray-700 dark:text-gray-400 mt-2">Tax: {{ order.tax }}€</p>
     <AButton
       :classValue="'bg-indigo-500 mt-2 w-full'"
-      v-if="order.status === 'COMPLETE'"
-      @click="handlePaymentRoute(order)"
-    >
-      Pay this order
-    </AButton>
-    <AButton
-      :classValue="'bg-indigo-500 mt-2 w-full'"
       v-if="order.status === 'CREATED'"
       @click="handleCheckoutRoute(order)"
     >
@@ -42,6 +35,7 @@
 
 <script>
 import AButton from '@/components/atoms/a-button.vue'
+import { formatPrice } from '@/helpers/price'
 export default {
   name: 'MordersList',
   emits: ['m-orders-list'],
@@ -59,11 +53,14 @@ export default {
     },
   },
   methods: {
-    pushOrder(orders, width, color, order) {
+    pushOrder(orders, width, color, order, fSubtotal, fTotal, fTax) {
       orders.push({
         ...order,
         width,
         color,
+        totalPrice: fTotal,
+        tax: fTax,
+        subtotal: fSubtotal,
       })
     },
     handleCheckoutRoute(item) {
@@ -81,16 +78,48 @@ export default {
       const fOrders = []
       this.orders.forEach((order) => {
         if (order.status === 'CREATED') {
-          this.pushOrder(fOrders, '33%', 'green', order)
+          this.pushOrder(
+            fOrders,
+            '33%',
+            'green',
+            order,
+            formatPrice(order.subtotal),
+            formatPrice(order.totalPrice),
+            formatPrice(order.tax),
+          )
         }
         if (order.status === 'CANCEL') {
-          this.pushOrder(fOrders, '100%', 'red', order)
+          this.pushOrder(
+            fOrders,
+            '100%',
+            'red',
+            order,
+            formatPrice(order.subtotal),
+            formatPrice(order.totalPrice),
+            formatPrice(order.tax),
+          )
         }
         if (order.status === 'COMPLETE') {
-          this.pushOrder(fOrders, '66%', 'green', order)
+          this.pushOrder(
+            fOrders,
+            '66%',
+            'green',
+            order,
+            formatPrice(order.subtotal),
+            formatPrice(order.totalPrice),
+            formatPrice(order.tax),
+          )
         }
         if (order.status === 'PAID') {
-          this.pushOrder(fOrders, '100%', 'green', order)
+          this.pushOrder(
+            fOrders,
+            '100%',
+            'green',
+            order,
+            formatPrice(order.subtotal),
+            formatPrice(order.totalPrice),
+            formatPrice(order.tax),
+          )
         }
       })
       return fOrders

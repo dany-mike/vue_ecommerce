@@ -194,7 +194,7 @@ export default {
       user: 'getCurrentUser',
       billingAddresses: 'getBillingAddresses',
       shippingAddresses: 'getShippingAddresses',
-      orderSummary: 'getOrderResponse',
+      orderSummary: 'getOrderSummary',
       cart: 'getCart',
     }),
     orderId() {

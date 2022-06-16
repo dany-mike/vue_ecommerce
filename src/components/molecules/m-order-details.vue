@@ -14,19 +14,20 @@
           :style="{ width: fItem.width, backgroundColor: fItem.color }"
         ></div>
       </div>
-      <p class="font-normal text-gray-700 dark:text-gray-400 mt-2">
-        Total incl tax: {{ item.totalPrice }}€
-      </p>
-      <p class="font-normal text-gray-700 dark:text-gray-400 mt-2">
-        Subtotal: {{ item.subtotal }}€
-      </p>
-      <p class="font-normal text-gray-700 dark:text-gray-400 mt-2">Tax: {{ item.tax }}€</p>
+      <p class="font-normal text-gray-700 dark:text-gray-400 mt-2">Total incl tax: {{ fTotal }}€</p>
+      <p class="font-normal text-gray-700 dark:text-gray-400 mt-2">Subtotal: {{ fSubtotal }}€</p>
+      <p class="font-normal text-gray-700 dark:text-gray-400 mt-2">Tax: {{ fTax }}€</p>
       <div class="my-12">
-        <OProductCarousel :title="'Products order'" :products="item.products" :items-to-show="2" />
+        <OProductCarousel
+          v-if="item.products.length > 0"
+          :title="'Products order'"
+          :products="item.products"
+          :items-to-show="2"
+        />
       </div>
       <AButton
         :classValue="'bg-indigo-500 mt-2 w-full'"
-        v-if="item.status === 'COMPLETE'"
+        v-if="item.status === 'COMPLETE' && item.products.length > 0"
         @click="handlePaymentRoute(item)"
       >
         Pay this order
@@ -38,16 +39,17 @@
       >
         Complete my order
       </AButton>
+      <AButton :classValue="'bg-indigo-500 mt-2 w-full'" @click="emitOrderList">
+        Back to orders list
+      </AButton>
     </div>
-    <AButton :classValue="'bg-indigo-500 mt-2 w-full'" @click="emitOrderList">
-      Back to orders list
-    </AButton>
   </div>
 </template>
 
 <script>
 import AButton from '@/components/atoms/a-button.vue'
 import OProductCarousel from '@/components/organisms/o-product-carousel.vue'
+import { formatPrice } from '@/helpers/price'
 export default {
   name: 'MOrderDetails',
   components: {
@@ -65,6 +67,15 @@ export default {
     fItem() {
       const fItem = {}
       return this.getFItem(fItem, this.item.status)
+    },
+    fTotal() {
+      return formatPrice(this.item.totalPrice)
+    },
+    fSubtotal() {
+      return formatPrice(this.item.subtotal)
+    },
+    fTax() {
+      return formatPrice(this.item.tax)
     },
   },
   emits: ['m-order-details'],

@@ -28,7 +28,7 @@ export default {
   name: 'MOrderSummary',
   props: {
     orderTotal: {
-      type: Number,
+      type: [Number, String],
       default: 0,
     },
     cart: {
@@ -59,7 +59,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      order: 'getOrderResponse',
+      order: 'getCreateOrder',
     }),
   },
 }

@@ -81,6 +81,8 @@
 import { COMPLETE_ORDER } from '@/store/modules/order/types'
 
 import { formatPrice } from '@/helpers/price'
+import { mapGetters } from 'vuex'
+import { CLEAR_CART } from '@/store/modules/cart/types'
 
 export default {
   name: 'MCheckoutOrderSummary',
@@ -148,14 +150,21 @@ export default {
         billingAddressId: this.billingAddressId,
         shippingAddressId: this.shippingAddressId,
       }
-
       await this.$store.dispatch(`${COMPLETE_ORDER}`, body)
+
+      if (this.orderCompleted.status === 'COMPLETE') {
+        this.$store.dispatch(CLEAR_CART)
+        this.$router.push(`/payment/${this.orderCompleted.id}`)
+      }
     },
     productPrice(item) {
       return formatPrice(item.price * item.quantity)
     },
   },
   computed: {
+    ...mapGetters({
+      orderCompleted: 'getOrderCompleted',
+    }),
     formattedTax() {
       return formatPrice(this.orderSummary.tax)
     },
