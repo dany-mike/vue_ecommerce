@@ -90,6 +90,7 @@ import { CREATE_PAYMENT_INTENT, ELEMENT_TYPE } from '@/store/modules/payment/typ
 import { mapGetters } from 'vuex'
 import { loadStripe } from '@stripe/stripe-js'
 import { formatPrice } from '@/helpers/price'
+import { FETCH_ORDER_BY_ID, PAY_ORDER } from '@/store/modules/order/types'
 export default {
   name: 'PaymentPage',
   data() {
@@ -100,15 +101,23 @@ export default {
     }
   },
   async mounted() {
-    // TODO: CHECK if order is on type COMPLETE on mounted
-    this.stripe = await loadStripe(`${process.env.VUE_APP_STRIPE_KEY}`)
-    const body = {
-      orderId: Number(this.$route.params.orderId),
+    await this.$store.dispatch(FETCH_ORDER_BY_ID, {
+      orderId: this.$route.params.orderId,
+      userToken: this.user.accessToken,
+    })
+    if (this.orderItem.status === 'COMPLETE') {
+      this.stripe = await loadStripe(`${process.env.VUE_APP_STRIPE_KEY}`)
+      const body = {
+        orderId: Number(this.$route.params.orderId),
+        userToken: this.user.accessToken,
+      }
+      this.elements = this.stripe.elements()
+      const element = this.elements.create(ELEMENT_TYPE)
+      element.mount('#stripe-element-mount-point')
+      await this.$store.dispatch(CREATE_PAYMENT_INTENT, body)
+    } else {
+      this.$router.push(`/checkout/${this.$route.params.orderId}`)
     }
-    this.elements = this.stripe.elements()
-    const element = this.elements.create(ELEMENT_TYPE)
-    element.mount('#stripe-element-mount-point')
-    await this.$store.dispatch(CREATE_PAYMENT_INTENT, body)
   },
   methods: {
     async handleSubmit() {
@@ -130,6 +139,12 @@ export default {
       })
 
       if (error) return
+
+      await this.$store.dispatch(PAY_ORDER, {
+        orderId: Number(this.$route.params.orderId),
+        userToken: this.user.accessToken,
+      })
+
       loader.hide()
 
       this.$router.push(`/success/${this.$route.params.orderId}`)
@@ -138,6 +153,8 @@ export default {
   computed: {
     ...mapGetters({
       paymentIntent: 'getPaymentIntent',
+      user: 'getCurrentUser',
+      orderItem: 'getOrderItem',
     }),
     totalPrice() {
       return formatPrice(this.paymentIntent.amount / 100)

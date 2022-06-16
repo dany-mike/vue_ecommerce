@@ -5,6 +5,7 @@ export const state = {
   orderResponse: {},
   userOrders: [],
   orderCompleted: {},
+  orderItem: {},
 }
 
 export const mutations = {
@@ -20,12 +21,16 @@ export const mutations = {
   [types.SET_ORDER_COMPLETED](state, orderCompleted) {
     state.orderCompleted = orderCompleted
   },
+  [types.SET_ORDER_ITEM](state, orderItem) {
+    state.orderItem = orderItem
+  },
 }
 
 const getters = {
   getOrderResponse: (state) => state.orderResponse,
   getUserOrders: (state) => state.userOrders,
   getOrderCompleted: (state) => state.orderCompleted,
+  getOrderItem: (state) => state.orderItem,
 }
 
 export default {
