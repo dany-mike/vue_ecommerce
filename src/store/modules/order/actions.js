@@ -9,7 +9,7 @@ export default {
         headers: authHeader(),
       })
       .then((response) => {
-        commit(types.SET_ORDER_RESPONSE, response.data)
+        commit(types.SET_CREATE_ORDER, response.data)
       })
       .catch((err) => console.log(err))
   },
@@ -29,7 +29,7 @@ export default {
         headers: authHeader(),
       })
       .then((response) => {
-        commit(types.SET_ORDER_RESPONSE, response.data)
+        commit(types.SET_CANCEL_ORDER, response.data)
       })
       .catch((err) => console.log(err))
   },
@@ -39,8 +39,8 @@ export default {
         headers: authHeader(),
       })
       .then((response) => {
-        console.log(response.data)
-        commit(types.SET_ORDER_RESPONSE, response.data)
+        console.log(response)
+        commit(types.SET_ORDER_SUMMARY, response.data)
       })
       .catch((err) => console.log(err))
   },
@@ -63,7 +63,7 @@ export default {
         headers: authHeader(),
       })
       .then((response) => {
-        commit(types.SET_ORDER_RESPONSE, response.data)
+        commit(types.SET_PAY_ORDER, response.data)
       })
       .catch((err) => console.log(err))
   },

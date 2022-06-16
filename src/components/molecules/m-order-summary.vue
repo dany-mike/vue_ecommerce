@@ -59,7 +59,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      order: 'getOrderResponse',
+      order: 'getCreateOrder',
     }),
   },
 }

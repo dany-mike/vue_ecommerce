@@ -21,7 +21,7 @@ export default {
     ...mapGetters({
       user: 'getCurrentUser',
       cart: 'getCart',
-      order: 'getOrderResponse',
+      order: 'getCreateOrder',
     }),
   },
 }

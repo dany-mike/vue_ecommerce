@@ -59,7 +59,7 @@ export default {
       user: 'getCurrentUser',
     }),
     isEmpty() {
-      return this.cart.length === 0 ? 'empty' : ''
+      return this.cart?.length === 0 ? 'empty' : ''
     },
   },
   methods: {

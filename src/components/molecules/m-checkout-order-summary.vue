@@ -82,6 +82,7 @@ import { COMPLETE_ORDER } from '@/store/modules/order/types'
 
 import { formatPrice } from '@/helpers/price'
 import { mapGetters } from 'vuex'
+import { CLEAR_CART } from '@/store/modules/cart/types'
 
 export default {
   name: 'MCheckoutOrderSummary',
@@ -152,6 +153,7 @@ export default {
       await this.$store.dispatch(`${COMPLETE_ORDER}`, body)
 
       if (this.orderCompleted.status === 'COMPLETE') {
+        this.$store.dispatch(CLEAR_CART)
         this.$router.push(`/payment/${this.orderCompleted.id}`)
       }
     },

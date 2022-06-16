@@ -101,6 +101,7 @@ export default {
     }
   },
   async mounted() {
+    this.$store.dispatch(CLEAR_ORDER_DETAILS)
     await this.$store.dispatch(`${FETCH_USER_BY_ID}`, this.user?.id)
 
     if (!this.user) {
@@ -119,7 +120,7 @@ export default {
       shippingAddresses: 'getShippingAddresses',
       dbUser: 'getDbUser',
       orders: 'getUserOrders',
-      orderDetails: 'getOrderResponse',
+      orderDetails: 'getOrderSummary',
     }),
   },
   methods: {
