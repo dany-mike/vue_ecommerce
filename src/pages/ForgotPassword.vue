@@ -25,6 +25,12 @@
           <p class="text-red-700 font-semibold">
             {{ Array.isArray(errRes?.message) ? errRes?.message[0] : errRes?.message }}
           </p>
+          <p
+            class="text-green-700 font-semibold"
+            v-if="!errRes && Object.entries(resetLinkRes).length !== 0"
+          >
+            Email sent check your {{ email }} email address
+          </p>
           <div>
             <AButton
               @click="onSubmit"
@@ -84,6 +90,7 @@ export default {
   computed: {
     ...mapGetters({
       errRes: 'getEmailErrResponse',
+      resetLinkRes: 'getResetLink',
     }),
   },
 }
