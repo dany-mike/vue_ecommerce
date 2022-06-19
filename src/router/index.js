@@ -26,6 +26,8 @@ import AddOrder from '@/pages/AddOrder.vue'
 import PaymentPage from '@/pages/PaymentPage.vue'
 import MyAccount from '@/pages/MyAccount.vue'
 import SuccessPage from '@/pages/SuccessPage.vue'
+import ForgotPassword from '@/pages/ForgotPassword.vue'
+import ResetPassword from '@/pages/ResetPassword.vue'
 
 import { parseJwt } from '@/helpers/parseJwt'
 
@@ -181,6 +183,16 @@ const routes = [
     name: 'SuccessPage',
     component: SuccessPage,
     beforeEnter: [isTokenValid],
+  },
+  {
+    path: '/forgot-password',
+    name: 'ForgotPassword',
+    component: ForgotPassword,
+  },
+  {
+    path: '/auth/reset',
+    name: 'ResetPassword',
+    component: ResetPassword,
   },
 ]
 

@@ -32,15 +32,6 @@
             />
           </div>
           <p class="text-red-700 font-semibold">{{ errorResponse }}</p>
-          <!-- TODO: Add forgot password feat in v2 -->
-          <!-- <div class="flex items-center justify-between">
-            <div class="text-sm">
-              <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
-                Forgot your password?
-              </a>
-            </div>
-          </div> -->
-
           <div>
             <AButton
               :classValue="'w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bgw-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'"
@@ -55,6 +46,16 @@
           {{ ' ' }}
           <span @click="handleSignup" class="text-indigo-600 hover:text-indigo-500 cursor-pointer">
             Sign up
+          </span>
+        </p>
+        <p class="mt-6 text-center text-base font-medium text-gray-500">
+          Forgot password ?
+          {{ ' ' }}
+          <span
+            @click="handleForgotPassword"
+            class="text-indigo-600 hover:text-indigo-500 cursor-pointer"
+          >
+            Click here !
           </span>
         </p>
         <!-- Implement OAuth2 on v2 -->
@@ -107,9 +108,12 @@ export default {
         this.$router.push({ path: '/signup', query: { type: 'wishlist' } })
       }
 
-      if (Object.entries(this.$route.query).length === 0) {
+      if (Object.entries(this.$route.query).length === 0 || this.$route.query.type === 'account') {
         this.$router.push('/signup')
       }
+    },
+    async handleForgotPassword() {
+      this.$router.push('/forgot-password')
     },
     async onSubmit() {
       this.errorResponse = ''
@@ -139,7 +143,10 @@ export default {
         this.$router.push('/add-order')
       }
 
-      if (this.user?.role === 'user' && Object.entries(this.$route.query).length === 0) {
+      if (
+        (this.user?.role === 'user' && Object.entries(this.$route.query).length === 0) ||
+        this.$route.query.type === 'account'
+      ) {
         this.$router.push('/')
       }
     },

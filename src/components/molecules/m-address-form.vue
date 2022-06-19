@@ -156,7 +156,7 @@ export default {
         streetNumber: this.streetNumber.value,
         city: this.city.value,
         postalCode: this.postalCode.value,
-        // TODO: handle property below when i18n
+        // TODO: handle property below v2 with i18n
         countryCode: 'FR',
         userId: this.user.id,
       }

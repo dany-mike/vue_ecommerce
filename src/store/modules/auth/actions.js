@@ -65,7 +65,18 @@ export default {
       })
       .catch((err) => console.log(err))
   },
+  [types.RESET_PASSWORD]({ commit }, { body, token }) {
+    return axios
+      .post(`${process.env.VUE_APP_API_BASE_URL}/auth/reset-password?token=${token}`, body)
+      .then((response) => {
+        commit(types.SET_RESET_PASSWORD, response.data)
+      })
+      .catch((err) => commit(types.SET_PASSWORD_ERROR_RESPONSE, err.response.data))
+  },
   [types.CLEAR_PASSWORD_ERROR_MESSAGE]({ commit }) {
     commit(types.SET_CLEAR_PASSWORD_ERROR_MESSAGE)
+  },
+  [types.CLEAR_USER]({ commit }) {
+    commit(types.SET_CLEAR_USER)
   },
 }
