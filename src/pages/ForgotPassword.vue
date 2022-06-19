@@ -33,7 +33,6 @@
           </p>
           <div>
             <AButton
-              @click="onSubmit"
               :classValue="'w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bgw-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'"
             >
               Receive reset password link
@@ -45,7 +44,7 @@
             @click="handleSigninPageLink"
             class="text-indigo-600 hover:text-indigo-500 cursor-pointer"
           >
-            Back
+            Back to signin
           </span>
         </p>
       </div>

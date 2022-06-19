@@ -7,6 +7,7 @@ export const state = {
   dbUser: null,
   authResponse: null,
   passwordErrRes: null,
+  resetPassword: {},
 }
 
 export const mutations = {
@@ -38,6 +39,9 @@ export const mutations = {
   [types.SET_CLEAR_USER](state) {
     state.currentUser = null
   },
+  [types.SET_RESET_PASSWORD](state, resetPassword) {
+    state.resetPassword = resetPassword
+  },
 }
 
 const getters = {
@@ -46,6 +50,7 @@ const getters = {
   getDbUser: (state) => state.dbUser,
   getAuthResponse: (state) => state.authResponse,
   getPasswordErrRes: (state) => state.passwordErrRes,
+  getResetPassword: (state) => state.resetPassword,
 }
 
 export default {

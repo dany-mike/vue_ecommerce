@@ -1,6 +1,5 @@
 <template>
   <div class="add-image">
-    <!-- TODO: Create a warning component -->
     <div class="rounded-md bg-yellow-50 p-4">
       <div class="flex">
         <div class="flex-shrink-0">
