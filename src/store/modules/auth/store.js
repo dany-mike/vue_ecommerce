@@ -35,6 +35,9 @@ export const mutations = {
   [types.SET_CLEAR_PASSWORD_ERROR_MESSAGE](state) {
     state.passwordErrRes = null
   },
+  [types.SET_CLEAR_USER](state) {
+    state.currentUser = null
+  },
 }
 
 const getters = {

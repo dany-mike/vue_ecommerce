@@ -22,6 +22,7 @@
             </div>
             <div class="mt-1 flex items-center">
               <p class="text-xl font-semibold">{{ item.price }}€</p>
+              <!-- TODO: use modulo to display qty on each item -->
             </div>
           </div>
           <div class="flex"></div>

@@ -183,7 +183,7 @@ import {
 import { ChevronDownIcon } from '@heroicons/vue/solid'
 import { FETCH_CATEGORIES } from '@/store/modules/categories/types'
 import { mapGetters } from 'vuex'
-import { GET_CURRENT_USER } from '@/store/modules/auth/types'
+import { CLEAR_USER, GET_CURRENT_USER } from '@/store/modules/auth/types'
 
 export default {
   components: {
@@ -218,7 +218,8 @@ export default {
     },
     logout() {
       localStorage.removeItem('user')
-      this.$router.go(this.$router.currentRoute)
+      this.$router.push('/')
+      this.$store.dispatch(CLEAR_USER)
     },
     handleCartRoute() {
       this.$router.push('/cart')

@@ -141,6 +141,8 @@ export default {
 
       if (this.user?.role === 'user' && Object.entries(this.$route.query).length === 0) {
         this.$router.push('/')
+      } else {
+        this.$router.push('/')
       }
     },
   },

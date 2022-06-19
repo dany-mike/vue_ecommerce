@@ -68,4 +68,7 @@ export default {
   [types.CLEAR_PASSWORD_ERROR_MESSAGE]({ commit }) {
     commit(types.SET_CLEAR_PASSWORD_ERROR_MESSAGE)
   },
+  [types.CLEAR_USER]({ commit }) {
+    commit(types.SET_CLEAR_USER)
+  },
 }
