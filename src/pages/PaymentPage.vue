@@ -85,12 +85,13 @@
 </template>
 
 <script>
-//
 import { CREATE_PAYMENT_INTENT, ELEMENT_TYPE } from '@/store/modules/payment/types'
 import { mapGetters } from 'vuex'
 import { loadStripe } from '@stripe/stripe-js'
 import { formatPrice } from '@/helpers/price'
 import { FETCH_ORDER_BY_ID, PAY_ORDER } from '@/store/modules/order/types'
+import { SEND_INVOICE } from '@/store/modules/email/types'
+import { CLEAR_CART } from '@/store/modules/cart/types'
 export default {
   name: 'PaymentPage',
   data() {
@@ -146,6 +147,13 @@ export default {
       })
 
       loader.hide()
+
+      await this.$store.dispatch(SEND_INVOICE, {
+        userToken: this.user?.accessToken,
+        orderId: this.$route.params.orderId,
+      })
+
+      this.$store.dispatch(CLEAR_CART)
 
       this.$router.push(`/success/${this.$route.params.orderId}`)
     },

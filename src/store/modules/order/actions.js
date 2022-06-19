@@ -39,7 +39,6 @@ export default {
         headers: authHeader(),
       })
       .then((response) => {
-        console.log(response)
         commit(types.SET_ORDER_SUMMARY, response.data)
       })
       .catch((err) => console.log(err))

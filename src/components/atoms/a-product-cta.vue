@@ -57,7 +57,7 @@ export default {
   methods: {
     addToCart() {
       let products = []
-      if (this.cart.length > 0) {
+      if (this.cart?.length > 0) {
         products = JSON.parse(localStorage.getItem('products'))
       }
       let canAdd = true

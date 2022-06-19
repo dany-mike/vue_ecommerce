@@ -4,9 +4,9 @@
       Shopping Cart {{ isEmpty }}
     </h1>
     <div
-      v-if="isEmpty"
+      v-if="isEmpty || !cart"
       :class="{
-        'mt-8': isEmpty,
+        'mt-8': isEmpty || !cart,
       }"
     >
       <router-link :to="'/'" class="w-full">
@@ -15,7 +15,7 @@
     </div>
     <div
       class="mt-12 lg:grid lg:grid-cols-12 lg:gap-x-12 lg:items-start xl:gap-x-16"
-      v-if="!isEmpty"
+      v-if="!isEmpty && cart"
     >
       <section aria-labelledby="cart-heading" class="lg:col-span-7">
         <h2 id="cart-heading" class="sr-only">Items in your shopping cart</h2>

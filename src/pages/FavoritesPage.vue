@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     isWishlistProducts(products) {
-      if (products.length > 0) {
+      if (products?.length > 0) {
         return true
       }
       return false
