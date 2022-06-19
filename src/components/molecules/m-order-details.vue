@@ -19,7 +19,7 @@
       <p class="font-normal text-gray-700 dark:text-gray-400 mt-2">Tax: {{ fTax }}€</p>
       <div class="my-12">
         <OProductCarousel
-          v-if="item.products.length > 0"
+          v-if="item.products?.length > 0"
           :title="'Products order'"
           :products="item.products"
           :items-to-show="2"
@@ -27,7 +27,7 @@
       </div>
       <AButton
         :classValue="'bg-indigo-500 mt-2 w-full'"
-        v-if="item.status === 'COMPLETE' && item.products.length > 0"
+        v-if="item.status === 'COMPLETE' && item.products?.length > 0"
         @click="handlePaymentRoute(item)"
       >
         Pay this order

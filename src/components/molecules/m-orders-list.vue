@@ -5,9 +5,9 @@
     :key="order.id"
   >
     <div class="flex justify-between mb-1">
-      <span class="text-base font-medium dark:text-white" :style="{ color: order.color }">{{
-        order.status
-      }}</span>
+      <span class="text-base font-medium dark:text-white" :style="{ color: order.color }"
+        >{{ order.status }} order n° {{ order.id }}</span
+      >
     </div>
     <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
       <div

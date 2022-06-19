@@ -18,7 +18,6 @@ export const mutations = {
   },
   [types.SET_ORDER_SUMMARY](state, orderSummary) {
     state.orderSummary = orderSummary
-    console.log(orderSummary)
   },
   [types.SET_CREATE_ORDER](state, createOrder) {
     state.createOrder = createOrder
