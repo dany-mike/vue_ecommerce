@@ -82,7 +82,12 @@
 <script>
 import AButton from '@/components/atoms/a-button.vue'
 import AInput from '@/components/atoms/a-input.vue'
-import { GET_CURRENT_USER, SIGNIN, SIGNUP } from '@/store/modules/auth/types'
+import {
+  CLEAR_PASSWORD_ERROR_MESSAGE,
+  GET_CURRENT_USER,
+  SIGNIN,
+  SIGNUP,
+} from '@/store/modules/auth/types'
 import { mapGetters } from 'vuex'
 // import MOAuth2 from '@/components/molecules/m-oauth2.vue'
 
@@ -146,6 +151,7 @@ export default {
       }
     },
     async onSubmit() {
+      this.$store.dispatch(CLEAR_PASSWORD_ERROR_MESSAGE)
       this.apiErrorResponse = ''
 
       const body = {
