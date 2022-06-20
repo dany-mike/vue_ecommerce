@@ -28,6 +28,7 @@ import MyAccount from '@/pages/MyAccount.vue'
 import SuccessPage from '@/pages/SuccessPage.vue'
 import ForgotPassword from '@/pages/ForgotPassword.vue'
 import ResetPassword from '@/pages/ResetPassword.vue'
+import ImprintPage from '@/pages/ImprintPage.vue'
 
 import { parseJwt } from '@/helpers/parseJwt'
 
@@ -193,6 +194,11 @@ const routes = [
     path: '/auth/reset',
     name: 'ResetPassword',
     component: ResetPassword,
+  },
+  {
+    path: '/imprint',
+    name: 'ImprintPagePage',
+    component: ImprintPage,
   },
 ]
 
