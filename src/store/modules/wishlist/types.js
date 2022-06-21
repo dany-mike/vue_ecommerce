@@ -1,8 +1,11 @@
 // mutations types
 export const SET_WISHLIST_PRODUCTS_RESPONSE = 'SET_WISHLIST_PRODUCTS_RESPONSE'
 export const SET_WISHLIST_PRODUCT_PAYLOAD = 'SET_WISHLIST_PRODUCT_PAYLOAD'
+export const SET_HANDLE_WISHLIST_ICON = 'SET_HANDLE_WISHLIST_ICON'
+export const SET_DELETE_WISHLIST_PRODUCT = 'SET_HANDLE_WISHLIST_ICON'
 
 // actions types
 export const FETCH_WISHLIST_PRODUCTS = 'fetchWishlistProducts'
 export const ADD_PRODUCT_TO_WISHLIST = 'addProductToWishlist'
 export const DELETE_WISHLIST_PRODUCT = 'deleteWishlistProduct'
+export const HANDLE_WISHLIST_ICON = 'HANDLE_WISHLIST_ICON'

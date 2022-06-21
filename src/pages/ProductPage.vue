@@ -13,7 +13,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { FETCH_PRODUCT } from '@/store/modules/products/types'
+import { CLEAR_PRODUCT, FETCH_PRODUCT } from '@/store/modules/products/types'
 import { GET_CART } from '@/store/modules/cart/types'
 import MProductImage from '@/components/molecules/m-product-image.vue'
 import MProductInfo from '@/components/molecules/m-product-info.vue'
@@ -30,8 +30,11 @@ export default {
   },
   computed: {
     ...mapGetters({
-      product: 'getProductResponse',
+      product: 'getProduct',
     }),
+  },
+  unmounted() {
+    this.$store.dispatch(CLEAR_PRODUCT)
   },
 }
 </script>

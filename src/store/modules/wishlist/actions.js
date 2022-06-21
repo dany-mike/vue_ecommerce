@@ -22,11 +22,25 @@ export default {
       .catch((err) => console.log(err))
   },
   [types.DELETE_WISHLIST_PRODUCT]({ commit }, { userId, productId }) {
-    console.log(commit)
     return axios
       .delete(`${process.env.VUE_APP_API_BASE_URL}/wishlist/${userId}/${productId}`, {
         headers: authHeader(),
       })
+      .then((r) => {
+        commit(types.SET_DELETE_WISHLIST_PRODUCT, r.data)
+      })
       .catch((err) => console.log(err))
+  },
+  [types.HANDLE_WISHLIST_ICON]({ commit }, { userWishlist, item }) {
+    let isIcon = true
+    userWishlist.forEach((element) => {
+      if (element.id === item.id) {
+        isIcon = false
+      }
+    })
+
+    isIcon
+      ? commit(types.SET_HANDLE_WISHLIST_ICON, true)
+      : commit(types.SET_HANDLE_WISHLIST_ICON, false)
   },
 }

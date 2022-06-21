@@ -15,7 +15,7 @@ export default {
     return axios
       .get(`${process.env.VUE_APP_API_BASE_URL}/products/${id}`)
       .then((response) => {
-        commit(types.SET_PRODUCT_RESPONSE, response.data)
+        commit(types.SET_PRODUCT, response.data)
       })
       .catch((err) => console.log(err))
   },
@@ -57,5 +57,8 @@ export default {
         commit(types.SET_PRODUCT_RESPONSE, response.data)
       })
       .catch((err) => console.log(err))
+  },
+  [types.CLEAR_PRODUCT]({ commit }) {
+    commit(types.SET_CLEAR_PRODUCT)
   },
 }

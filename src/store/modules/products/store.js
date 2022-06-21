@@ -4,6 +4,7 @@ import actions from './actions'
 export const state = {
   productResponse: [],
   productsCategory: [],
+  product: {},
 }
 
 export const mutations = {
@@ -13,11 +14,18 @@ export const mutations = {
   [types.GET_PRODUCTS_BY_CATEGORY](state, productsCategory) {
     state.productsCategory = productsCategory
   },
+  [types.SET_PRODUCT](state, product) {
+    state.product = product
+  },
+  [types.SET_CLEAR_PRODUCT](state) {
+    state.product = {}
+  },
 }
 
 const getters = {
   getProductResponse: (state) => state.productResponse,
   getProductsByCategory: (state) => state.productsCategory,
+  getProduct: (state) => state.product,
 }
 
 export default {
