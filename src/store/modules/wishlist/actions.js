@@ -43,4 +43,8 @@ export default {
       ? commit(types.SET_HANDLE_WISHLIST_ICON, true)
       : commit(types.SET_HANDLE_WISHLIST_ICON, false)
   },
+  [types.AFTER_DELETE_WISHLIST_PRODUCT]({ commit }, { products, product }) {
+    const updatedProductsList = products.filter((p) => p.id !== product.id)
+    commit(types.SET_AFTER_DELETE_WISHLIST_PRODUCT, updatedProductsList)
+  },
 }

@@ -21,6 +21,9 @@ export const mutations = {
   [types.SET_HANDLE_WISHLIST_ICON](state, boolean) {
     state.isWislistIcon = boolean
   },
+  [types.SET_AFTER_DELETE_WISHLIST_PRODUCT](state, afterDeleteWishlist) {
+    state.wishlistProductsResponse = afterDeleteWishlist
+  },
 }
 
 const getters = {
