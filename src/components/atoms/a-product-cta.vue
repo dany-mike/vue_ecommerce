@@ -135,10 +135,12 @@ export default {
       let quantities = []
 
       for (let index = 1; index <= 8; index++) {
-        quantities.push({
-          label: index,
-          value: index,
-        })
+        if (this.selectedQuantity !== index) {
+          quantities.push({
+            label: index,
+            value: index,
+          })
+        }
       }
 
       return quantities
