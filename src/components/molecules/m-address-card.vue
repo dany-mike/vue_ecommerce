@@ -107,7 +107,6 @@ export default {
     async handleDelete(address, type) {
       const result = confirm(`Are you sure to delete this ${type} address`)
       if (result) {
-        let loader = this.$loading.show()
         if (type === 'shipping') {
           await this.$store.dispatch(`${DELETE_SHIPPING_ADDRESS}`, address.id)
         }
@@ -115,7 +114,6 @@ export default {
           await this.$store.dispatch(`${DELETE_BILLING_ADDRESS}`, address.id)
         }
         this.$router.go(this.$router.currentRoute)
-        loader.hide()
       }
     },
   },

@@ -52,6 +52,11 @@
             <div class="flex w-full justify-center items-center">
               <p class="text-red-700 font-semibold">{{ errRes?.message }}</p>
             </div>
+            <div class="flex w-full justify-center items-center mt-2">
+              <p class="text-green-700 font-semibold" v-if="success">
+                User information updated successfully
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -72,7 +77,7 @@ import AInput from '@/components/atoms/a-input.vue'
 import AButton from '@/components/atoms/a-button.vue'
 import useVuelidate from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
-import { UPDATE_USER_INFO } from '@/store/modules/auth/types'
+import { FETCH_USER_BY_ID, UPDATE_USER_INFO } from '@/store/modules/auth/types'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -89,6 +94,7 @@ export default {
   },
   data() {
     return {
+      success: false,
       firstname: {
         value: '',
         errMsg: '',
@@ -120,6 +126,7 @@ export default {
       this.email.value = this.user?.email
     },
     async onSubmit() {
+      this.success = false
       this.email.errMsg = ''
       this.password.errMsg = ''
       if (this.v$.$invalid) {
@@ -141,9 +148,13 @@ export default {
       await this.$store.dispatch(UPDATE_USER_INFO, body)
 
       if (this.authRes) {
-        this.$router.go(this.$router.currentRoute)
+        this.success = true
+        await this.$store.dispatch(`${FETCH_USER_BY_ID}`, this.user?.id)
       }
     },
+  },
+  beforeUnmount() {
+    this.success = false
   },
   computed: {
     ...mapGetters({
