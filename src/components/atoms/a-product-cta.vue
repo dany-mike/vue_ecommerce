@@ -49,7 +49,7 @@ export default {
   data() {
     return {
       cartProduct: {},
-      selectedQuantity: 1,
+      selectedQuantity: Object.entries(this.cartItem).length > 0 ? this.cartItem.quantity : 1,
       fProduct: this.product,
     }
   },
@@ -57,6 +57,10 @@ export default {
     product: {
       type: Object,
       required: true,
+    },
+    cartItem: {
+      type: Object,
+      default: () => {},
     },
   },
   async mounted() {

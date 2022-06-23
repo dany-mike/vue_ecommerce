@@ -7,6 +7,7 @@ export const SET_CREATE_ORDER = 'SET_CREATE_ORDER'
 export const SET_CANCEL_ORDER = 'SET_CANCEL_ORDER'
 export const SET_ORDER_SUMMARY = 'SET_ORDER_SUMMARY'
 export const SET_PAY_ORDER = 'SET_PAY_ORDER'
+export const SET_CALC_ORDER_TOTAL = 'SET_CALC_ORDER_TOTAL'
 
 // actions types
 export const FETCH_ORDER_SUMMARY = 'fetchOrderSummary'
@@ -17,3 +18,4 @@ export const CANCEL_ORDER = 'cancelOrder'
 export const FETCH_USER_ORDERS = 'fetchUserOrders'
 export const PAY_ORDER = 'payOrder'
 export const CLEAR_ORDER_DETAILS = 'clearOrderDetails'
+export const CALC_ORDER_TOTAL = 'calcOrderTotal'

@@ -1,5 +1,6 @@
 import * as types from './types'
 import actions from './actions'
+import { formatPrice } from '@/helpers/price'
 
 export const state = {
   orderResponse: {},
@@ -10,6 +11,7 @@ export const state = {
   cancelOrder: {},
   createOrder: {},
   orderSummary: {},
+  orderTotal: 0,
 }
 
 export const mutations = {
@@ -37,6 +39,9 @@ export const mutations = {
   [types.SET_ORDER_ITEM](state, orderItem) {
     state.orderItem = orderItem
   },
+  [types.SET_CALC_ORDER_TOTAL](state, orderTotal) {
+    state.orderTotal = formatPrice(orderTotal)
+  },
 }
 
 const getters = {
@@ -45,6 +50,7 @@ const getters = {
   getOrderCompleted: (state) => state.orderCompleted,
   getOrderItem: (state) => state.orderItem,
   getCreateOrder: (state) => state.createOrder,
+  getOrderTotal: (state) => state.orderTotal,
 }
 
 export default {

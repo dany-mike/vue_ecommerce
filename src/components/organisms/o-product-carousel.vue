@@ -66,4 +66,8 @@ export default {
     display: flex;
   }
 }
+
+::v-deep .carousel__track {
+  padding-bottom: 50px !important;
+}
 </style>

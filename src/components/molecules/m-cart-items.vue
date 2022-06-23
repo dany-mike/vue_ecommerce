@@ -69,6 +69,7 @@
 <script>
 import { GET_CART, GET_CART_AFTER_DELETE } from '@/store/modules/cart/types'
 import { formatPrice } from '@/helpers/price'
+import { CALC_ORDER_TOTAL } from '@/store/modules/order/types'
 export default {
   name: 'MCartItems',
   props: {
@@ -89,16 +90,9 @@ export default {
   },
   async mounted() {
     await this.$store.dispatch(`${GET_CART}`)
-    await this.getOrderTotal()
+    this.$store.dispatch(CALC_ORDER_TOTAL, this.cartItems)
   },
   methods: {
-    async getOrderTotal() {
-      let totalPrice = 0
-      this.cartItems.forEach((item) => {
-        totalPrice += item.price * item.quantity
-      })
-      this.$emit('order-total', totalPrice)
-    },
     productPrice(item) {
       return formatPrice(item.price * item.quantity)
     },
@@ -116,9 +110,9 @@ export default {
       })
       localStorage.setItem('products', JSON.stringify(this.cartItems))
       this.$store.dispatch(GET_CART)
-      await this.getOrderTotal()
+      this.$store.dispatch(CALC_ORDER_TOTAL, this.cartItems)
     },
-    async deleteCartItem(item) {
+    deleteCartItem(item) {
       const result = confirm(`Are you sure to remove ${item.name} from your cart`)
 
       if (result) {
@@ -126,8 +120,11 @@ export default {
           return p.id !== item.id
         })
         localStorage.setItem('products', JSON.stringify(filteredProducts))
-        await this.getOrderTotal()
         this.$store.dispatch(GET_CART_AFTER_DELETE, { item, cart: this.cartItems })
+        // Set timeout to update price TODO: update total price without it
+        setTimeout(() => {
+          this.$store.dispatch(CALC_ORDER_TOTAL, this.cartItems)
+        }, 1)
       }
     },
   },
@@ -143,6 +140,15 @@ export default {
       }
       return quantities
     },
+    // getOrderTotal() {
+    //   let totalPrice = 0
+
+    //   this.cartItems.forEach((item) => {
+    //     totalPrice += item.price * item.quantity
+    //   })
+
+    //   return totalPrice
+    // },
   },
 }
 </script>

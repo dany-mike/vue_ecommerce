@@ -23,7 +23,7 @@
           <MCartItems :cart-items="cart" @order-total="setOrderTotal" />
         </ul>
       </section>
-      <MOrderSummary :orderTotal="orderTotal" :cart="cart" :user="user" />
+      <MOrderSummary :cart="cart" :user="user" />
     </div>
   </div>
 </template>
@@ -47,11 +47,6 @@ export default {
   emits: ['order-total'],
   mounted() {
     this.$store.dispatch(GET_CART)
-  },
-  data() {
-    return {
-      orderTotal: 0,
-    }
   },
   computed: {
     ...mapGetters({

@@ -79,4 +79,13 @@ export default {
   [types.CLEAR_ORDER_DETAILS]({ commit }) {
     commit(types.SET_CLEAR_ORDER_DETAILS)
   },
+  [types.CALC_ORDER_TOTAL]({ commit }, cartItems) {
+    let totalPrice = 0
+
+    cartItems.forEach((item) => {
+      totalPrice += item.price * item.quantity
+    })
+
+    commit(types.SET_CALC_ORDER_TOTAL, totalPrice)
+  },
 }

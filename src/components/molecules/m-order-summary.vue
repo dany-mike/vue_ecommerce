@@ -27,10 +27,6 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'MOrderSummary',
   props: {
-    orderTotal: {
-      type: [Number, String],
-      default: 0,
-    },
     cart: {
       type: Object,
       default: () => {},
@@ -60,6 +56,7 @@ export default {
   computed: {
     ...mapGetters({
       order: 'getCreateOrder',
+      orderTotal: 'getOrderTotal',
     }),
   },
 }
