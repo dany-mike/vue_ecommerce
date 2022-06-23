@@ -12,7 +12,9 @@
         @change="updateQuantity($event)"
         class="w-10 ml-4 lg:ml-0 rounded-md border-gray-300 py-1.5 text-base leading-5 font-medium text-gray-700 shadow-s"
       >
-        <option :value="selectedQuantity" selected="selected">{{ selectedQuantity }}</option>
+        <option :value="selectedQuantity" class="bg-indigo-500 text-white">
+          {{ selectedQuantity }}
+        </option>
         <option v-for="q in quantities" :key="q.value">
           {{ q.value }}
         </option>
@@ -134,7 +136,7 @@ export default {
     quantities() {
       let quantities = []
 
-      for (let index = 1; index <= 8; index++) {
+      for (let index = 1; index <= 5; index++) {
         if (this.selectedQuantity !== index) {
           quantities.push({
             label: index,

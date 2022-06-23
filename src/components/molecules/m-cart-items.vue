@@ -30,8 +30,10 @@
             name="quantity-0"
             class="max-w-full rounded-md border border-gray-300 py-1.5 text-base leading-5 font-medium text-gray-700 text-left shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           >
-            <option :value="item.quantity">{{ item.quantity }}</option>
-            <option v-for="q in quantities" :key="q.value">
+            <option :value="item.quantity" class="bg-indigo-500 text-white">
+              {{ item.quantity }}
+            </option>
+            <option v-for="q in quantities" :key="q.value" :value="q.value">
               {{ q.value }}
             </option>
           </select>
@@ -65,8 +67,7 @@
 </template>
 
 <script>
-import { GET_CART } from '@/store/modules/cart/types'
-import { mapGetters } from 'vuex'
+import { GET_CART, GET_CART_AFTER_DELETE } from '@/store/modules/cart/types'
 import { formatPrice } from '@/helpers/price'
 export default {
   name: 'MCartItems',
@@ -82,6 +83,7 @@ export default {
       defaultValue: {
         value: '',
         label: '',
+        quantities: [],
       },
     }
   },
@@ -107,13 +109,12 @@ export default {
       return imageUrl
     },
     async updateQuantity(item, event) {
-      const products = this.cart
-      products.forEach((c) => {
+      this.cartItems.forEach((c) => {
         if (item.id === c.id) {
           item.quantity = Number(event.target.value)
         }
       })
-      localStorage.setItem('products', JSON.stringify(products))
+      localStorage.setItem('products', JSON.stringify(this.cartItems))
       this.$store.dispatch(GET_CART)
       await this.getOrderTotal()
     },
@@ -121,13 +122,12 @@ export default {
       const result = confirm(`Are you sure to remove ${item.name} from your cart`)
 
       if (result) {
-        const products = this.cart
-        const filteredProducts = products.filter((p) => {
+        const filteredProducts = this.cartItems.filter((p) => {
           return p.id !== item.id
         })
         localStorage.setItem('products', JSON.stringify(filteredProducts))
         await this.getOrderTotal()
-        this.$router.go(this.$router.currentRoute)
+        this.$store.dispatch(GET_CART_AFTER_DELETE, { item, cart: this.cartItems })
       }
     },
   },
@@ -135,18 +135,14 @@ export default {
     quantities() {
       let quantities = []
 
-      for (let index = 1; index <= 8; index++) {
+      for (let index = 1; index <= 5; index++) {
         quantities.push({
           label: index,
           value: index,
         })
       }
-
       return quantities
     },
-    ...mapGetters({
-      cart: 'getCart',
-    }),
   },
 }
 </script>

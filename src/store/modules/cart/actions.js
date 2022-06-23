@@ -11,4 +11,8 @@ export default {
     localStorage.removeItem('products')
     commit(types.SET_CLEAR_CART)
   },
+  [types.GET_CART_AFTER_DELETE]({ commit }, { item, cart }) {
+    const updatedCart = cart.filter((p) => p.id !== item.id)
+    commit(types.SET_GET_CART_AFTER_DELETE, updatedCart)
+  },
 }
