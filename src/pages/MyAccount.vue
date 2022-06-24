@@ -129,8 +129,6 @@ export default {
   },
   methods: {
     deleteWishlistItem(product) {
-      console.log(product)
-      console.log('TESTS')
       this.$store.dispatch(AFTER_DELETE_WISHLIST_PRODUCT, {
         products: this.wishlistProducts,
         product,
