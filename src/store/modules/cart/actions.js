@@ -13,6 +13,13 @@ export default {
   },
   [types.GET_CART_AFTER_DELETE]({ commit }, { item, cart }) {
     const updatedCart = cart.filter((p) => p.id !== item.id)
-    commit(types.SET_GET_CART_AFTER_DELETE, updatedCart)
+
+    let totalPrice = 0
+    console.log(updatedCart)
+    updatedCart.forEach((item) => {
+      totalPrice += item.price * item.quantity
+    })
+
+    commit(types.SET_GET_CART_AFTER_DELETE, { updatedCart, totalPrice })
   },
 }

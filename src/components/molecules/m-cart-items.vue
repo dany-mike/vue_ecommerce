@@ -140,15 +140,6 @@ export default {
       }
       return quantities
     },
-    // getOrderTotal() {
-    //   let totalPrice = 0
-
-    //   this.cartItems.forEach((item) => {
-    //     totalPrice += item.price * item.quantity
-    //   })
-
-    //   return totalPrice
-    // },
   },
 }
 </script>

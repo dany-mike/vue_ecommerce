@@ -21,6 +21,12 @@ export const mutations = {
   [types.SET_ADDRESS_ITEM](state, addressItem) {
     state.addressItem = addressItem
   },
+  [types.SET_AFTER_DELETE_BILLING_ADDRESS](state, updatedAddresses) {
+    state.userBillingAddresses = updatedAddresses
+  },
+  [types.SET_AFTER_DELETE_SHIPPING_ADDRESS](state, updatedAddresses) {
+    state.userShippingAddresses = updatedAddresses
+  },
 }
 
 const getters = {

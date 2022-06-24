@@ -51,7 +51,12 @@
 
 <script>
 import AButton from '@/components/atoms/a-button.vue'
-import { DELETE_BILLING_ADDRESS, DELETE_SHIPPING_ADDRESS } from '@/store/modules/address/types'
+import {
+  AFTER_DELETE_BILLING_ADDRESS,
+  AFTER_DELETE_SHIPPING_ADDRESS,
+  DELETE_BILLING_ADDRESS,
+  DELETE_SHIPPING_ADDRESS,
+} from '@/store/modules/address/types'
 export default {
   name: 'MAddressCard',
   components: {
@@ -77,6 +82,10 @@ export default {
     isMyAccount: {
       type: Boolean,
       default: false,
+    },
+    addresses: {
+      type: [Array, Object],
+      default: null,
     },
   },
   emits: ['m-address-card'],
@@ -109,11 +118,15 @@ export default {
       if (result) {
         if (type === 'shipping') {
           await this.$store.dispatch(`${DELETE_SHIPPING_ADDRESS}`, address.id)
+          this.$store.dispatch(AFTER_DELETE_SHIPPING_ADDRESS, {
+            address,
+            addresses: this.addresses,
+          })
         }
         if (type === 'billing') {
           await this.$store.dispatch(`${DELETE_BILLING_ADDRESS}`, address.id)
+          this.$store.dispatch(AFTER_DELETE_BILLING_ADDRESS, { address, addresses: this.addresses })
         }
-        this.$router.go(this.$router.currentRoute)
       }
     },
   },

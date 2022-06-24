@@ -2,7 +2,7 @@
   <div class="o-carousel">
     <p class="text-2xl font-medium">{{ title }}</p>
     <div class="o-carousel-desktop">
-      <carousel :items-to-show="3" class="o-carousel">
+      <carousel :items-to-show="3" class="o-carousel" v-if="addresses.length > 0">
         <slide v-for="address in addresses" :key="address.id">
           <MAddressCard
             :item="address"
@@ -10,6 +10,7 @@
             :type="type"
             @m-address-card="emitAddress"
             :is-my-account="isMyAccount"
+            :addresses="addresses"
           />
         </slide>
         <template #addons>
@@ -27,6 +28,7 @@
         :from="from"
         :type="type"
         :is-my-account="isMyAccount"
+        :addresses="addresses"
       />
     </div>
   </div>
@@ -50,7 +52,7 @@ export default {
   props: {
     addresses: {
       type: [Array, Object],
-      required: true,
+      default: null,
     },
     title: {
       type: String,

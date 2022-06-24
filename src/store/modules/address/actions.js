@@ -103,4 +103,12 @@ export default {
       })
       .catch((err) => console.log(err))
   },
+  [types.AFTER_DELETE_SHIPPING_ADDRESS]({ commit }, { address, addresses }) {
+    const updatedAddresses = addresses.filter((a) => a.id !== address.id)
+    commit(types.SET_AFTER_DELETE_SHIPPING_ADDRESS, updatedAddresses)
+  },
+  [types.AFTER_DELETE_BILLING_ADDRESS]({ commit }, { address, addresses }) {
+    const updatedAddresses = addresses.filter((a) => a.id !== address.id)
+    commit(types.SET_AFTER_DELETE_BILLING_ADDRESS, updatedAddresses)
+  },
 }
