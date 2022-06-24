@@ -15,7 +15,6 @@ export default {
     const updatedCart = cart.filter((p) => p.id !== item.id)
 
     let totalPrice = 0
-    console.log(updatedCart)
     updatedCart.forEach((item) => {
       totalPrice += item.price * item.quantity
     })
