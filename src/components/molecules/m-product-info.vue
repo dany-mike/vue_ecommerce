@@ -14,7 +14,7 @@
           {{ product.description }}
         </p>
       </div>
-      <AProductCta :product="product" />
+      <AProductCta v-if="cartItem" :product="product" :cart-item="cartItem" />
     </div>
   </div>
 </template>
@@ -30,6 +30,10 @@ export default {
     product: {
       type: Object,
       required: true,
+    },
+    cartItem: {
+      type: Object,
+      default: () => {},
     },
   },
 }

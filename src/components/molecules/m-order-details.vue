@@ -4,9 +4,9 @@
       class="m-orders-details w-full mt-10 block p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700"
     >
       <div class="flex justify-between mb-1">
-        <span class="text-base font-medium dark:text-white" :style="{ color: fItem.color }">{{
-          item.status
-        }}</span>
+        <span class="text-base font-medium dark:text-white" :style="{ color: fItem.color }"
+          >{{ item.status }} order n° {{ item.id }}</span
+        >
       </div>
       <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
         <div
@@ -18,12 +18,12 @@
       <p class="font-normal text-gray-700 dark:text-gray-400 mt-2">Subtotal: {{ fSubtotal }}€</p>
       <p class="font-normal text-gray-700 dark:text-gray-400 mt-2">Tax: {{ fTax }}€</p>
       <div class="my-12">
-        <OProductCarousel
+        <!-- <OProductCarousel
           v-if="item.products?.length > 0"
           :title="'Products order'"
           :products="item.products"
           :items-to-show="2"
-        />
+        /> -->
       </div>
       <AButton
         :classValue="'bg-indigo-500 mt-2 w-full'"
@@ -48,13 +48,13 @@
 
 <script>
 import AButton from '@/components/atoms/a-button.vue'
-import OProductCarousel from '@/components/organisms/o-product-carousel.vue'
+// import OProductCarousel from '@/components/organisms/o-product-carousel.vue'
 import { formatPrice } from '@/helpers/price'
 export default {
   name: 'MOrderDetails',
   components: {
     AButton,
-    OProductCarousel,
+    // OProductCarousel,
   },
   mounted() {},
   props: {

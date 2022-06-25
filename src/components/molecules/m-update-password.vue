@@ -52,7 +52,11 @@ import AButton from '@/components/atoms/a-button.vue'
 import useVuelidate from '@vuelidate/core'
 import { required, helpers } from '@vuelidate/validators'
 import { mapGetters } from 'vuex'
-import { CLEAR_PASSWORD_ERROR_MESSAGE, UPDATE_PASSWORD } from '@/store/modules/auth/types'
+import {
+  CLEAR_AUTH_RES,
+  CLEAR_PASSWORD_ERROR_MESSAGE,
+  UPDATE_PASSWORD,
+} from '@/store/modules/auth/types'
 
 const regexPasswordValidation = helpers.regex(
   /((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
@@ -75,6 +79,9 @@ export default {
       authRes: 'getAuthResponse',
     }),
   },
+  unmounted() {
+    this.$store.dispatch(CLEAR_AUTH_RES)
+  },
   setup() {
     return { v$: useVuelidate() }
   },
@@ -91,8 +98,12 @@ export default {
       },
     }
   },
+  // updated() {
+  //   // this.successMessage = ''
+  // },
   methods: {
     async onSubmit() {
+      this.$store.dispatch(CLEAR_AUTH_RES)
       this.password.errMsg = ''
       this.newPassword.errMsg = ''
 
@@ -112,7 +123,12 @@ export default {
 
       if (this.authRes) {
         this.successMessage = 'Password updated successfuly'
+        this.password.value = ''
+        this.newPassword.value = ''
         this.$store.dispatch(CLEAR_PASSWORD_ERROR_MESSAGE)
+        setTimeout(() => {
+          this.successMessage = ''
+        }, 7000)
       }
     },
   },

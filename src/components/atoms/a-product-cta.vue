@@ -12,16 +12,19 @@
         @change="updateQuantity($event)"
         class="w-10 ml-4 lg:ml-0 rounded-md border-gray-300 py-1.5 text-base leading-5 font-medium text-gray-700 shadow-s"
       >
-        <option :value="selectedQuantity" selected="selected">{{ selectedQuantity }}</option>
+        <option :value="selectedQuantity" class="bg-indigo-500 text-white">
+          {{ selectedQuantity }}
+        </option>
         <option v-for="q in quantities" :key="q.value">
           {{ q.value }}
         </option>
       </select>
       <button
+        v-if="isWishlistIcon"
         type="button"
         class="ml-4 py-3 px-3 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500"
       >
-        <HeartIcon class="w-10 h-10 ml-2" @click="addToFavorite" v-if="isWishlistIcon(product)" />
+        <HeartIcon class="w-10 h-10 ml-2" @click="addToFavorite" />
         <span class="sr-only">Add to favorites</span>
       </button>
     </div>
@@ -30,9 +33,14 @@
 
 <script>
 import { HeartIcon } from '@heroicons/vue/outline'
-import { ADD_PRODUCT_TO_WISHLIST, FETCH_WISHLIST_PRODUCTS } from '@/store/modules/wishlist/types'
+import {
+  ADD_PRODUCT_TO_WISHLIST,
+  FETCH_WISHLIST_PRODUCTS,
+  HANDLE_WISHLIST_ICON,
+} from '@/store/modules/wishlist/types'
 import { mapGetters } from 'vuex'
 import { GET_CART } from '@/store/modules/cart/types'
+import { FETCH_PRODUCT } from '@/store/modules/products/types'
 export default {
   name: 'AProductCta',
   components: {
@@ -41,7 +49,7 @@ export default {
   data() {
     return {
       cartProduct: {},
-      selectedQuantity: 1,
+      selectedQuantity: Object.entries(this.cartItem).length > 0 ? this.cartItem.quantity : 1,
       fProduct: this.product,
     }
   },
@@ -50,9 +58,18 @@ export default {
       type: Object,
       required: true,
     },
+    cartItem: {
+      type: Object,
+      default: () => {},
+    },
   },
   async mounted() {
     await this.$store.dispatch(`${FETCH_WISHLIST_PRODUCTS}`, this.user?.id)
+    await this.$store.dispatch(FETCH_PRODUCT, this.$route.params.id)
+    await this.$store.dispatch(HANDLE_WISHLIST_ICON, {
+      userWishlist: this.wishlistProducts,
+      item: this.pdct,
+    })
   },
   methods: {
     addToCart() {
@@ -107,20 +124,6 @@ export default {
       const userId = this.user?.id
 
       await this.$store.dispatch(`${ADD_PRODUCT_TO_WISHLIST}`, { body, userId })
-      this.$router.go(this.$router.currentRoute)
-    },
-    isWishlistIcon(productItem) {
-      let isWishlistIcon = true
-
-      if (this.user) {
-        this.wishlistProducts.forEach((element) => {
-          if (element.id === productItem.id) {
-            isWishlistIcon = false
-          }
-        })
-      }
-
-      return isWishlistIcon
     },
     updateQuantity(e) {
       this.selectedQuantity = Number(e.target.value)
@@ -131,15 +134,19 @@ export default {
       wishlistProducts: 'getWishlistResponse',
       user: 'getCurrentUser',
       cart: 'getCart',
+      isWishlistIcon: 'getIsWishlistIcon',
+      pdct: 'getProduct',
     }),
     quantities() {
       let quantities = []
 
-      for (let index = 1; index <= 8; index++) {
-        quantities.push({
-          label: index,
-          value: index,
-        })
+      for (let index = 1; index <= 5; index++) {
+        if (this.selectedQuantity !== index) {
+          quantities.push({
+            label: index,
+            value: index,
+          })
+        }
       }
 
       return quantities

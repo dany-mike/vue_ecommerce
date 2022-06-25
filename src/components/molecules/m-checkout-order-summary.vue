@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mt-10 lg:mt-0">
+    <div class="mt-10 lg:mt-8">
       <h2 class="text-2xl font-medium text-gray-900">Order summary</h2>
       <div class="mt-4 bg-white border border-gray-200 rounded-lg shadow-sm">
         <h3 class="sr-only">Items in your cart</h3>

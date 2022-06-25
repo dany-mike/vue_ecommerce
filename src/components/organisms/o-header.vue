@@ -102,7 +102,7 @@
         </div>
       </div>
     </div>
-    <PopoverPanel
+    <div
       :class="{
         hidden: !isOpen,
       }"
@@ -166,7 +166,7 @@
           </div>
         </div>
       </div>
-    </PopoverPanel>
+    </div>
   </Popover>
 </template>
 

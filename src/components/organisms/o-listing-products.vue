@@ -50,6 +50,7 @@ export default {
   components: {
     TrashIcon,
   },
+  emits: ['delete-wishlist-item'],
   name: 'OListingProducts',
   props: {
     products: {
@@ -68,7 +69,7 @@ export default {
       const result = confirm(`Are you sure to delete this ${product.name} from your wishlist ?`)
       if (result) {
         await this.$store.dispatch(`${DELETE_WISHLIST_PRODUCT}`, { userId, productId })
-        this.$router.go(this.$router.currentRoute)
+        this.$emit('delete-wishlist-item', product)
       }
     },
     imageUrl(product) {

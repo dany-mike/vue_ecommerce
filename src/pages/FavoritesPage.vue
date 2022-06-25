@@ -2,6 +2,7 @@
   <div class="favorites lg:px-16 mt-12">
     <p class="text-4xl mb-8 pl-4 lg:pl-0">Favorites</p>
     <OListingProducts
+      @delete-wishlist-item="deleteWishlistItem"
       v-if="isWishlistProducts(wishlistProducts)"
       :products="wishlistProducts"
       :type="'wishlist'"
@@ -13,7 +14,10 @@
 <script>
 import OListingProducts from '@/components/organisms/o-listing-products.vue'
 import { mapGetters } from 'vuex'
-import { FETCH_WISHLIST_PRODUCTS } from '@/store/modules/wishlist/types'
+import {
+  AFTER_DELETE_WISHLIST_PRODUCT,
+  FETCH_WISHLIST_PRODUCTS,
+} from '@/store/modules/wishlist/types'
 export default {
   name: 'FavoritesPage',
   components: {
@@ -37,6 +41,12 @@ export default {
         return true
       }
       return false
+    },
+    deleteWishlistItem(product) {
+      this.$store.dispatch(AFTER_DELETE_WISHLIST_PRODUCT, {
+        products: this.wishlistProducts,
+        product,
+      })
     },
   },
 }

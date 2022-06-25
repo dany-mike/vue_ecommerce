@@ -94,6 +94,7 @@ export default {
       this.price.value = this.productItem?.price
       this.description = this.productItem?.description
       this.image = this.productItem?.image
+      this.selectedImage = this.productItem?.image
     }
   },
   data() {
@@ -124,7 +125,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      productItem: 'getProductResponse',
+      productItem: 'getProduct',
       categories: 'getCategoryResponse',
       images: 'getImages',
     }),

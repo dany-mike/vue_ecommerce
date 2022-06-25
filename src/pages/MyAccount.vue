@@ -23,6 +23,7 @@
     <div class="wishlist-container" v-if="selectedTab === 'My wishlist'">
       <p class="text-2xl font-medium py-4">My wishlist</p>
       <OListingProducts
+        @delete-wishlist-item="deleteWishlistItem"
         v-if="isWishlistProducts(wishlistProducts)"
         :products="wishlistProducts"
         :type="'wishlist'"
@@ -72,7 +73,10 @@ import MUpdateProfile from '@/components/molecules/m-update-profile.vue'
 import AButton from '@/components/atoms/a-button.vue'
 import OAddressCarousel from '@/components/organisms/o-address-carousel.vue'
 import { mapGetters } from 'vuex'
-import { FETCH_WISHLIST_PRODUCTS } from '@/store/modules/wishlist/types'
+import {
+  AFTER_DELETE_WISHLIST_PRODUCT,
+  FETCH_WISHLIST_PRODUCTS,
+} from '@/store/modules/wishlist/types'
 import {
   FETCH_USER_BILLING_ADDRESSES,
   FETCH_USER_SHIPPING_ADDRESSES,
@@ -124,6 +128,12 @@ export default {
     }),
   },
   methods: {
+    deleteWishlistItem(product) {
+      this.$store.dispatch(AFTER_DELETE_WISHLIST_PRODUCT, {
+        products: this.wishlistProducts,
+        product,
+      })
+    },
     isWishlistProducts(products) {
       if (products.length > 0) {
         return true
