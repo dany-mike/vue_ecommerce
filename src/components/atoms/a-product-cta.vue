@@ -64,12 +64,14 @@ export default {
     },
   },
   async mounted() {
-    await this.$store.dispatch(`${FETCH_WISHLIST_PRODUCTS}`, this.user?.id)
     await this.$store.dispatch(FETCH_PRODUCT, this.$route.params.id)
-    await this.$store.dispatch(HANDLE_WISHLIST_ICON, {
-      userWishlist: this.wishlistProducts,
-      item: this.pdct,
-    })
+    if (this.user) {
+      await this.$store.dispatch(`${FETCH_WISHLIST_PRODUCTS}`, this.user?.id)
+      await this.$store.dispatch(HANDLE_WISHLIST_ICON, {
+        userWishlist: this.wishlistProducts,
+        item: this.pdct,
+      })
+    }
   },
   methods: {
     addToCart() {
