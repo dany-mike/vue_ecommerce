@@ -1,6 +1,8 @@
 <template>
   <OHeader />
-  <router-view :key="$route.path" />
+  <div class="min-h-screen">
+    <router-view :key="$route.path" />
+  </div>
   <OFooter />
 </template>
 

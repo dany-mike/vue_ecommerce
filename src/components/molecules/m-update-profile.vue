@@ -77,7 +77,12 @@ import AInput from '@/components/atoms/a-input.vue'
 import AButton from '@/components/atoms/a-button.vue'
 import useVuelidate from '@vuelidate/core'
 import { required, email } from '@vuelidate/validators'
-import { FETCH_USER_BY_ID, UPDATE_USER_INFO } from '@/store/modules/auth/types'
+import {
+  CLEAR_AUTH_RES,
+  CLEAR_PASSWORD_ERROR_MESSAGE,
+  FETCH_USER_BY_ID,
+  UPDATE_USER_INFO,
+} from '@/store/modules/auth/types'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -88,6 +93,9 @@ export default {
   },
   mounted() {
     this.setFormItems()
+  },
+  unmounted() {
+    this.$store.dispatch(CLEAR_AUTH_RES)
   },
   setup() {
     return { v$: useVuelidate() }
@@ -126,6 +134,7 @@ export default {
       this.email.value = this.user?.email
     },
     async onSubmit() {
+      this.$store.dispatch(CLEAR_AUTH_RES)
       this.success = false
       this.email.errMsg = ''
       this.password.errMsg = ''
@@ -149,6 +158,7 @@ export default {
 
       if (this.authRes) {
         this.success = true
+        this.$store.dispatch(CLEAR_PASSWORD_ERROR_MESSAGE)
         await this.$store.dispatch(`${FETCH_USER_BY_ID}`, this.user?.id)
       }
     },

@@ -1,3 +1,4 @@
+import { authHeader } from '@/helpers/authHeader'
 import axios from 'axios'
 import * as types from './types'
 
@@ -21,7 +22,7 @@ export default {
   [types.CREATE_ADMIN]({ commit }, formData) {
     return axios
       .post(`${process.env.VUE_APP_API_BASE_URL}/auth/createAdmin`, formData, {
-        headers: {},
+        headers: authHeader(),
       })
 
       .then((response) => {
@@ -36,7 +37,7 @@ export default {
   [types.UPDATE_PASSWORD]({ commit }, body) {
     return axios
       .put(`${process.env.VUE_APP_API_BASE_URL}/auth/password`, body, {
-        headers: {},
+        headers: authHeader(),
       })
       .then((response) => {
         commit(types.SET_AUTH_RESPONSE, response.data)
@@ -46,7 +47,7 @@ export default {
   [types.UPDATE_USER_INFO]({ commit }, body) {
     return axios
       .put(`${process.env.VUE_APP_API_BASE_URL}/auth/`, body, {
-        headers: {},
+        headers: authHeader(),
       })
 
       .then((response) => {
@@ -57,7 +58,7 @@ export default {
   [types.FETCH_USER_BY_ID]({ commit }, id) {
     return axios
       .get(`${process.env.VUE_APP_API_BASE_URL}/auth/user/${id}`, {
-        headers: {},
+        headers: authHeader(),
       })
 
       .then((response) => {
@@ -67,7 +68,9 @@ export default {
   },
   [types.RESET_PASSWORD]({ commit }, { body, token }) {
     return axios
-      .post(`${process.env.VUE_APP_API_BASE_URL}/auth/reset-password?token=${token}`, body)
+      .post(`${process.env.VUE_APP_API_BASE_URL}/auth/reset-password?token=${token}`, body, {
+        headers: authHeader(),
+      })
       .then((response) => {
         commit(types.SET_RESET_PASSWORD, response.data)
       })
@@ -78,5 +81,8 @@ export default {
   },
   [types.CLEAR_USER]({ commit }) {
     commit(types.SET_CLEAR_USER)
+  },
+  [types.CLEAR_AUTH_RES]({ commit }) {
+    commit(types.SET_CLEAR_AUTH_RES)
   },
 }

@@ -1,7 +1,8 @@
 <template>
   <div class="category-page lg:px-16 mt-12">
     <p class="text-4xl mb-8 pl-4 lg:pl-0">{{ categoryItem.name }}</p>
-    <OListingProducts :products="products" />
+    <OListingProducts :products="products" v-if="products?.length > 0" />
+    <p v-else class="text-medium pl-4 lg:pl-0">{{ categoryItem.name }} category coming soon !</p>
   </div>
 </template>
 

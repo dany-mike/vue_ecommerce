@@ -8,6 +8,7 @@ export const SET_AUTH_RESPONSE = 'SET_AUTH_RESPONSE'
 export const SET_CLEAR_PASSWORD_ERROR_MESSAGE = 'SET_CLEAR_PASSWORD_ERROR_MESSAGE'
 export const SET_CLEAR_USER = 'SET_CLEAR_USER'
 export const SET_RESET_PASSWORD = 'SET_RESET_PASSWORD'
+export const SET_CLEAR_AUTH_RES = 'SET_CLEAR_AUTH_RES'
 
 // actions types
 export const SIGNIN = 'signin'
@@ -20,3 +21,4 @@ export const FETCH_USER_BY_ID = 'fetchUserById'
 export const RESET_PASSWORD = 'resetPassword'
 export const CLEAR_PASSWORD_ERROR_MESSAGE = 'clearPasswordErrorMessage'
 export const CLEAR_USER = 'clearUser'
+export const CLEAR_AUTH_RES = 'clearAuthRes'

@@ -15,7 +15,9 @@ export default {
   },
   [types.FETCH_IMAGES]({ commit }) {
     return axios
-      .get(`${process.env.VUE_APP_API_BASE_URL}/cloudinary`)
+      .get(`${process.env.VUE_APP_API_BASE_URL}/cloudinary`, {
+        headers: authHeader(),
+      })
       .then((response) => {
         commit(types.SET_IMAGE_RESPONSE, response.data.resources)
       })

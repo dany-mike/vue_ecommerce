@@ -35,12 +35,16 @@ export const mutations = {
   },
   [types.SET_CLEAR_PASSWORD_ERROR_MESSAGE](state) {
     state.passwordErrRes = null
+    state.errorResponse = null
   },
   [types.SET_CLEAR_USER](state) {
     state.currentUser = null
   },
   [types.SET_RESET_PASSWORD](state, resetPassword) {
     state.resetPassword = resetPassword
+  },
+  [types.SET_CLEAR_AUTH_RES](state) {
+    state.authResponse = null
   },
 }
 

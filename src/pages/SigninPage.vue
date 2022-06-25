@@ -135,6 +135,7 @@ export default {
       if (this.user && this.$route.query.type === 'wishlist') {
         this.$router.push(`/favorites`)
       }
+
       if (this.user?.role === 'admin' || this.user?.role === 'superAdmin') {
         this.$router.push('/admin')
       }
@@ -147,7 +148,7 @@ export default {
         (this.user?.role === 'user' && Object.entries(this.$route.query).length === 0) ||
         this.$route.query.type === 'account'
       ) {
-        this.$router.push('/')
+        this.$router.push('/my-account')
       }
     },
   },
