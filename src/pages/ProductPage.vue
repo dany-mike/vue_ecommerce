@@ -33,9 +33,10 @@ export default {
     await this.$store.dispatch(`${FETCH_PRODUCT}`, this.$route.params.id)
     await this.$store.dispatch(`${GET_CART}`)
 
-    const filteredArray = this.cart.filter((c) => c.id === this.product.id)
-
-    this.cartItem = { ...filteredArray[0] }
+    if (this.cart) {
+      const filteredArray = this.cart.filter((c) => c.id === this.product.id)
+      this.cartItem = { ...filteredArray[0] }
+    }
   },
   computed: {
     ...mapGetters({

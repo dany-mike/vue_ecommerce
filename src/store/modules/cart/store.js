@@ -11,7 +11,7 @@ export const mutations = {
     state.cart = cart
   },
   [types.SET_CLEAR_CART](state) {
-    state.cart = null
+    state.cart = []
   },
   [types.SET_GET_CART_AFTER_DELETE](state, item) {
     state.cart = item.updatedCart
