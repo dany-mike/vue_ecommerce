@@ -2,7 +2,7 @@
   <div class="o-carousel">
     <p class="text-2xl">{{ title }}</p>
     <div class="o-carousel-desktop">
-      <carousel :items-to-show="itemsToShow" class="o-carousel">
+      <carousel v-if="products.length > 0" :items-to-show="itemsToShow" class="o-carousel">
         <slide v-for="product in products" :key="product.id">
           <MProductCard :item="product" />
         </slide>
@@ -12,7 +12,6 @@
         </template>
       </carousel>
     </div>
-    <!-- TODO: Add an index to fix integration of the first iteration -->
     <div class="o-carousel-mobile overflow-x-auto">
       <MProductCard v-for="product in products" :key="product.id" :item="product" />
     </div>
@@ -67,7 +66,7 @@ export default {
   }
 }
 
-::v-deep .carousel__track {
+:deep(.carousel__track) {
   padding-bottom: 50px !important;
 }
 </style>

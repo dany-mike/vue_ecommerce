@@ -8,7 +8,7 @@ export default {
     }
   },
   [types.CLEAR_CART]({ commit }) {
-    localStorage.removeItem('products')
+    localStorage.setItem('products', JSON.stringify([]))
     commit(types.SET_CLEAR_CART)
   },
   [types.GET_CART_AFTER_DELETE]({ commit }, { item, cart }) {
