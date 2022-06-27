@@ -30,6 +30,7 @@ export default {
     }
   },
   async mounted() {
+    this.scrollToTop()
     await this.$store.dispatch(`${FETCH_PRODUCT}`, this.$route.params.id)
     await this.$store.dispatch(`${GET_CART}`)
 
@@ -43,6 +44,11 @@ export default {
       product: 'getProduct',
       cart: 'getCart',
     }),
+  },
+  methods: {
+    scrollToTop() {
+      window.scrollTo(0, 0)
+    },
   },
   unmounted() {
     this.$store.dispatch(CLEAR_PRODUCT)

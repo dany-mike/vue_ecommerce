@@ -87,13 +87,13 @@
       <div class="err-message-container lg:hidden">
         <p
           v-if="selectedShippingAddress.errMsg && !selectedShippingAddress.value"
-          class="text-red-700 font-semibold"
+          class="text-red-700 font-semibold hidden lg:block"
         >
           Shipping address {{ selectedShippingAddress.errMsg.toLowerCase() }}
         </p>
         <p
           v-if="selectedBillingAddress.errMsg && !selectedBillingAddress.value"
-          class="text-red-700 font-semibold"
+          class="text-red-700 font-semibold hidden lg:block"
         >
           Billing address {{ selectedBillingAddress.errMsg.toLowerCase() }}
         </p>

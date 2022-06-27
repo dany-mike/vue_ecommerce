@@ -35,11 +35,15 @@ export default {
     }
   },
   async mounted() {
+    this.scrollToTop()
     this.orderId = this.$route.params.orderId
   },
   methods: {
     handleBack() {
       this.$router.push('/')
+    },
+    scrollToTop() {
+      window.scrollTo(0, 0)
     },
   },
   computed: {

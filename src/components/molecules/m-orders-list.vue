@@ -108,17 +108,17 @@ export default {
             formatPrice(order.tax),
           )
         }
-        if (order.status === 'COMPLETE') {
-          this.pushOrder(
-            fOrders,
-            '66%',
-            'green',
-            order,
-            formatPrice(order.subtotal),
-            formatPrice(order.totalPrice),
-            formatPrice(order.tax),
-          )
-        }
+        // if (order.status === 'COMPLETE') {
+        //   this.pushOrder(
+        //     fOrders,
+        //     '66%',
+        //     'green',
+        //     order,
+        //     formatPrice(order.subtotal),
+        //     formatPrice(order.totalPrice),
+        //     formatPrice(order.tax),
+        //   )
+        // }
         if (order.status === 'PAID') {
           this.pushOrder(
             fOrders,

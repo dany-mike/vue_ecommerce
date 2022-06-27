@@ -89,7 +89,7 @@ import { CREATE_PAYMENT_INTENT, ELEMENT_TYPE } from '@/store/modules/payment/typ
 import { mapGetters } from 'vuex'
 import { loadStripe } from '@stripe/stripe-js'
 import { formatPrice } from '@/helpers/price'
-import { FETCH_ORDER_BY_ID, PAY_ORDER } from '@/store/modules/order/types'
+import { FETCH_ORDER_SUMMARY, PAY_ORDER } from '@/store/modules/order/types'
 import { SEND_INVOICE } from '@/store/modules/email/types'
 import { CLEAR_CART } from '@/store/modules/cart/types'
 export default {
@@ -102,11 +102,9 @@ export default {
     }
   },
   async mounted() {
-    await this.$store.dispatch(FETCH_ORDER_BY_ID, {
-      orderId: this.$route.params.orderId,
-      userToken: this.user.accessToken,
-    })
-    if (this.orderItem.status === 'COMPLETE') {
+    await this.$store.dispatch(FETCH_ORDER_SUMMARY, this.$route.params.orderId)
+
+    if (this.orderSummary.status === 'COMPLETE') {
       this.stripe = await loadStripe(`${process.env.VUE_APP_STRIPE_KEY}`)
       const body = {
         orderId: Number(this.$route.params.orderId),
@@ -150,7 +148,8 @@ export default {
 
       await this.$store.dispatch(SEND_INVOICE, {
         userToken: this.user?.accessToken,
-        orderId: this.$route.params.orderId,
+        orderId: Number(this.$route.params.orderId),
+        orderItemsDto: this.orderSummary.orderItems,
       })
 
       this.$store.dispatch(CLEAR_CART)
@@ -162,7 +161,7 @@ export default {
     ...mapGetters({
       paymentIntent: 'getPaymentIntent',
       user: 'getCurrentUser',
-      orderItem: 'getOrderItem',
+      orderSummary: 'getOrderSummary',
     }),
     totalPrice() {
       return formatPrice(this.paymentIntent.amount / 100)
