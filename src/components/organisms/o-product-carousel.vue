@@ -1,6 +1,6 @@
 <template>
   <div class="o-carousel">
-    <p class="text-2xl">{{ title }}</p>
+    <p class="text-2xl px-8 lg:pl-12 mt-12 lg:mb-4">{{ title }}</p>
     <div class="o-carousel-desktop">
       <carousel v-if="products?.length > 0" :items-to-show="itemsToShow" class="o-carousel">
         <slide v-for="product in products" :key="product?.id">
