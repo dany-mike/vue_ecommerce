@@ -2,8 +2,8 @@
   <div class="o-carousel">
     <p class="text-2xl">{{ title }}</p>
     <div class="o-carousel-desktop">
-      <carousel v-if="products.length > 0" :items-to-show="itemsToShow" class="o-carousel">
-        <slide v-for="product in products" :key="product.id">
+      <carousel v-if="products?.length > 0" :items-to-show="itemsToShow" class="o-carousel">
+        <slide v-for="product in products" :key="product?.id">
           <MProductCard :item="product" />
         </slide>
         <template #addons>

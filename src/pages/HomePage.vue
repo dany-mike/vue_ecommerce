@@ -1,7 +1,12 @@
 <template>
   <div class="home-page">
     <OFullLayerImage :image="image" :text="text" />
-    <OProductCarousel class="px-8 mt-12" :products="products" :title="title" />
+    <OProductCarousel
+      v-if="products?.length > 0"
+      class="px-8 mt-12"
+      :products="products"
+      :title="title"
+    />
   </div>
 </template>
 
