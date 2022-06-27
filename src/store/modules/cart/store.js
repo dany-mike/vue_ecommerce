@@ -4,6 +4,7 @@ import * as states from '../order/store'
 
 export const state = {
   cart: [],
+  cartItemCount: 0,
 }
 
 export const mutations = {
@@ -17,10 +18,14 @@ export const mutations = {
     state.cart = item.updatedCart
     states.state.orderTotal = item.totalPrice
   },
+  [types.SET_CART_ITEM_COUNT](state, cartItemCount) {
+    state.cartItemCount = cartItemCount
+  },
 }
 
 const getters = {
   getCart: (state) => state.cart,
+  getCartItemCount: (state) => state.cartItemCount,
 }
 
 export default {

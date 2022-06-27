@@ -17,7 +17,7 @@
               @click="handleCartRoute"
             />
             <div class="bg-red-600 rounded-xl h-6 w-6 flex items-center justify-center">
-              <span class="text-white font-extrabold">1</span>
+              <span class="text-white font-extrabold">{{ cartItemCount }}</span>
             </div>
           </div>
           <HeartIcon class="w-10 h-10 ml-2 lg:hidden cursor-pointer" @click="handleFavoriteRoute" />
@@ -87,7 +87,7 @@
           <div class="flex mr-5">
             <ShoppingCartIcon class="w-10 h-10 cursor-pointer" @click="handleCartRoute" />
             <div class="bg-red-600 rounded-xl h-6 w-6 flex items-center justify-center">
-              <span class="text-white font-extrabold">1</span>
+              <span class="text-white font-extrabold">{{ cartItemCount }}</span>
             </div>
           </div>
           <HeartIcon class="w-10 h-10 mr-5 cursor-pointer" @click="handleFavoriteRoute" />
@@ -198,7 +198,7 @@ import { ChevronDownIcon } from '@heroicons/vue/solid'
 import { FETCH_CATEGORIES } from '@/store/modules/categories/types'
 import { mapGetters } from 'vuex'
 import { CLEAR_USER, GET_CURRENT_USER } from '@/store/modules/auth/types'
-import { CLEAR_CART } from '@/store/modules/cart/types'
+import { CLEAR_CART, GET_CART, GET_CART_ITEM_COUNT } from '@/store/modules/cart/types'
 
 export default {
   components: {
@@ -220,6 +220,8 @@ export default {
     }
   },
   mounted() {
+    this.$store.dispatch(GET_CART)
+    this.$store.dispatch(GET_CART_ITEM_COUNT, this.cart?.length)
     this.$store.dispatch(`${FETCH_CATEGORIES}`)
     this.$store.dispatch(`${GET_CURRENT_USER}`)
   },
@@ -255,6 +257,8 @@ export default {
     ...mapGetters({
       categories: 'getCategoryResponse',
       user: 'getCurrentUser',
+      cart: 'getCart',
+      cartItemCount: 'getCartItemCount',
     }),
   },
 }
