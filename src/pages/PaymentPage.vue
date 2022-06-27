@@ -92,7 +92,7 @@ import { formatPrice } from '@/helpers/price'
 import { FETCH_ORDER_SUMMARY, PAY_ORDER } from '@/store/modules/order/types'
 import { SEND_INVOICE } from '@/store/modules/email/types'
 import { CLEAR_CART, GET_CART_ITEM_COUNT } from '@/store/modules/cart/types'
-import { FETCH_WISHLIST_PRODUCTS } from '@/store/modules/wishlist/types'
+import { DELETE_WISHLIST_PRODUCT, FETCH_WISHLIST_PRODUCTS } from '@/store/modules/wishlist/types'
 export default {
   name: 'PaymentPage',
   data() {
@@ -158,14 +158,18 @@ export default {
         orderItemsDto: this.orderSummary.orderItems,
       })
 
-      // TODO: add logic
-      // wishlistProducts.forEach((product) => {
-      //   cartItems.forEach((item) => {
-      //     if (product.id === item.id) {
-      //       console.log(product.name);
-      //     }
-      //   });
-      // });
+      if (this.wishlistProducts.length > 0) {
+        this.wishlistProducts.forEach((wishlistProduct) => {
+          this.cart.forEach((item) => {
+            if (wishlistProduct.id === item.id) {
+              this.$store.dispatch(DELETE_WISHLIST_PRODUCT, {
+                userId: this.user?.id,
+                productId: wishlistProduct.id,
+              })
+            }
+          })
+        })
+      }
 
       this.$store.dispatch(CLEAR_CART)
 
@@ -180,7 +184,7 @@ export default {
       user: 'getCurrentUser',
       orderSummary: 'getOrderSummary',
       cart: 'getCart',
-      wishlistProductts: 'getWishlistResponse',
+      wishlistProducts: 'getWishlistResponse',
     }),
     totalPrice() {
       return formatPrice(this.paymentIntent.amount / 100)
