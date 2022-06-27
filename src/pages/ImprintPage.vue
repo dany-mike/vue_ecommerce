@@ -60,5 +60,13 @@
 <script>
 export default {
   name: 'ImprintPage',
+  mounted() {
+    this.scrollToTop()
+  },
+  methods: {
+    scrollToTop() {
+      window.scrollTo(0, 0)
+    },
+  },
 }
 </script>

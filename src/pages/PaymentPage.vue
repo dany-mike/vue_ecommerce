@@ -91,7 +91,8 @@ import { loadStripe } from '@stripe/stripe-js'
 import { formatPrice } from '@/helpers/price'
 import { FETCH_ORDER_SUMMARY, PAY_ORDER } from '@/store/modules/order/types'
 import { SEND_INVOICE } from '@/store/modules/email/types'
-import { CLEAR_CART } from '@/store/modules/cart/types'
+import { CLEAR_CART, GET_CART_ITEM_COUNT } from '@/store/modules/cart/types'
+import { FETCH_WISHLIST_PRODUCTS } from '@/store/modules/wishlist/types'
 export default {
   name: 'PaymentPage',
   data() {
@@ -102,6 +103,8 @@ export default {
     }
   },
   async mounted() {
+    this.scrollToTop()
+    await this.$store.dispatch(`${FETCH_WISHLIST_PRODUCTS}`, this.user?.id)
     await this.$store.dispatch(FETCH_ORDER_SUMMARY, this.$route.params.orderId)
 
     if (this.orderSummary.status === 'COMPLETE') {
@@ -119,6 +122,9 @@ export default {
     }
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0, 0)
+    },
     async handleSubmit() {
       let loader = this.$loading.show()
 
@@ -152,7 +158,18 @@ export default {
         orderItemsDto: this.orderSummary.orderItems,
       })
 
+      // TODO: add logic
+      // wishlistProducts.forEach((product) => {
+      //   cartItems.forEach((item) => {
+      //     if (product.id === item.id) {
+      //       console.log(product.name);
+      //     }
+      //   });
+      // });
+
       this.$store.dispatch(CLEAR_CART)
+
+      this.$store.dispatch(GET_CART_ITEM_COUNT, this.cart?.length)
 
       this.$router.push(`/success/${this.$route.params.orderId}`)
     },
@@ -162,6 +179,8 @@ export default {
       paymentIntent: 'getPaymentIntent',
       user: 'getCurrentUser',
       orderSummary: 'getOrderSummary',
+      cart: 'getCart',
+      wishlistProductts: 'getWishlistResponse',
     }),
     totalPrice() {
       return formatPrice(this.paymentIntent.amount / 100)

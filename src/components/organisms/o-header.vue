@@ -238,6 +238,7 @@ export default {
       this.$router.push('/')
       this.$store.dispatch(CLEAR_USER)
       this.$store.dispatch(CLEAR_CART)
+      this.$store.dispatch(GET_CART_ITEM_COUNT, this.cart?.length)
     },
     handleCartRoute() {
       this.$router.push('/cart')

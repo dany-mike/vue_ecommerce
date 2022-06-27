@@ -30,7 +30,13 @@ export default {
     }
   },
   mounted() {
+    this.scrollToTop()
     this.$store.dispatch(`${FETCH_PRODUCTS}`)
+  },
+  methods: {
+    scrollToTop() {
+      window.scrollTo(0, 0)
+    },
   },
   computed: {
     ...mapGetters({

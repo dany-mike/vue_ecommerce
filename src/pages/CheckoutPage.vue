@@ -137,6 +137,7 @@ export default {
     MAddressCard,
   },
   async mounted() {
+    this.scrollToTop()
     await this.$store.dispatch(`${FETCH_ORDER_SUMMARY}`, this.$route.params.id)
     await this.$store.dispatch(`${FETCH_USER_BILLING_ADDRESSES}`, this.user?.id)
     await this.$store.dispatch(`${FETCH_USER_SHIPPING_ADDRESSES}`, this.user?.id)
@@ -160,6 +161,9 @@ export default {
     }
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0, 0)
+    },
     setBillingAddressError(errMsg) {
       this.selectedBillingAddress.errMsg = errMsg
     },
