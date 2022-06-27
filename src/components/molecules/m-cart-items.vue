@@ -1,6 +1,6 @@
 <template>
   <div></div>
-  <li class="flex py-6 sm:py-10" v-for="item in cartItems" :key="item.id">
+  <li class="flex py-6 sm:py-10" v-for="item in cart" :key="item.id">
     <div class="flex-shrink-0">
       <img
         :src="imageUrl(item)"
@@ -67,17 +67,12 @@
 </template>
 
 <script>
-import { GET_CART, GET_CART_AFTER_DELETE } from '@/store/modules/cart/types'
+import { GET_CART, GET_CART_AFTER_DELETE, GET_CART_ITEM_COUNT } from '@/store/modules/cart/types'
 import { formatPrice } from '@/helpers/price'
 import { CALC_ORDER_TOTAL } from '@/store/modules/order/types'
+import { mapGetters } from 'vuex'
 export default {
   name: 'MCartItems',
-  props: {
-    cartItems: {
-      type: Array,
-      default: () => [],
-    },
-  },
   emits: ['order-total'],
   data() {
     return {
@@ -90,7 +85,7 @@ export default {
   },
   async mounted() {
     await this.$store.dispatch(`${GET_CART}`)
-    this.$store.dispatch(CALC_ORDER_TOTAL, this.cartItems)
+    this.$store.dispatch(CALC_ORDER_TOTAL, this.cart)
   },
   methods: {
     productPrice(item) {
@@ -103,32 +98,36 @@ export default {
       return imageUrl
     },
     async updateQuantity(item, event) {
-      this.cartItems.forEach((c) => {
+      this.cart.forEach((c) => {
         if (item.id === c.id) {
           item.quantity = Number(event.target.value)
         }
       })
-      localStorage.setItem('products', JSON.stringify(this.cartItems))
+      localStorage.setItem('products', JSON.stringify(this.cart))
       this.$store.dispatch(GET_CART)
-      this.$store.dispatch(CALC_ORDER_TOTAL, this.cartItems)
+      this.$store.dispatch(CALC_ORDER_TOTAL, this.cart)
     },
     deleteCartItem(item) {
       const result = confirm(`Are you sure to remove ${item.name} from your cart`)
 
       if (result) {
-        const filteredProducts = this.cartItems.filter((p) => {
+        const filteredProducts = this.cart.filter((p) => {
           return p.id !== item.id
         })
         localStorage.setItem('products', JSON.stringify(filteredProducts))
-        this.$store.dispatch(GET_CART_AFTER_DELETE, { item, cart: this.cartItems })
-        // Set timeout to update price TODO: update total price without it
-        setTimeout(() => {
-          this.$store.dispatch(CALC_ORDER_TOTAL, this.cartItems)
-        }, 1)
+        this.$store.dispatch(GET_CART_AFTER_DELETE, { item, cart: this.cart })
+        this.$store.dispatch(GET_CART_ITEM_COUNT, this.cart?.length)
+        this.$store.dispatch(CALC_ORDER_TOTAL, this.cart)
       }
     },
   },
   computed: {
+    ...mapGetters({
+      cart: 'getCart',
+    }),
+    isEmpty() {
+      return this.cart?.length === 0 ? 'empty' : ''
+    },
     quantities() {
       let quantities = []
 

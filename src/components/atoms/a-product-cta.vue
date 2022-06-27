@@ -45,7 +45,7 @@ import {
   HANDLE_WISHLIST_ICON,
 } from '@/store/modules/wishlist/types'
 import { mapGetters } from 'vuex'
-import { GET_CART } from '@/store/modules/cart/types'
+import { GET_CART, GET_CART_ITEM_COUNT } from '@/store/modules/cart/types'
 import { FETCH_PRODUCT } from '@/store/modules/products/types'
 export default {
   name: 'AProductCta',
@@ -105,11 +105,10 @@ export default {
         localStorage.setItem('products', JSON.stringify(filteredProducts))
 
         this.$toast.show(`${this.product.name} added to your cart`)
+        this.$store.dispatch(GET_CART)
+        this.$store.dispatch(GET_CART_ITEM_COUNT, this.cart?.length)
+        this.$router.push('/cart')
       }
-
-      this.$store.dispatch(GET_CART)
-
-      this.$router.push('/cart')
     },
     addItemIntoCart(products) {
       products.push({

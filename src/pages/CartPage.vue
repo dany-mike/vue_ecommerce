@@ -20,7 +20,7 @@
       <section aria-labelledby="cart-heading" class="lg:col-span-7">
         <h2 id="cart-heading" class="sr-only">Items in your shopping cart</h2>
         <ul role="list" class="border-t border-b border-gray-200 divide-y divide-gray-200">
-          <MCartItems :cart-items="cart" @order-total="setOrderTotal" />
+          <MCartItems @order-total="setOrderTotal" />
         </ul>
       </section>
       <MOrderSummary :cart="cart" :user="user" />
@@ -47,6 +47,7 @@ export default {
   emits: ['order-total'],
   mounted() {
     this.$store.dispatch(GET_CART)
+    this.scrollToTop()
   },
   computed: {
     ...mapGetters({
@@ -58,6 +59,9 @@ export default {
     },
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0, 0)
+    },
     setOrderTotal(orderTotal) {
       this.orderTotal = formatPrice(orderTotal)
     },
