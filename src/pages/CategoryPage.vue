@@ -17,8 +17,14 @@ export default {
     OListingProducts,
   },
   mounted() {
+    this.scrollToTop()
     this.$store.dispatch(`${FETCH_PRODUCTS_BY_CATEGORY}`, this.$route.params.categoryId)
     this.$store.dispatch(`${FETCH_CATEGORY}`, this.$route.params.categoryId)
+  },
+  methods: {
+    scrollToTop() {
+      window.scrollTo(0, 0)
+    },
   },
   computed: {
     ...mapGetters({

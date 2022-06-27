@@ -11,14 +11,20 @@ export default {
   components: {
     MAddressForm,
   },
-  name: 'AddAddress',
+  name: 'UpdateAddress',
   data() {
     return {
       type: '',
       from: '',
     }
   },
+  mounted() {
+    this.scrollToTop()
+  },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0, 0)
+    },
     addressPageTitle() {
       if (this.$route.query.type === 'shipping') {
         return 'Update shipping address'

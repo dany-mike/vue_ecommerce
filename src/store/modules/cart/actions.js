@@ -11,6 +11,9 @@ export default {
     localStorage.setItem('products', JSON.stringify([]))
     commit(types.SET_CLEAR_CART)
   },
+  [types.GET_CART_ITEM_COUNT]({ commit }, cartItemCount) {
+    commit(types.SET_CART_ITEM_COUNT, cartItemCount)
+  },
   [types.GET_CART_AFTER_DELETE]({ commit }, { item, cart }) {
     const updatedCart = cart.filter((p) => p.id !== item.id)
 

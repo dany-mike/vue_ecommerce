@@ -20,11 +20,16 @@
         </option>
       </select>
       <button
-        v-if="isWishlistIcon"
         type="button"
         class="ml-4 py-3 px-3 rounded-md flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500"
       >
-        <HeartIcon class="w-10 h-10 ml-2" @click="addToFavorite" />
+        <HeartIcon
+          class="w-10 h-10 ml-2"
+          :class="{
+            'stroke-red-600 fill-red-600': !isWishlistIconEmpty,
+          }"
+          @click="addToFavorite"
+        />
         <span class="sr-only">Add to favorites</span>
       </button>
     </div>
@@ -35,11 +40,12 @@
 import { HeartIcon } from '@heroicons/vue/outline'
 import {
   ADD_PRODUCT_TO_WISHLIST,
+  DELETE_WISHLIST_PRODUCT,
   FETCH_WISHLIST_PRODUCTS,
   HANDLE_WISHLIST_ICON,
 } from '@/store/modules/wishlist/types'
 import { mapGetters } from 'vuex'
-import { GET_CART } from '@/store/modules/cart/types'
+import { GET_CART, GET_CART_ITEM_COUNT } from '@/store/modules/cart/types'
 import { FETCH_PRODUCT } from '@/store/modules/products/types'
 export default {
   name: 'AProductCta',
@@ -99,9 +105,10 @@ export default {
         localStorage.setItem('products', JSON.stringify(filteredProducts))
 
         this.$toast.show(`${this.product.name} added to your cart`)
+        this.$store.dispatch(GET_CART)
+        this.$store.dispatch(GET_CART_ITEM_COUNT, this.cart?.length)
+        this.$router.push('/cart')
       }
-
-      this.$store.dispatch(GET_CART)
     },
     addItemIntoCart(products) {
       products.push({
@@ -120,12 +127,23 @@ export default {
         })
       }
 
-      const body = {
-        productId: this.product?.id,
+      if (!this.isWishlistIconEmpty) {
+        this.$store.dispatch(DELETE_WISHLIST_PRODUCT, {
+          userId: this.user?.id,
+          productId: this.product?.id,
+        })
+        this.$toast.show(`${this.product?.name} remove from your favorite`)
       }
-      const userId = this.user?.id
 
-      await this.$store.dispatch(`${ADD_PRODUCT_TO_WISHLIST}`, { body, userId })
+      if (this.isWishlistIconEmpty) {
+        const body = {
+          productId: this.product?.id,
+        }
+        const userId = this.user?.id
+
+        await this.$store.dispatch(`${ADD_PRODUCT_TO_WISHLIST}`, { body, userId })
+        this.$toast.show(`${this.product?.name} added to your favorite`)
+      }
     },
     updateQuantity(e) {
       this.selectedQuantity = Number(e.target.value)
@@ -136,7 +154,7 @@ export default {
       wishlistProducts: 'getWishlistResponse',
       user: 'getCurrentUser',
       cart: 'getCart',
-      isWishlistIcon: 'getIsWishlistIcon',
+      isWishlistIconEmpty: 'getIsWishlistIcon',
       pdct: 'getProduct',
     }),
     quantities() {

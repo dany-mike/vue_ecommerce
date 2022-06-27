@@ -56,12 +56,12 @@
         </dl>
       </div>
     </div>
-    <div class="err-message-container hidden lg:flex lg:justify-center lg:mt-3">
+    <div class="err-message-container flex lg:justify-center lg:mt-3 w-full">
       <p v-if="shippingAddressErr && !shippingAddressId" class="text-red-700 font-semibold">
         Shipping address {{ shippingAddressErr.toLowerCase() }}
       </p>
     </div>
-    <div class="err-message-container hidden lg:flex lg:justify-center lg:mt-3">
+    <div class="err-message-container flex lg:justify-center lg:mt-3 w-full">
       <p v-if="billingAddressErr && !billingAddressId" class="text-red-700 font-semibold">
         Billing address {{ billingAddressErr.toLowerCase() }}
       </p>

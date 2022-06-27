@@ -17,13 +17,11 @@
       <p class="font-normal text-gray-700 dark:text-gray-400 mt-2">Total incl tax: {{ fTotal }}€</p>
       <p class="font-normal text-gray-700 dark:text-gray-400 mt-2">Subtotal: {{ fSubtotal }}€</p>
       <p class="font-normal text-gray-700 dark:text-gray-400 mt-2">Tax: {{ fTax }}€</p>
-      <div class="my-12">
-        <!-- <OProductCarousel
-          v-if="item.products?.length > 0"
-          :title="'Products order'"
-          :products="item.products"
-          :items-to-show="2"
-        /> -->
+      <div class="my-12" v-if="item && item.orderItems?.length > 0">
+        <p class="text-2xl">Products order</p>
+        <div class="lg:my-8 my-4 w-full" v-for="el in item.orderItems" :key="el.id">
+          <MOrderItemCard :item="el" />
+        </div>
       </div>
       <AButton
         :classValue="'bg-indigo-500 mt-2 w-full'"
@@ -48,13 +46,13 @@
 
 <script>
 import AButton from '@/components/atoms/a-button.vue'
-// import OProductCarousel from '@/components/organisms/o-product-carousel.vue'
+import MOrderItemCard from '@/components/molecules/m-order-item-card.vue'
 import { formatPrice } from '@/helpers/price'
 export default {
   name: 'MOrderDetails',
   components: {
     AButton,
-    // OProductCarousel,
+    MOrderItemCard,
   },
   mounted() {},
   props: {

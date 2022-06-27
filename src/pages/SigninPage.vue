@@ -78,6 +78,9 @@ export default {
     AInput,
     // MOAuth2,
   },
+  mounted() {
+    this.scrollToTop()
+  },
   data() {
     return {
       email: '',
@@ -86,6 +89,9 @@ export default {
     }
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0, 0)
+    },
     handleSignup() {
       if (this.$route.query.type === 'add-wishlist') {
         this.$router.push({
@@ -144,10 +150,7 @@ export default {
         this.$router.push('/add-order')
       }
 
-      if (
-        (this.user?.role === 'user' && Object.entries(this.$route.query).length === 0) ||
-        this.$route.query.type === 'account'
-      ) {
+      if (this.user?.role === 'user' && Object.entries(this.$route.query).length === 0) {
         this.$router.push('/my-account')
       }
     },

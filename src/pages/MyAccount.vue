@@ -107,6 +107,7 @@ export default {
     }
   },
   async mounted() {
+    this.scrollToTop()
     this.$store.dispatch(CLEAR_ORDER_DETAILS)
     await this.$store.dispatch(`${FETCH_USER_BY_ID}`, this.user?.id)
 
@@ -130,6 +131,9 @@ export default {
     }),
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0, 0)
+    },
     deleteWishlistItem(product) {
       this.$store.dispatch(AFTER_DELETE_WISHLIST_PRODUCT, {
         products: this.wishlistProducts,

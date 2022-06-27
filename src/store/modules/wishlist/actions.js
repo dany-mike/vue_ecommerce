@@ -34,14 +34,14 @@ export default {
       .catch((err) => console.log(err))
   },
   [types.HANDLE_WISHLIST_ICON]({ commit }, { userWishlist, item }) {
-    let isIcon = true
+    let isIconEmpty = true
     userWishlist.forEach((element) => {
       if (element.id === item.id) {
-        isIcon = false
+        isIconEmpty = false
       }
     })
 
-    isIcon
+    isIconEmpty
       ? commit(types.SET_HANDLE_WISHLIST_ICON, true)
       : commit(types.SET_HANDLE_WISHLIST_ICON, false)
   },

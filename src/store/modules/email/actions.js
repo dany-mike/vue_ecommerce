@@ -3,11 +3,19 @@ import axios from 'axios'
 import * as types from './types'
 
 export default {
-  [types.SEND_INVOICE]({ commit }, { userToken, orderId }) {
+  [types.SEND_INVOICE]({ commit }, { userToken, orderId, orderItemsDto }) {
     return axios
-      .get(`${process.env.VUE_APP_API_BASE_URL}/email/invoice/${userToken}/${orderId}`, {
-        headers: authHeader(),
-      })
+      .post(
+        `${process.env.VUE_APP_API_BASE_URL}/email/invoice`,
+        {
+          userToken,
+          orderId,
+          orderItemsDto,
+        },
+        {
+          headers: authHeader(),
+        },
+      )
       .then((response) => {
         commit(types.SET_SEND_INVOICE, response.data)
       })

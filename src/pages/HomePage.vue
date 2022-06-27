@@ -3,7 +3,7 @@
     <OFullLayerImage :image="image" :text="text" />
     <OProductCarousel
       v-if="products && products?.length > 0"
-      class="px-8 mt-12"
+      class="lg:px-8 lg:mt-12"
       :products="products"
       :title="title"
     />
@@ -30,7 +30,13 @@ export default {
     }
   },
   mounted() {
+    this.scrollToTop()
     this.$store.dispatch(`${FETCH_PRODUCTS}`)
+  },
+  methods: {
+    scrollToTop() {
+      window.scrollTo(0, 0)
+    },
   },
   computed: {
     ...mapGetters({

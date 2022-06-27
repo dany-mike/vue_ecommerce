@@ -24,6 +24,7 @@ export default {
     OListingProducts,
   },
   async mounted() {
+    this.scrollToTop()
     if (!this.user) {
       this.$router.push({ path: '/signin', query: { type: 'wishlist' } })
     }
@@ -36,6 +37,9 @@ export default {
     }),
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0, 0)
+    },
     isWishlistProducts(products) {
       if (products?.length > 0) {
         return true

@@ -95,6 +95,9 @@ export default {
     AInput,
     // MOAuth2,
   },
+  mounted() {
+    this.scrollToTop()
+  },
   data() {
     return {
       apiErrorResponse: '',
@@ -119,6 +122,9 @@ export default {
     }),
   },
   methods: {
+    scrollToTop() {
+      window.scrollTo(0, 0)
+    },
     handleSignin() {
       if (this.$route.query.type === 'add-wishlist') {
         this.$router.push({
