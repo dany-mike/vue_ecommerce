@@ -16,7 +16,11 @@
             @click="handleCartRoute"
           />
           <HeartIcon class="w-10 h-10 ml-2 lg:hidden cursor-pointer" @click="handleFavoriteRoute" />
-          <UserIcon class="w-10 h-10 ml-2 lg:hidden cursor-pointer" @click="handleAccountRoute" />
+          <UserIcon
+            v-if="user"
+            class="w-10 h-10 ml-2 lg:hidden cursor-pointer"
+            @click="handleAccountRoute"
+          />
         </div>
         <div class="my-2 md:hidden ml-auto">
           <PopoverButton
@@ -77,7 +81,7 @@
         <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
           <ShoppingCartIcon class="w-10 h-10 mr-5 cursor-pointer" @click="handleCartRoute" />
           <HeartIcon class="w-10 h-10 mr-5 cursor-pointer" @click="handleFavoriteRoute" />
-          <UserIcon class="w-10 h-10 ml-2 cursor-pointer" @click="handleAccountRoute" />
+          <UserIcon v-if="user" class="w-10 h-10 ml-2 cursor-pointer" @click="handleAccountRoute" />
           <router-link
             v-if="!user"
             :to="'/signin'"
@@ -184,6 +188,7 @@ import { ChevronDownIcon } from '@heroicons/vue/solid'
 import { FETCH_CATEGORIES } from '@/store/modules/categories/types'
 import { mapGetters } from 'vuex'
 import { CLEAR_USER, GET_CURRENT_USER } from '@/store/modules/auth/types'
+import { CLEAR_CART } from '@/store/modules/cart/types'
 
 export default {
   components: {
@@ -220,6 +225,7 @@ export default {
       localStorage.removeItem('user')
       this.$router.push('/')
       this.$store.dispatch(CLEAR_USER)
+      this.$store.dispatch(CLEAR_CART)
     },
     handleCartRoute() {
       this.$router.push('/cart')

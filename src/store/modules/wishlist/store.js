@@ -4,7 +4,7 @@ import actions from './actions'
 export const state = {
   wishlistProductsResponse: [],
   wishlistProductPayload: null,
-  isWislistIcon: true,
+  isWishlistIconEmpty: true,
 }
 
 export const mutations = {
@@ -13,13 +13,13 @@ export const mutations = {
   },
   [types.SET_WISHLIST_PRODUCT_PAYLOAD](state, wishlistProductPayload) {
     state.wishlistProductPayload = wishlistProductPayload
-    state.isWislistIcon = false
+    state.isWishlistIconEmpty = false
   },
   [types.SET_DELETE_WISHLIST_PRODUCT](state) {
-    state.isWislistIcon = true
+    state.isWishlistIconEmpty = true
   },
   [types.SET_HANDLE_WISHLIST_ICON](state, boolean) {
-    state.isWislistIcon = boolean
+    state.isWishlistIconEmpty = boolean
   },
   [types.SET_AFTER_DELETE_WISHLIST_PRODUCT](state, afterDeleteWishlist) {
     state.wishlistProductsResponse = afterDeleteWishlist
@@ -28,7 +28,7 @@ export const mutations = {
 
 const getters = {
   getWishlistResponse: (state) => state.wishlistProductsResponse,
-  getIsWishlistIcon: (state) => state.isWislistIcon,
+  getIsWishlistIcon: (state) => state.isWishlistIconEmpty,
 }
 
 export default {

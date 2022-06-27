@@ -5,9 +5,11 @@
 import { mapGetters } from 'vuex'
 import { CREATE_ORDER } from '@/store/modules/order/types'
 import { GET_CART } from '@/store/modules/cart/types'
+import { GET_CURRENT_USER } from '@/store/modules/auth/types'
 export default {
   name: 'AddOrder',
   async mounted() {
+    this.$store.dispatch(GET_CURRENT_USER)
     this.$store.dispatch(GET_CART)
     const body = {
       orderItemsDto: this.cart,
