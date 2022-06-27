@@ -2,7 +2,7 @@
   <div class="home-page">
     <OFullLayerImage :image="image" :text="text" />
     <OProductCarousel
-      v-if="products?.length > 0"
+      v-if="products && products?.length > 0"
       class="px-8 mt-12"
       :products="products"
       :title="title"
