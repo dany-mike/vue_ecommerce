@@ -21,11 +21,16 @@
               </div>
             </div>
             <div class="mt-1 flex items-center">
-              <p class="text-xl font-semibold">{{ item.price }}€</p>
-              <!-- TODO: use modulo to display qty on each item -->
+              <p class="text-xl font-semibold">
+                <span v-if="item && item.quantity">Price (Incl tax)</span> {{ item.price }}€
+              </p>
+            </div>
+            <div class="flex">
+              <p class="text-xl font-semibold" v-if="item && item.quantity">
+                Quantity: *{{ item.quantity }}
+              </p>
             </div>
           </div>
-          <div class="flex"></div>
         </div>
       </div>
     </router-link>

@@ -33,10 +33,10 @@ export default {
           name: 'My password',
           isActive: false,
         },
-        // {
-        //   name: 'My orders',
-        //   isActive: false,
-        // },
+        {
+          name: 'My orders',
+          isActive: false,
+        },
         {
           name: 'My wishlist',
           isActive: false,

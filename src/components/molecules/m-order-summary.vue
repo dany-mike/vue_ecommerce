@@ -44,7 +44,7 @@ export default {
 
       if (this.user?.role === 'user') {
         const body = {
-          orderItems: this.cart,
+          orderItemsDto: this.cart,
           status: 'CREATED',
           userToken: this.user?.accessToken,
         }

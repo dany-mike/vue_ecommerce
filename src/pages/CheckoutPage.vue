@@ -101,7 +101,7 @@
       <MCheckoutOrderSummary
         :user="user"
         :order-summary="orderSummary"
-        :items="cart"
+        :items="orderSummary?.orderItems"
         :shipping-address-id="shippingAddressId"
         :billing-address-id="billingAddressId"
         :vuelidate="v$"
@@ -128,7 +128,6 @@ import {
 } from '@/store/modules/address/types'
 import { mapGetters } from 'vuex'
 import { FETCH_ORDER_SUMMARY } from '@/store/modules/order/types'
-import { GET_CART } from '@/store/modules/cart/types'
 export default {
   name: 'CheckoutPage',
   components: {
@@ -138,7 +137,6 @@ export default {
     MAddressCard,
   },
   async mounted() {
-    this.$store.dispatch(GET_CART)
     await this.$store.dispatch(`${FETCH_ORDER_SUMMARY}`, this.$route.params.id)
     await this.$store.dispatch(`${FETCH_USER_BILLING_ADDRESSES}`, this.user?.id)
     await this.$store.dispatch(`${FETCH_USER_SHIPPING_ADDRESSES}`, this.user?.id)
@@ -197,7 +195,6 @@ export default {
       billingAddresses: 'getBillingAddresses',
       shippingAddresses: 'getShippingAddresses',
       orderSummary: 'getOrderSummary',
-      cart: 'getCart',
     }),
     orderId() {
       return this.$route.params.id
