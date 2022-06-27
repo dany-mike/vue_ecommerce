@@ -11,10 +11,15 @@
           <router-link :to="'/'">
             <HomeIcon class="w-10 h-10 ml-4 lg:hidden cursor-pointer" />
           </router-link>
-          <ShoppingCartIcon
-            class="w-10 h-10 ml-4 lg:hidden cursor-pointer"
-            @click="handleCartRoute"
-          />
+          <div class="flex">
+            <ShoppingCartIcon
+              class="w-10 h-10 ml-4 lg:hidden cursor-pointer"
+              @click="handleCartRoute"
+            />
+            <div class="bg-red-600 rounded-xl h-6 w-6 flex items-center justify-center">
+              <span class="text-white font-extrabold">1</span>
+            </div>
+          </div>
           <HeartIcon class="w-10 h-10 ml-2 lg:hidden cursor-pointer" @click="handleFavoriteRoute" />
           <UserIcon
             v-if="user"
@@ -79,7 +84,12 @@
           </Popover>
         </PopoverGroup>
         <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-          <ShoppingCartIcon class="w-10 h-10 mr-5 cursor-pointer" @click="handleCartRoute" />
+          <div class="flex mr-5">
+            <ShoppingCartIcon class="w-10 h-10 cursor-pointer" @click="handleCartRoute" />
+            <div class="bg-red-600 rounded-xl h-6 w-6 flex items-center justify-center">
+              <span class="text-white font-extrabold">1</span>
+            </div>
+          </div>
           <HeartIcon class="w-10 h-10 mr-5 cursor-pointer" @click="handleFavoriteRoute" />
           <UserIcon v-if="user" class="w-10 h-10 ml-2 cursor-pointer" @click="handleAccountRoute" />
           <router-link
