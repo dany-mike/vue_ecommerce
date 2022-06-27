@@ -7,6 +7,7 @@
         <div class="my-4">
           <OAddressCarousel
             @o-address-carousel="setSelectedShippingAddress"
+            v-if="shippingAddresses && shippingAddresses?.length > 0"
             :title="'Shipping addresses'"
             :addresses="shippingAddresses"
             :from="'checkout'"
@@ -23,6 +24,7 @@
         </router-link>
         <div class="my-4">
           <OAddressCarousel
+            v-if="billingAddresses && billingAddresses?.length > 0"
             @o-address-carousel="setSelectedBillingAddress"
             :title="'Billing addresses'"
             :addresses="billingAddresses"

@@ -33,6 +33,7 @@
     <div class="addresses-container" v-if="selectedTab === 'My addresses'">
       <div class="my-4">
         <OAddressCarousel
+          v-if="shippingAddresses && shippingAddresses?.length > 0"
           :title="'Shipping addresses'"
           :addresses="shippingAddresses"
           :from="'my-account'"
@@ -47,6 +48,7 @@
       </router-link>
       <div class="my-4">
         <OAddressCarousel
+          v-if="billingAddresses && billingAddresses?.length > 0"
           :title="'Billing addresses'"
           :addresses="billingAddresses"
           :from="'my-account'"
