@@ -135,7 +135,7 @@ export default {
         this.$toast.show(`${this.product?.name} remove from your favorite`)
       }
 
-      if (this.isWishlistIconEmpty) {
+      if (this.isWishlistIconEmpty && this.user) {
         const body = {
           productId: this.product?.id,
         }

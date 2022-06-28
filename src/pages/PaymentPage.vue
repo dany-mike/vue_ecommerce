@@ -96,14 +96,15 @@
         <div>
           <button
             @click="handleSubmit"
-            :disabled="!isComplete || !cardName"
+            :disabled="!isComplete || !cardName || errorMessage"
             :class="{
-              'bg-indigo-100': !isComplete || !cardName,
-              'hover:bg-indigo-700 focus:bg-indigo-700': isComplete && cardName !== null,
+              'bg-indigo-300': !isComplete || !cardName || errorMessage,
+              'hover:bg-indigo-700 focus:bg-indigo-700 bg-indigo-500':
+                isComplete && cardName && !errorMessage,
             }"
-            class="block w-full max-w-xs mx-auto bg-indigo-500 text-white rounded-lg px-3 py-3 font-semibold mt-6"
+            class="block w-full max-w-xs mx-autotext-white rounded-lg px-3 py-3 font-semibold mt-6"
           >
-            <i class="mdi mdi-lock-outline mr-1"></i> PAY {{ totalPrice }}€
+            <span class="mdi mdi-lock-outline mr-1 text-white">PAY {{ totalPrice }}€ </span>
           </button>
         </div>
       </div>
@@ -153,6 +154,7 @@ export default {
       const cardElement = this.elements.getElement(ELEMENT_TYPE)
       cardElement.on('change', (event) => {
         this.errorMessage = ''
+        this.isComplete = false
         if (event.complete) {
           this.isComplete = event.complete
         } else if (event.error) {
