@@ -48,11 +48,7 @@
             />
           </div>
           <p class="text-red-700 font-semibold">
-            {{
-              Array.isArray(apiErrorResponse?.message)
-                ? apiErrorResponse?.message[0]
-                : apiErrorResponse?.message
-            }}
+            {{ Array.isArray(errRes?.message) ? errRes?.message[0] : errRes?.message }}
           </p>
           <div>
             <AButton
@@ -100,7 +96,6 @@ export default {
   },
   data() {
     return {
-      apiErrorResponse: '',
       firstname: {
         value: '',
       },
@@ -155,7 +150,6 @@ export default {
     },
     async onSubmit() {
       this.$store.dispatch(CLEAR_PASSWORD_ERROR_MESSAGE)
-      this.apiErrorResponse = ''
 
       const body = {
         firstname: this.firstname.value,
@@ -165,7 +159,10 @@ export default {
       }
 
       await this.$store.dispatch(`${SIGNUP}`, body)
-      this.apiErrorResponse = this.errRes
+
+      if (this.errRes?.error) {
+        return
+      }
 
       const signInbody = {
         email: this.email.value,
