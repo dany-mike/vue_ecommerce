@@ -94,6 +94,9 @@ export default {
   mounted() {
     this.scrollToTop()
   },
+  unmounted() {
+    this.$store.dispatch(CLEAR_PASSWORD_ERROR_MESSAGE)
+  },
   data() {
     return {
       firstname: {
