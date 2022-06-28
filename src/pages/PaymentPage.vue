@@ -93,16 +93,16 @@
         <div class="flex w-full justify-center items-center">
           <p v-if="errorMessage" class="text-red-700 font-semibold">{{ errorMessage?.message }}</p>
         </div>
-        <div>
+        <div class="flex items-center justify-center w-full">
           <button
             @click="handleSubmit"
-            :disabled="!isComplete || !cardName || errorMessage"
+            :disabled="!isComplete || !cardName || errorMessage?.message"
             :class="{
-              'bg-indigo-300': !isComplete || !cardName || errorMessage,
+              'bg-indigo-300': !isComplete || !cardName || errorMessage?.message,
               'hover:bg-indigo-700 focus:bg-indigo-700 bg-indigo-500':
                 isComplete && cardName && !errorMessage,
             }"
-            class="block w-full max-w-xs mx-autotext-white rounded-lg px-3 py-3 font-semibold mt-6"
+            class="block w-full mx-auto text-white rounded-lg px-3 py-3 font-semibold mt-6"
           >
             <span class="mdi mdi-lock-outline mr-1 text-white">PAY {{ totalPrice }}€ </span>
           </button>
