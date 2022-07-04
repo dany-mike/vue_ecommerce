@@ -186,10 +186,6 @@ export default {
         this.$router.push('/add-order')
       }
 
-      if (this.user?.role === 'admin' || this.user?.role === 'superAdmin') {
-        this.$router.push('/admin')
-      }
-
       if (this.user?.role === 'user' && Object.entries(this.$route.query).length === 0) {
         this.$router.push('/')
       }

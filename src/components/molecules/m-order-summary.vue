@@ -40,17 +40,16 @@ export default {
     async onSubmit() {
       if (this.user?.role !== 'user') {
         this.$router.push({ path: '/signin', query: { type: 'checkout' } })
+        return
       }
 
-      if (this.user?.role === 'user') {
-        const body = {
-          orderItemsDto: this.cart,
-          status: 'CREATED',
-          userToken: this.user?.accessToken,
-        }
-        await this.$store.dispatch(CREATE_ORDER, body)
-        this.$router.push(`/checkout/${this.order.id}`)
+      const body = {
+        orderItemsDto: this.cart,
+        status: 'CREATED',
+        userToken: this.user?.accessToken,
       }
+      await this.$store.dispatch(CREATE_ORDER, body)
+      this.$router.push(`/checkout/${this.order.id}`)
     },
   },
   computed: {
