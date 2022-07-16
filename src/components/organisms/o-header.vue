@@ -134,7 +134,7 @@
               <ul role="list" class="mt-4 space-y-4">
                 <li v-for="category in categories" :key="category.id" class="text-base truncate">
                   <div
-                    :to="`/category/${category.id}`"
+                    :to="`/category/${category.name}`"
                     class="font-medium text-gray-900 hover:text-gray-700 w-full"
                   >
                     <span class="w-full cursor-pointer" @click="handleCategoryRoute(category)">
@@ -230,7 +230,7 @@ export default {
       this.isOpen = !this.isOpen
     },
     handleCategoryRoute(category) {
-      this.$router.push(`/category/${category.id}`)
+      this.$router.push(`/category/${category.name}`)
       this.isOpen = false
     },
     logout() {
