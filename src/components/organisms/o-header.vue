@@ -133,10 +133,7 @@
               <h3 class="text-sm tracking-wide font-medium text-gray-500 uppercase">Categories</h3>
               <ul role="list" class="mt-4 space-y-4">
                 <li v-for="category in categories" :key="category.id" class="text-base truncate">
-                  <div
-                    :to="`/category/${category.name}`"
-                    class="font-medium text-gray-900 hover:text-gray-700 w-full"
-                  >
+                  <div class="font-medium text-gray-900 hover:text-gray-700 w-full">
                     <span class="w-full cursor-pointer" @click="handleCategoryRoute(category)">
                       {{ category.name }}
                     </span>
@@ -199,6 +196,7 @@ import { FETCH_CATEGORIES } from '@/store/modules/categories/types'
 import { mapGetters } from 'vuex'
 import { CLEAR_USER, GET_CURRENT_USER } from '@/store/modules/auth/types'
 import { CLEAR_CART, GET_CART, GET_CART_ITEM_COUNT } from '@/store/modules/cart/types'
+import { textToLowerCase } from '@/helpers/format'
 
 export default {
   components: {
@@ -230,7 +228,7 @@ export default {
       this.isOpen = !this.isOpen
     },
     handleCategoryRoute(category) {
-      this.$router.push(`/category/${category.name}`)
+      this.$router.push(`/category/${textToLowerCase(category.name)}`)
       this.isOpen = false
     },
     logout() {

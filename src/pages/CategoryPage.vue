@@ -20,6 +20,9 @@ export default {
     this.scrollToTop()
     await this.$store.dispatch(`${FETCH_CATEGORY_BY_NAME}`, this.$route.params.categoryName)
     await this.$store.dispatch(`${FETCH_PRODUCTS_BY_CATEGORY}`, this.categoryItem?.id)
+    if (Object.entries(this.categoryItem).length === 0) {
+      this.$router.push('/')
+    }
   },
   methods: {
     scrollToTop() {
