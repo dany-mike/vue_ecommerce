@@ -182,6 +182,13 @@ export default {
         // TODO: add additionnals information in this object on v2
         billing_details: {
           name: this.cardName,
+          email: this.user.email,
+          address: {
+            city: this.orderSummary.billingAddress.city,
+            country: this.orderSummary.billingAddress.countryCode,
+            line1: `${this.orderSummary.billingAddress.streetNumber} ${this.orderSummary.billingAddress.streetName}`,
+            postal_code: this.orderSummary.billingAddress.postalCode,
+          },
         },
       })
 
