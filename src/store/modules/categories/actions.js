@@ -19,6 +19,14 @@ export default {
       })
       .catch((err) => console.log(err))
   },
+  [types.FETCH_CATEGORY_BY_NAME]({ commit }, name) {
+    return axios
+      .get(`${process.env.VUE_APP_API_BASE_URL}/category/n/${name}`)
+      .then((response) => {
+        commit(types.GET_CATEGORY_ITEM, response.data)
+      })
+      .catch((err) => console.log(err))
+  },
   [types.CREATE_CATEGORY]({ commit }, formData) {
     return axios
       .post(`${process.env.VUE_APP_API_BASE_URL}/category`, formData, {
